@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  modules: ['@vueuse/motion/nuxt'],
+
   css: ['~/assets/main.css'],
 
   app: {

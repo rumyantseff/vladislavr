@@ -6,11 +6,11 @@
     </nav>
     <div class="flex-1 md:hidden"></div>
     <button type="button"
-      class="shrink-0 hidden sm:inline-flex items-center bg-primary text-primary-font font-medium px-4 lg:px-6 py-2 rounded-full hover:opacity-90 transition text-sm lg:text-base">
+      class="shrink-0 hidden sm:inline-flex items-center bg-brand-500 hover:bg-brand-600 text-primary-font font-medium px-4 lg:px-6 py-2 rounded-full transition text-sm lg:text-base">
       Hire Me
     </button>
     <button type="button" aria-label="Open menu"
-      class="md:hidden shrink-0 inline-flex items-center justify-center size-10 rounded-full text-primary-font hover:bg-primary-font/10 transition">
+      class="md:hidden shrink-0 inline-flex items-center justify-center size-10 rounded-full text-primary-font hover:bg-brand-100 transition">
       <AppIconsBars3 class="size-6" />
     </button>
   </AppPillBubble>

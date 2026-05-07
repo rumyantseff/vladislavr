@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #CBE86B;
+  --color-secondary: #F2E9E1;
+  --color-blacker: #1C140D;
+  --color-error: #ef5350;
+  --color-primary-font: #2e384d;
+  --color-secondary-font: #8798ad;
+  --color-tertiary-font: #ffffff;
+}
+
+html, body, #__nuxt {
+  background-color: #ffffff;
+  color: var(--color-primary-font);
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: 1170px;
+  margin-inline: auto;
+}

@@ -9,18 +9,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `yarn generate` — static site generation
 - `yarn preview` — preview production build locally
 
-The repo has both `yarn.lock` and `package-lock.json`; `yarn` is the primary tool. There is no test runner or linter configured.
+The repo uses `yarn` as the primary tool. There is no test runner or linter configured.
 
 ## Architecture
 
-Nuxt 3 single-page portfolio using Vuetify 3 + SCSS. No backend logic — `server/` only contains a tsconfig, and `pages/` is empty.
+Nuxt 4 single-page portfolio using Tailwind CSS v4. No backend logic — `server/` only contains a tsconfig.
 
-Rendering flow: `app.vue` → `NuxtLayout` → `layouts/default.vue`. The default layout is **not** generic — it ignores the `<slot />` and directly composes the page from section components (`TheNavigation`, `TheBanner`, `TheProjects`, `TheServices`, `TheResume`, `TheContacts`, `TheFooter`). Adding a new section means editing `layouts/default.vue`, not adding a route.
+Source code lives under `app/` (Nuxt 4 default `srcDir`). The `~/` alias resolves to `app/`.
 
-Vuetify integration is split across two places that must stay in sync:
-- [nuxt.config.ts](nuxt.config.ts) — registers `vite-plugin-vuetify` via a `vite:extendConfig` hook and transpiles `vuetify`.
-- [plugins/vuetify.ts](plugins/vuetify.ts) — `createVuetify` with SSR enabled, MDI icons, and the custom `light` theme palette (primary `#CBE86B`, secondary `#F2E9E1`, etc.). Theme color tokens are defined here, not in SCSS.
+Rendering flow: `app/app.vue` → `NuxtLayout` → `app/layouts/default.vue` → `<slot />` → `app/pages/index/index.vue`. The layout wraps every page with `<SectionsNavigation />` and `<SectionsFooter />`; the homepage composes the rest of the sections in `pages/index/index.vue`. Adding a new page means creating `app/pages/<page-name>/index.vue` (each page lives in its own folder, sheron-style).
 
-Global styles live in [assets/main.scss](assets/main.scss), loaded via `nuxt.config.ts` `css`. Component-scoped overrides (e.g., `.v-container` max-width) are in `layouts/default.vue`.
+### Component layout
 
-Static assets in `public/` are served at the site root (e.g., `public/portfolio/...`, `public/services/...`, `vr.svg` favicon). The legacy `static/` directory is empty and unused in Nuxt 3.
+Files use **kebab-case** names (no `The` prefix). Nuxt 4 auto-imports them with PascalCase'd path-prefixed names:
+
+- `app/components/app/` — small reusable UI building blocks. e.g. `logo.vue` → `<AppLogo />`.
+- `app/components/app/icons/` — SVG icons as plain `<template>`-only Vue components (no `<script>`, no props). Sized via Tailwind (`size-5`, `size-6`) and colored via `currentColor`. e.g. `heart.vue` → `<AppIconsHeart />`. To add an icon: drop a `.vue` file with an inline `<svg>` here.
+- `app/components/sections/` — full page sections. e.g. `banner.vue` → `<SectionsBanner />`, `footer.vue` → `<SectionsFooter />`.
+
+The navigation passes icon components into a data array (`quickLinks`, `items`) and renders them with `<component :is="...">`. Because Nuxt's auto-import only resolves names used directly in templates, those icon components are imported explicitly via `import X from '~/components/app/icons/<name>.vue'` in `<script setup>` of [app/components/sections/navigation.vue](app/components/sections/navigation.vue).
+
+### Styling
+
+Global styles in [app/assets/main.css](app/assets/main.css), loaded via `nuxt.config.ts` `css`. Tailwind v4 is configured CSS-first via `@import "tailwindcss"` and `@theme` (no `tailwind.config.js`). Theme tokens defined there:
+- Colors: `--color-primary` (`#CBE86B`), `--color-secondary`, `--color-blacker`, `--color-error`, `--color-primary-font`, `--color-secondary-font`, `--color-tertiary-font` — used as `bg-primary`, `text-primary-font`, etc.
+- `@utility container-x` — page container (max-width 1170px, centered). Use this on every section's inner wrapper.
+
+Tailwind is wired into Vite via `@tailwindcss/vite` plugin in [nuxt.config.ts](nuxt.config.ts).
+
+Static assets in `public/` are served at the site root (e.g., `public/portfolio/...`, `public/services/...`, `vr.svg` favicon).

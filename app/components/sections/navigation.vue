@@ -1,5 +1,9 @@
 <template>
-  <AppPillBubble class="w-full flex items-center gap-2 lg:gap-4 !py-2 !px-4 lg:!px-6">
+  <AppPillBubble
+    v-motion
+    :initial="{ opacity: 0, y: -30 }"
+    :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 100 } }"
+    class="w-full flex items-center gap-2 lg:gap-4 py-2! px-4! lg:px-6!">
     <AppLogo class="shrink-0" />
     <nav class="flex-1 hidden md:flex items-center justify-center gap-1 lg:gap-2">
       <AppNavLink v-for="(link, i) in links" :key="i" :text="link.text" :to="link.to" />

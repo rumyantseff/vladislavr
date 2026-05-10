@@ -22,8 +22,8 @@
 
 <script setup>
 const links = [
-  { text: 'Home', to: '#' },
-  { text: 'About', to: '#' },
+  { text: 'Home', to: '/' },
+  { text: 'About', to: '/about' },
   { text: 'Projects', to: '#' },
   { text: 'Contact', to: '#' },
 ]

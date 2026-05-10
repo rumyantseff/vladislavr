@@ -21,6 +21,20 @@
   --color-brand-800: #4F5E0F;
   --color-brand-900: #2C3508;
   --color-brand-950: #161A04;
+
+  /* Marquee animations */
+  --animate-marquee-left: marquee-left 30s linear infinite;
+  --animate-marquee-right: marquee-right 30s linear infinite;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
 }
 
 html, body, #__nuxt {

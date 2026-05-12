@@ -6,7 +6,9 @@
     class="w-full flex items-center gap-2 lg:gap-4 py-2! px-2! lg:px-2!">
     <AppLogo class="shrink-0 ml-1 lg:ml-2" />
     <nav class="flex-1 hidden md:flex items-center justify-center gap-1.5 lg:gap-2">
-      <AppNavLink v-for="(link, i) in links" :key="i" :text="link.text" :to="link.to" :icon="link.icon" />
+      <AppNavLink v-for="(link, i) in links" :key="i"
+        :text="link.text" :to="link.to" :icon="link.icon"
+        :active="stack.activeIndex.value === i" />
     </nav>
     <div class="flex-1 md:hidden"></div>
     <a href="mailto:vladik.rumyantsev@gmail.com"
@@ -30,6 +32,9 @@ import Briefcase from '~/components/app/icons/briefcase.vue'
 import InformationCircle from '~/components/app/icons/information-circle.vue'
 import Identification from '~/components/app/icons/identification.vue'
 import FaceSmile from '~/components/app/icons/face-smile.vue'
+import { usePageStack } from '~/composables/usePageStack'
+
+const stack = usePageStack()
 
 const links = [
   { text: 'Home', to: '/', icon: Briefcase },

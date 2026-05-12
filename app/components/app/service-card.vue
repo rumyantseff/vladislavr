@@ -1,6 +1,6 @@
 <template>
   <div :class="[
-        'group relative z-0 hover:z-10 bg-brand-50 hover:bg-brand-950',
+        'group relative z-0 hover:z-10 bg-white/40 backdrop-blur-xl border border-white/40 hover:bg-brand-950 hover:border-transparent',
         'text-primary-font hover:text-tertiary-font',
         'rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-8 pb-10 sm:pb-12 lg:pb-16',
         'min-h-24 sm:min-h-28 lg:min-h-36',

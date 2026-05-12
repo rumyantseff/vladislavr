@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen flex flex-col bg-white overflow-hidden">
-    <div class="shrink-0 px-4 sm:px-6 lg:px-10 pt-4 pb-4 sm:pt-6 sm:pb-6 lg:pt-10 lg:pb-10 bg-white">
+  <div class="h-screen flex flex-col bg-brand-50 overflow-hidden">
+    <div class="shrink-0 px-4 sm:px-6 lg:px-10 pt-4 pb-4 sm:pt-6 sm:pb-6 lg:pt-10 lg:pb-10">
       <SectionsNavigation />
     </div>
     <main class="flex-1 overflow-y-auto">

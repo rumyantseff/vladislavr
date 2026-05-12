@@ -17,9 +17,9 @@
     <!-- Hero cards skeleton (2 light + 1 dark) -->
     <div class="col-span-12 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2
                 relative w-full h-full max-w-md mx-auto lg:max-w-none">
-      <div class="absolute top-0 left-0 right-0 bottom-[calc(50%+5px)] rounded-3xl bg-brand-50" />
-      <div class="absolute top-[calc(50%+5px)] left-0 right-0 bottom-0 rounded-3xl bg-brand-50" />
-      <div class="absolute bottom-0 left-10 right-10 h-[80%] lg:h-[507px] lg:left-20 lg:right-20 rounded-3xl bg-brand-900/80" />
+      <div class="absolute top-0 left-0 right-0 bottom-[calc(50%+5px)] rounded-3xl bg-brand-950" />
+      <div class="absolute top-[calc(50%+5px)] left-0 right-0 bottom-0 rounded-3xl bg-brand-950" />
+      <div class="absolute bottom-0 left-16 right-16 h-[80%] lg:h-[507px] lg:left-32 lg:right-32 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/40" />
     </div>
 
     <!-- Name skeleton -->

@@ -3,16 +3,21 @@
     v-motion
     :initial="{ opacity: 0, y: -30 }"
     :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 100 } }"
-    class="w-full flex items-center gap-2 lg:gap-4 py-2! px-4! lg:px-6!">
-    <AppLogo class="shrink-0" />
-    <nav class="flex-1 hidden md:flex items-center justify-center gap-1 lg:gap-2">
-      <AppNavLink v-for="(link, i) in links" :key="i" :text="link.text" :to="link.to" />
+    class="w-full flex items-center gap-2 lg:gap-4 py-2! px-2! lg:px-2!">
+    <AppLogo class="shrink-0 ml-1 lg:ml-2" />
+    <nav class="flex-1 hidden md:flex items-center justify-center gap-1.5 lg:gap-2">
+      <AppNavLink v-for="(link, i) in links" :key="i" :text="link.text" :to="link.to" :icon="link.icon" />
     </nav>
     <div class="flex-1 md:hidden"></div>
-    <button type="button"
-      class="shrink-0 hidden sm:inline-flex items-center bg-brand-500 hover:bg-brand-600 text-primary-font font-medium px-4 lg:px-6 py-2 rounded-full transition text-sm lg:text-base">
-      Hire Me
-    </button>
+    <a href="mailto:vladik.rumyantsev@gmail.com"
+      class="shrink-0 hidden sm:inline-flex items-center gap-2 pl-4 pr-1 py-1 rounded-full
+             bg-brand-500 hover:bg-brand-600 text-primary-font font-medium text-sm lg:text-base
+             transition-colors duration-200">
+      <span>Hire Me</span>
+      <span class="size-8 lg:size-9 rounded-full bg-white/40 backdrop-blur-xl border border-white/40 flex items-center justify-center text-primary-font">
+        <AppIconsArrowUpRight class="size-4 lg:size-4" />
+      </span>
+    </a>
     <button type="button" aria-label="Open menu"
       class="md:hidden shrink-0 inline-flex items-center justify-center size-10 rounded-full text-primary-font hover:bg-brand-100 transition">
       <AppIconsBars3 class="size-6" />
@@ -21,10 +26,15 @@
 </template>
 
 <script setup>
+import Briefcase from '~/components/app/icons/briefcase.vue'
+import InformationCircle from '~/components/app/icons/information-circle.vue'
+import Identification from '~/components/app/icons/identification.vue'
+import FaceSmile from '~/components/app/icons/face-smile.vue'
+
 const links = [
-  { text: 'Home', to: '/' },
-  { text: 'About', to: '/about' },
-  { text: 'Projects', to: '/projects' },
-  { text: 'Contact', to: '/contact' },
+  { text: 'Home', to: '/', icon: Briefcase },
+  { text: 'About', to: '/about', icon: InformationCircle },
+  { text: 'Projects', to: '/projects', icon: FaceSmile },
+  { text: 'Contact', to: '/contact', icon: Identification },
 ]
 </script>

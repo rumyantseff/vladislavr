@@ -14,6 +14,6 @@
       v-motion
       :initial="{ opacity: 0, scale: 0.85 }"
       :enter="{ opacity: 1, scale: 1, transition: { duration: 800, delay: 700 } }"
-      class="absolute bottom-0 left-10 right-10 h-[80%] lg:h-[507px] lg:left-20 lg:right-20 shadow-2xl" />
+      class="absolute bottom-0 left-16 right-16 h-[80%] lg:h-[507px] lg:left-32 lg:right-32 shadow-2xl" />
   </div>
 </template>

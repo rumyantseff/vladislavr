@@ -13,7 +13,7 @@ const props = defineProps({
 
 const variantClasses = computed(() =>
   props.variant === 'dark'
-    ? 'bg-brand-900'
-    : 'bg-brand-50'
+    ? 'bg-white/40 backdrop-blur-xl border border-white/40'
+    : 'bg-brand-950'
 )
 </script>

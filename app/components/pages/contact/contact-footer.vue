@@ -6,19 +6,19 @@
       <!-- Brand block -->
       <div class="col-span-2 lg:col-span-1 flex flex-col gap-4">
         <div class="flex items-center gap-3 text-tertiary-font">
-          <AppLogo />
+          <SharedLogo />
           <span class="font-bold text-xl">Vlad R.</span>
         </div>
         <p class="text-tertiary-font/60 text-sm leading-relaxed max-w-xs">
           IT Specialist combining DevOps, frontend craft, QA discipline and brand design.
         </p>
         <div class="flex items-center gap-2 mt-2">
-          <AppSocialIcon link="https://github.com/rumyantseff" label="GitHub">
-            <AppIconsGithub class="size-5" />
-          </AppSocialIcon>
-          <AppSocialIcon link="https://www.linkedin.com/in/vladislav-rumyantsev/" label="LinkedIn">
-            <AppIconsLinkedin class="size-5" />
-          </AppSocialIcon>
+          <SharedSocialIcon link="https://github.com/rumyantseff" label="GitHub">
+            <SharedIconsGithub class="size-5" />
+          </SharedSocialIcon>
+          <SharedSocialIcon link="https://www.linkedin.com/in/vladislav-rumyantsev/" label="LinkedIn">
+            <SharedIconsLinkedin class="size-5" />
+          </SharedSocialIcon>
         </div>
       </div>
 

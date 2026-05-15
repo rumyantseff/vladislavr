@@ -4,7 +4,7 @@
     v-motion
     :initial="{ opacity: 0, y: -20 }"
     :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 100 } }">
-    <AppMarqueeStrip text="about" direction="right" />
-    <AppMarqueeStrip text="services" direction="right" />
+    <SharedMarqueeStrip text="about" direction="right" />
+    <SharedMarqueeStrip text="services" direction="right" />
   </div>
 </template>

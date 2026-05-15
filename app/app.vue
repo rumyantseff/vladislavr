@@ -1,16 +1,7 @@
 <template>
-  <!-- <v-app>
-    <TheNavigation />
-    <TheBanner />
-    <TheProjects />
-    <TheServices />
-    <TheResume />
-    <TheContacts />
-    <TheFooter />
-  </v-app> -->
   <div>
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage :transition="false" />
     </NuxtLayout>
   </div>
 </template>

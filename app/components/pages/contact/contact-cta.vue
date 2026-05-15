@@ -6,7 +6,7 @@
     <span class="size-9 lg:size-12 rounded-full bg-brand-950 border border-tertiary-font/20
                  flex items-center justify-center text-tertiary-font
                  group-hover:translate-x-1 transition-transform duration-300">
-      <AppIconsChevronDoubleRight class="size-4 lg:size-5" />
+      <SharedIconsChevronDoubleRight class="size-4 lg:size-5" />
     </span>
     <span class="text-tertiary-font font-medium text-sm lg:text-lg whitespace-nowrap">{{ text }}</span>
   </a>

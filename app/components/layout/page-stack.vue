@@ -4,10 +4,10 @@
          :data-index="i"
          :style="{ zIndex: i + 1, height: `${slideHeight}px` }"
          class="sticky top-0 w-full overflow-hidden">
-      <SectionsHomePage v-if="i === 0" />
-      <SectionsAboutPage v-else-if="i === 1" />
-      <SectionsProjectsPage v-else-if="i === 2" />
-      <SectionsContactPage v-else-if="i === 3" />
+      <PagesHomeView v-if="i === 0" />
+      <PagesAboutView v-else-if="i === 1" />
+      <PagesProjectsView v-else-if="i === 2" />
+      <PagesContactView v-else-if="i === 3" />
     </div>
   </div>
 </template>

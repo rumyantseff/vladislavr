@@ -3,7 +3,7 @@
   <div class="sm:hidden overflow-x-auto snap-x snap-mandatory scroll-smooth
               [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
     <div class="grid grid-flow-col auto-cols-[calc(50%-0.375rem)] gap-3 pb-2">
-      <AppServiceCard v-for="(service, i) in services" :key="service.title"
+      <PagesAboutServiceCard v-for="(service, i) in services" :key="service.title"
         v-motion
         :initial="{ opacity: 0, y: 30 }"
         :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"
@@ -15,7 +15,7 @@
 
   <!-- Desktop / tablet bento grid (sm+) -->
   <div class="hidden sm:grid grid-cols-12 gap-3 lg:gap-6 auto-rows-min">
-    <AppServiceCard v-for="(service, i) in services" :key="service.title"
+    <PagesAboutServiceCard v-for="(service, i) in services" :key="service.title"
       v-motion
       :initial="{ opacity: 0, y: 30 }"
       :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"

@@ -1,7 +1,7 @@
 <template>
   <a :href="link" target="_blank" rel="noopener"
     class="group relative block rounded-xl lg:rounded-2xl overflow-hidden
-           aspect-[4/3] bg-brand-950 cursor-pointer">
+           h-full bg-brand-950 cursor-pointer">
     <!-- project image -->
     <img :src="image" :alt="title"
       class="absolute inset-0 w-full h-full object-cover
@@ -10,7 +10,8 @@
 
     <!-- hover overlay: chips + title -->
     <div class="absolute inset-0
-                bg-gradient-to-t from-brand-950/95 via-brand-950/60 to-brand-950/0
+                bg-brand-950/70 backdrop-blur-md
+                mask-[linear-gradient(to_top,black_0%,black_40%,transparent_100%)]
                 opacity-0 group-hover:opacity-100
                 transition-opacity duration-500
                 flex flex-col justify-end p-4 lg:p-6">
@@ -34,7 +35,7 @@
                 opacity-0 group-hover:opacity-100
                 translate-y-2 group-hover:translate-y-0
                 transition-all duration-500 ease-out">
-      <AppIconsArrowUpRight class="size-4 lg:size-5 text-brand-950" />
+      <SharedIconsArrowUpRight class="size-4 lg:size-5 text-brand-950" />
     </div>
   </a>
 </template>

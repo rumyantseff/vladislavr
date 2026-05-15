@@ -1,5 +1,5 @@
 <template>
-  <SectionsProjectsSkeleton v-if="isLoading" />
+  <PagesProjectsSkeleton v-if="isLoading" />
   <div v-else class="w-full h-full bg-brand-50 p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
               lg:overflow-hidden
               flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6">
@@ -7,10 +7,10 @@
       v-motion
       :initial="{ opacity: 0, y: -20 }"
       :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 100 } }">
-      <AppMarqueeStrip text="Projects" direction="right" />
+      <SharedMarqueeStrip text="Projects" direction="right" />
     </div>
 
-    <SectionsProjectsGrid class="flex-1 min-h-0"
+    <PagesProjectsGrid class="flex-1 min-h-0"
       v-motion
       :initial="{ opacity: 0, y: 30 }"
       :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 200 } }" />
@@ -19,7 +19,7 @@
       v-motion
       :initial="{ opacity: 0, x: 30 }"
       :enter="{ opacity: 1, x: 0, transition: { duration: 700, delay: 350 } }">
-      <AppMarqueeStripVertical text="Projects" direction="up" />
+      <SharedMarqueeStripVertical text="Projects" direction="up" />
     </div>
   </div>
 </template>

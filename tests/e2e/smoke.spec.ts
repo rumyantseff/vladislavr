@@ -1,9 +1,11 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures'
 
 const ROUTES = ['/', '/about', '/projects', '/contact'] as const
 
+const IGNORED_ERROR_PATTERNS = /Hydration|@vite|sourcemap|@vueuse/i
+
 for (const path of ROUTES) {
-  test(`smoke: page ${path} loads without errors`, async ({ page }) => {
+  test(`smoke: page ${path} loads without errors`, async ({ page, nav }) => {
     const errors: string[] = []
     page.on('pageerror', e => errors.push(e.message))
     page.on('console', m => {
@@ -11,13 +13,9 @@ for (const path of ROUTES) {
     })
 
     await page.goto(path)
-    await expect(page.locator('[data-testid=nav-logo]')).toBeVisible()
-    await page.waitForTimeout(800)
+    await expect(nav.logo).toBeVisible()
 
-    // Ignore expected hydration warnings or vite dev errors which we can't influence
-    const fatalErrors = errors.filter(
-      e => !/Hydration|@vite|sourcemap|@vueuse/i.test(e),
-    )
-    expect(fatalErrors, `console errors on ${path}: ${fatalErrors.join('\n')}`).toEqual([])
+    const fatal = errors.filter(e => !IGNORED_ERROR_PATTERNS.test(e))
+    expect(fatal, `console errors on ${path}:\n${fatal.join('\n')}`).toEqual([])
   })
 }

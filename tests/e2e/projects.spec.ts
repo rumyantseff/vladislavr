@@ -1,14 +1,11 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../fixtures'
 
 test.describe('projects page', () => {
-  test('project-card accordion expand on hover (desktop)', async ({ page, viewport }) => {
+  test('project-card accordion expand on hover (desktop)', async ({ openProjects, viewport }) => {
     test.skip((viewport?.width ?? 0) < 1024, 'desktop accordion only')
 
-    await page.goto('/projects')
-    await page.waitForTimeout(1200)
-
-    const card0 = page.locator('[data-testid=project-card-0]:visible').first()
-    const card1 = page.locator('[data-testid=project-card-1]:visible').first()
+    const card0 = openProjects.projectCard(0)
+    const card1 = openProjects.projectCard(1)
     await expect(card0).toBeVisible()
 
     const w0Before = (await card0.boundingBox())!.width
@@ -16,17 +13,23 @@ test.describe('projects page', () => {
     expect(Math.abs(w0Before - w1Before)).toBeLessThan(10)
 
     await card0.hover()
-    await page.waitForTimeout(600)
 
-    const w0After = (await card0.boundingBox())!.width
-    const w1After = (await card1.boundingBox())!.width
-    expect(w0After).toBeGreaterThan(w0Before * 1.2)
-    expect(w1After).toBeLessThan(w1Before * 0.9)
+    await expect
+      .poll(async () => (await card0.boundingBox())!.width, {
+        message: 'hovered card should expand',
+        timeout: 2_000,
+      })
+      .toBeGreaterThan(w0Before * 1.2)
+
+    await expect
+      .poll(async () => (await card1.boundingBox())!.width, {
+        message: 'neighbor card should shrink',
+        timeout: 2_000,
+      })
+      .toBeLessThan(w1Before * 0.9)
   })
 
-  test('projects page renders project cards', async ({ page }) => {
-    await page.goto('/projects')
-    await page.waitForTimeout(1200)
-    await expect(page.locator('[data-testid=project-card-0]:visible').first()).toBeVisible()
+  test('projects page renders project cards', async ({ openProjects }) => {
+    await expect(openProjects.projectCard(0)).toBeVisible()
   })
 })

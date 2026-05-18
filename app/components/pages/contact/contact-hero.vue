@@ -4,7 +4,7 @@
                text-3xl sm:text-5xl lg:text-7xl xl:text-8xl">
       Let's Connect<br />There
     </h1>
-    <AppContactCta text="Hire Me Now!" link="mailto:vladik.rumyantsev@gmail.com"
+    <PagesContactCta text="Hire Me Now!" link="mailto:vladik.rumyantsev@gmail.com"
       class="self-start lg:self-end" />
   </div>
 </template>

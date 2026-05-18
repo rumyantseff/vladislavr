@@ -1,6 +1,6 @@
 <template>
   <PagesProjectsSkeleton v-if="isLoading" />
-  <div v-else class="w-full h-full bg-brand-50 p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
+  <div v-else data-testid="page-projects" class="w-full h-full bg-brand-50 p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
               lg:overflow-hidden
               flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6">
     <div class="sm:hidden select-none pointer-events-none"

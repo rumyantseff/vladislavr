@@ -1,5 +1,6 @@
 <template>
   <NuxtLink :to="to"
+    :data-testid="`nav-link-${testSlug}`"
     :class="['group inline-flex items-center justify-center',
              'gap-0 min-w-32 lg:min-w-36 min-h-11 lg:min-h-12',
              'pl-1 pr-6 lg:pr-7 py-1',
@@ -20,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { PAGE_STACK_PAGES, usePageStack } from '~/composables/usePageStack'
 
 const props = defineProps<{
@@ -30,6 +32,11 @@ const props = defineProps<{
 }>()
 
 const stack = usePageStack()
+
+const testSlug = computed(() => {
+  if (props.to === '/') return 'home'
+  return props.to.replace(/^\//, '').replace(/\//g, '-')
+})
 
 function handleClick() {
   const idx = PAGE_STACK_PAGES.findIndex(p => p.path === props.to)

@@ -9,6 +9,7 @@
         :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"
         :title="service.title" :description="service.description" :initials="service.initials"
         :direction="service.direction"
+        :data-testid="`service-card-${i}`"
         :class="['shrink-0', i % 2 === 0 ? 'snap-start' : '']" />
     </div>
   </div>
@@ -21,6 +22,7 @@
       :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"
       :title="service.title" :description="service.description" :initials="service.initials"
       :direction="service.direction"
+      :data-testid="`service-card-${i}`"
       :class="service.span" />
   </div>
 </template>

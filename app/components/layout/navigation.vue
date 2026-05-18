@@ -4,14 +4,14 @@
     :initial="{ opacity: 0, y: -30 }"
     :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 100 } }"
     class="w-full flex items-center gap-2 lg:gap-4 py-2! px-2! lg:px-2!">
-    <SharedLogo class="shrink-0 ml-1 lg:ml-2" />
+    <SharedLogo data-testid="nav-logo" class="shrink-0 ml-1 lg:ml-2" />
     <nav class="flex-1 hidden md:flex items-center justify-center gap-1.5 lg:gap-2">
       <SharedNavLink v-for="(link, i) in links" :key="i"
         :text="link.text" :to="link.to" :icon="link.icon"
         :active="stack.activeIndex.value === i" />
     </nav>
     <div class="flex-1 md:hidden"></div>
-    <a href="mailto:vladik.rumyantsev@gmail.com"
+    <a data-testid="nav-hire-me" href="mailto:vladik.rumyantsev@gmail.com"
       class="shrink-0 hidden sm:inline-flex items-center gap-2 pl-4 pr-1 py-1 rounded-full
              bg-brand-500 hover:bg-brand-600 text-primary-font font-medium text-sm lg:text-base
              transition-colors duration-200">

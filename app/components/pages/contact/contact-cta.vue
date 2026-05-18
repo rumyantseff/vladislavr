@@ -1,5 +1,5 @@
 <template>
-  <a :href="link"
+  <a :href="link" data-testid="contact-cta"
     class="group inline-flex items-center gap-3 pr-5 lg:pr-6 pl-1.5 py-1.5
            rounded-full bg-tertiary-font/10 hover:bg-tertiary-font/20
            backdrop-blur-sm transition-colors duration-300">

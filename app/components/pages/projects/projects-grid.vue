@@ -7,6 +7,7 @@
         :initial="{ opacity: 0, y: 30 }"
         :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 400 + i * 100 } }"
         v-bind="p"
+        :data-testid="`project-card-${i}`"
         class="h-full" />
     </div>
 
@@ -18,6 +19,7 @@
           :initial="{ opacity: 0, y: 30 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 400 + (r * 3 + i) * 100 } }"
           v-bind="p"
+          :data-testid="`project-card-${r * 3 + i}`"
           class="h-full flex-1 basis-0 transition-[flex-grow] duration-400 ease-out" />
       </div>
     </template>

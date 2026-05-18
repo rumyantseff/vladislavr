@@ -1,6 +1,6 @@
 <template>
   <PagesContactSkeleton v-if="isLoading" />
-  <div v-else class="w-full h-full bg-brand-50 p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
+  <div v-else data-testid="page-contact" class="w-full h-full bg-brand-50 p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
               overflow-hidden">
     <div class="w-full h-full bg-brand-950 rounded-2xl lg:rounded-3xl
                 p-4 sm:p-8 lg:p-12

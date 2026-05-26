@@ -1,0 +1,65 @@
+name: Playwright E2E
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      update_snapshots:
+        description: 'Update visual regression baselines'
+        type: boolean
+        default: false
+
+concurrency:
+  group: playwright-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run E2E tests
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.49.0-noble
+      options: --user 1001
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Playwright tests
+        if: ${{ inputs.update_snapshots != true }}
+        env:
+          CI: true
+        run: yarn test:e2e
+
+      - name: Update visual snapshots
+        if: ${{ inputs.update_snapshots == true }}
+        env:
+          CI: true
+        run: yarn test:e2e --update-snapshots
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload updated snapshots
+        if: ${{ inputs.update_snapshots == true }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: updated-snapshots
+          path: tests/e2e/__snapshots__/
+          retention-days: 30

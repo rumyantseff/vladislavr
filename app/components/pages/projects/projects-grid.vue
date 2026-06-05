@@ -42,15 +42,21 @@ const projects = [
   },
   {
     title: 'Tasartir',
-    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS',],
+    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS'],
     image: '/portfolio/tasartir.png',
     link: '#',
   },
   {
     title: 'Sheron — E-commerce Platform',
-    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS',],
+    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS'],
     image: '/portfolio/sheron.png',
     link: 'https://sheron-web.tasartir.com/en',
+  },
+  {
+    title: 'Landing Page for Pavel Ivannikov',
+    tags: ['Tailwind CSS', 'HTML', 'CSS'],
+    image: '/portfolio/sheron.png',
+    link: 'https://pivannikov.com',
   },
 
 ]

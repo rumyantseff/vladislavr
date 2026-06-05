@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (1:1.3+202307231459+0e150ed6c4)"
+   sodipodi:docname="frontend.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.8293114"
+     inkscape:cx="168.91602"
+     inkscape:cy="190.23552"
+     inkscape:window-width="1920"
+     inkscape:window-height="954"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g8"
+     showgrid="true">
+    <inkscape:grid
+       id="grid1"
+       units="mm"
+       originx="0"
+       originy="0"
+       spacingx="0.99999999"
+       spacingy="0.99999999"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       dotted="false"
+       gridanglex="30"
+       gridanglez="30"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <rect
+       x="56.692914"
+       y="151.1811"
+       width="37.795276"
+       height="56.692914"
+       id="rect7" />
+  </defs>
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="display:none;opacity:1;fill:#b0e363;fill-opacity:1;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2"
+       id="rect1"
+       width="100"
+       height="100"
+       x="0"
+       y="0" />
+    <g
+       id="g80"
+       inkscape:label="MOBILE"
+       transform="matrix(2.3529412,0,0,2.3529412,-41.176471,14.725431)"
+       style="display:none">
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.881916;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+         id="rect62"
+         width="10"
+         height="17.5"
+         x="50"
+         y="15"
+         inkscape:label="Website background" />
+      <g
+         id="g78"
+         inkscape:label="Card"
+         transform="translate(44,0.99999969)">
+        <rect
+           style="opacity:1;fill:#f2fedc;fill-opacity:1;stroke:none;stroke-width:0.823755;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect70"
+           width="8"
+           height="9.5"
+           x="7"
+           y="22"
+           inkscape:label="Background" />
+        <g
+           id="g77"
+           inkscape:label="Content"
+           transform="matrix(0.875,0,0,0.875,1.375,3.6249993)">
+          <g
+             id="g76"
+             inkscape:label="Article"
+             transform="matrix(0.8571429,0,0,1.1428561,1.5714283,-5.2856775)">
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.50491;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect75"
+               width="1.9999998"
+               height="1.0000015"
+               x="13"
+               y="31"
+               inkscape:label="Text 2" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.798333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect76"
+               width="5"
+               height="1.0000015"
+               x="7"
+               y="30.999998"
+               inkscape:label="Text 1" />
+          </g>
+          <rect
+             style="fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:0.755392;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+             id="rect77"
+             width="6.8571424"
+             height="6.8571424"
+             x="7.5714288"
+             y="22.142859"
+             inkscape:label="Image" />
+        </g>
+      </g>
+      <g
+         id="g69"
+         inkscape:label="Banner"
+         transform="matrix(0.44444445,0,0,0.5,47.888889,12)">
+        <rect
+           style="opacity:1;fill:#8798ad;fill-opacity:1;stroke:none;stroke-width:1.32194;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect65"
+           width="18"
+           height="7.9999995"
+           x="7"
+           y="12"
+           inkscape:label="Banner 1" />
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.06904;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect67"
+           width="8"
+           height="1"
+           x="8"
+           y="17"
+           inkscape:label="Description" />
+        <rect
+           style="opacity:1;fill:#b0e363;fill-opacity:1;stroke:none;stroke-width:1.06904;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect68"
+           width="8"
+           height="1"
+           x="8"
+           y="15.25"
+           inkscape:label="Subtitle" />
+        <rect
+           style="opacity:1;fill:#b0e363;fill-opacity:1;stroke:none;stroke-width:1.30931;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect69"
+           width="12"
+           height="1"
+           x="8"
+           y="14"
+           inkscape:label="Title" />
+      </g>
+      <g
+         id="g79"
+         inkscape:label="Header">
+        <rect
+           style="opacity:1;fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:0.816497;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect63"
+           width="10"
+           height="1.9667673"
+           x="50"
+           y="15"
+           inkscape:label="Header" />
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.497299;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect34"
+           width="1"
+           height="0.99999958"
+           x="51"
+           y="15.483384"
+           inkscape:label="Logo" />
+      </g>
+    </g>
+    <g
+       id="g62"
+       inkscape:label="DESKTOP"
+       transform="matrix(2.4999999,0,0,2.4999999,-14.999999,-6.2574161)"
+       style="display:none">
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.05269;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+         id="rect36"
+         width="40"
+         height="30"
+         x="6"
+         y="7.5029674"
+         inkscape:label="Website background" />
+      <g
+         id="g61"
+         inkscape:label="Card"
+         transform="translate(30.000001,0.5029673)">
+        <rect
+           style="opacity:1;fill:#f2fedc;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect53"
+           width="8"
+           height="14"
+           x="7"
+           y="22"
+           inkscape:label="Background" />
+        <g
+           id="g60"
+           inkscape:label="Content"
+           transform="matrix(0.875,0,0,0.875,1.375,3.6249993)">
+          <g
+             id="g59"
+             inkscape:label="Article"
+             transform="matrix(0.8571429,0,0,1.1428561,1.5714283,-5.2856775)">
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect54"
+               width="3.9999998"
+               height="1.0000015"
+               x="11"
+               y="35"
+               inkscape:label="Text 6" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618386;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect55"
+               width="3"
+               height="1.0000015"
+               x="7"
+               y="35"
+               inkscape:label="Text 5" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618385;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect56"
+               width="2.9999995"
+               height="1.0000015"
+               x="12"
+               y="32.5"
+               inkscape:label="Text 4" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect57"
+               width="4"
+               height="1.0000015"
+               x="7"
+               y="32.5"
+               inkscape:label="Text 3" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.50491;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect58"
+               width="1.9999998"
+               height="1.0000015"
+               x="13"
+               y="31"
+               inkscape:label="Text 2" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.798333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect59"
+               width="5"
+               height="1.0000015"
+               x="7"
+               y="30.999998"
+               inkscape:label="Text 1" />
+          </g>
+          <rect
+             style="fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:0.755392;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+             id="rect60"
+             width="6.8571424"
+             height="6.8571424"
+             x="7.5714288"
+             y="22.142859"
+             inkscape:label="Image" />
+        </g>
+      </g>
+      <g
+         id="g53"
+         inkscape:label="Card"
+         transform="translate(20,0.5029673)">
+        <rect
+           style="opacity:1;fill:#f2fedc;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect45"
+           width="8"
+           height="14"
+           x="7"
+           y="22"
+           inkscape:label="Background" />
+        <g
+           id="g52"
+           inkscape:label="Content"
+           transform="matrix(0.875,0,0,0.875,1.375,3.6249993)">
+          <g
+             id="g51"
+             inkscape:label="Article"
+             transform="matrix(0.8571429,0,0,1.1428561,1.5714283,-5.2856775)">
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect46"
+               width="3.9999998"
+               height="1.0000015"
+               x="11"
+               y="35"
+               inkscape:label="Text 6" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618386;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect47"
+               width="3"
+               height="1.0000015"
+               x="7"
+               y="35"
+               inkscape:label="Text 5" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618385;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect48"
+               width="2.9999995"
+               height="1.0000015"
+               x="12"
+               y="32.5"
+               inkscape:label="Text 4" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect49"
+               width="4"
+               height="1.0000015"
+               x="7"
+               y="32.5"
+               inkscape:label="Text 3" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.50491;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect50"
+               width="1.9999998"
+               height="1.0000015"
+               x="13"
+               y="31"
+               inkscape:label="Text 2" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.798333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect51"
+               width="5"
+               height="1.0000015"
+               x="7"
+               y="30.999998"
+               inkscape:label="Text 1" />
+          </g>
+          <rect
+             style="fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:0.755392;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+             id="rect52"
+             width="6.8571424"
+             height="6.8571424"
+             x="7.5714288"
+             y="22.142859"
+             inkscape:label="Image" />
+        </g>
+      </g>
+      <g
+         id="g45"
+         inkscape:label="Card"
+         transform="translate(9.9999998,0.5029673)">
+        <rect
+           style="opacity:1;fill:#f2fedc;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect37"
+           width="8"
+           height="14"
+           x="7"
+           y="22"
+           inkscape:label="Background" />
+        <g
+           id="g44"
+           inkscape:label="Content"
+           transform="matrix(0.875,0,0,0.875,1.375,3.6249993)">
+          <g
+             id="g43"
+             inkscape:label="Article"
+             transform="matrix(0.8571429,0,0,1.1428561,1.5714283,-5.2856775)">
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect38"
+               width="3.9999998"
+               height="1.0000015"
+               x="11"
+               y="35"
+               inkscape:label="Text 6" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618386;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect39"
+               width="3"
+               height="1.0000015"
+               x="7"
+               y="35"
+               inkscape:label="Text 5" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618385;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect40"
+               width="2.9999995"
+               height="1.0000015"
+               x="12"
+               y="32.5"
+               inkscape:label="Text 4" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect41"
+               width="4"
+               height="1.0000015"
+               x="7"
+               y="32.5"
+               inkscape:label="Text 3" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.50491;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect42"
+               width="1.9999998"
+               height="1.0000015"
+               x="13"
+               y="31"
+               inkscape:label="Text 2" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.798333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect43"
+               width="5"
+               height="1.0000015"
+               x="7"
+               y="30.999998"
+               inkscape:label="Text 1" />
+          </g>
+          <rect
+             style="fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:0.755392;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+             id="rect44"
+             width="6.8571424"
+             height="6.8571424"
+             x="7.5714288"
+             y="22.142859"
+             inkscape:label="Image" />
+        </g>
+      </g>
+      <g
+         id="g37"
+         inkscape:label="Card"
+         transform="translate(0,0.5029673)">
+        <rect
+           style="opacity:1;fill:#f2fedc;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect35"
+           width="8"
+           height="14"
+           x="7"
+           y="22"
+           inkscape:label="Background" />
+        <g
+           id="g36"
+           inkscape:label="Content"
+           transform="matrix(0.875,0,0,0.875,1.375,3.6249993)">
+          <g
+             id="g30"
+             inkscape:label="Article"
+             transform="matrix(0.8571429,0,0,1.1428561,1.5714283,-5.2856775)">
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect28"
+               width="3.9999998"
+               height="1.0000015"
+               x="11"
+               y="35"
+               inkscape:label="Text 6" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618386;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect11"
+               width="3"
+               height="1.0000015"
+               x="7"
+               y="35"
+               inkscape:label="Text 5" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.618385;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect29"
+               width="2.9999995"
+               height="1.0000015"
+               x="12"
+               y="32.5"
+               inkscape:label="Text 4" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.714051;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect10"
+               width="4"
+               height="1.0000015"
+               x="7"
+               y="32.5"
+               inkscape:label="Text 3" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.50491;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect12"
+               width="1.9999998"
+               height="1.0000015"
+               x="13"
+               y="31"
+               inkscape:label="Text 2" />
+            <rect
+               style="fill:#7b7a6b;fill-opacity:1;stroke:none;stroke-width:0.798333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+               id="rect9"
+               width="5"
+               height="1.0000015"
+               x="7"
+               y="30.999998"
+               inkscape:label="Text 1" />
+          </g>
+          <rect
+             style="fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:0.755392;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+             id="rect5"
+             width="6.8571424"
+             height="6.8571424"
+             x="7.5714288"
+             y="22.142859"
+             inkscape:label="Image" />
+        </g>
+      </g>
+      <g
+         id="g34"
+         inkscape:label="Banner"
+         transform="translate(0,0.5029673)">
+        <rect
+           style="opacity:1;fill:#f2fedc;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect27"
+           width="20"
+           height="8"
+           x="25"
+           y="12"
+           inkscape:label="Banner 2" />
+        <rect
+           style="opacity:1;fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect33"
+           width="7"
+           height="7"
+           x="31.5"
+           y="12.5"
+           inkscape:label="Banner image" />
+        <rect
+           style="opacity:1;fill:#8798ad;fill-opacity:1;stroke:none;stroke-width:1.32194;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4"
+           width="18"
+           height="7.9999995"
+           x="7"
+           y="12"
+           inkscape:label="Banner 1" />
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.06904;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect32"
+           width="8"
+           height="1"
+           x="8"
+           y="17"
+           inkscape:label="Description" />
+        <rect
+           style="opacity:1;fill:#b0e363;fill-opacity:1;stroke:none;stroke-width:1.06904;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect31"
+           width="8"
+           height="1"
+           x="8"
+           y="15.25"
+           inkscape:label="Subtitle" />
+        <rect
+           style="opacity:1;fill:#b0e363;fill-opacity:1;stroke:none;stroke-width:1.30931;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect30"
+           width="12"
+           height="1"
+           x="8"
+           y="14"
+           inkscape:label="Title" />
+      </g>
+      <g
+         id="g35"
+         inkscape:label="Header"
+         transform="matrix(1.0526316,0,0,1,-1.3684211,0)">
+        <rect
+           style="opacity:1;fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:1.17621;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect3"
+           width="38"
+           height="3.0000002"
+           x="7"
+           y="7.5029674"
+           inkscape:label="Header" />
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.72706;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+           id="rect78"
+           width="1.425"
+           height="1.4999994"
+           x="7.9499998"
+           y="8.2529678"
+           inkscape:label="Logo" />
+      </g>
+    </g>
+    <rect
+       style="opacity:1;fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:3.26416458;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6"
+       width="100"
+       height="25"
+       x="-6.2764608e-15"
+       y="5.5511151e-17" />
+    <rect
+       style="opacity:1;fill:none;stroke:#2e384d;stroke-width:2.96457;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2"
+       width="97.035423"
+       height="97.035431"
+       x="1.4822924"
+       y="1.4822848" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text6"
+       style="font-style:italic;font-weight:bold;font-size:9px;line-height:12.8572px;font-family:Verdana;-inkscape-font-specification:'Verdana Bold Italic';letter-spacing:0.1px;word-spacing:0px;writing-mode:tb-rl;white-space:pre;shape-inside:url(#rect7);display:inline;opacity:1;fill:#2e384d;fill-opacity:1;stroke:none;stroke-width:12.337;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1" />
+    <g
+       id="g8"
+       inkscape:label="BRAKES"
+       transform="translate(10,-1.999624)">
+      <path
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#2e384d;stroke-width:3.96875;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+         d="M 25,44.999999 5,60.000001 25,75"
+         id="path9" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#2e384d;stroke-width:3.96875;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+         d="M 55,44.999999 75,60.000001 55,75"
+         id="path10" />
+      <path
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#2e384d;stroke-width:3.96875;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1"
+         d="m 45,46.999623 -10.000001,25"
+         id="path11" />
+    </g>
+  </g>
+</svg>

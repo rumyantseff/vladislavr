@@ -4,18 +4,25 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ['@vueuse/motion/nuxt'],
+  modules: ['@vueuse/motion/nuxt', '@nuxt/fonts'],
+
+  fonts: {
+    families: [
+      { name: 'Sora', provider: 'google', weights: [300, 400, 500, 600, 700, 800] },
+      { name: 'Archivo', provider: 'google', weights: [600, 700, 800, 900] },
+    ],
+  },
 
   css: ['~/assets/main.css'],
 
   app: {
     head: {
-      title: 'Vlad Portfolio page',
+      title: 'Vlad Rumyantsev — Home',
       meta: [
-        { name: 'description', content: 'Portfolio page' }
+        { name: 'description', content: 'Vlad Rumyantsev — IT Specialist portfolio: DevOps, Frontend, QA, Brand Design.' }
       ],
       link: [
-        { rel: 'shortcut icon', type: 'image/x-icon', href: 'vr.svg' },
+        { rel: 'icon', type: 'image/png', href: '/VladR_Logo.png' },
       ],
     }
   },

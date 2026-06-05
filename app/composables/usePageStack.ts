@@ -1,5 +1,7 @@
 import { ref } from 'vue'
 
+export const SITE_NAME = 'Vlad Rumyantsev'
+
 export interface PageStackEntry {
   path: string
   text: string
@@ -8,6 +10,7 @@ export interface PageStackEntry {
 export const PAGE_STACK_PAGES: PageStackEntry[] = [
   { path: '/', text: 'Home' },
   { path: '/about', text: 'About' },
+  { path: '/education', text: 'Education' },
   { path: '/projects', text: 'Projects' },
   { path: '/contact', text: 'Contact' },
 ]

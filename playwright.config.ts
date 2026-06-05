@@ -1,5 +1,10 @@
 import { defineConfig, devices } from '@playwright/test'
 
+// On CI we use the bundled Playwright Chromium (Docker image has it preinstalled).
+// Locally on Ubuntu 26.04 the bundle is unsupported, so we fall back to the
+// system Chrome via `channel: 'chrome'`.
+const useChromeChannel = !process.env.CI
+
 export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30_000,
@@ -32,7 +37,7 @@ export default defineConfig({
       name: 'chrome-desktop',
       use: {
         ...devices['Desktop Chrome'],
-        channel: 'chrome',
+        ...(useChromeChannel ? { channel: 'chrome' } : {}),
         viewport: { width: 1440, height: 900 },
       },
     },
@@ -40,7 +45,7 @@ export default defineConfig({
       name: 'mobile-chrome',
       use: {
         ...devices['Pixel 5'],
-        channel: 'chrome',
+        ...(useChromeChannel ? { channel: 'chrome' } : {}),
       },
     },
   ],

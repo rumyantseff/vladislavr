@@ -1,5 +1,5 @@
 <template>
-  <span class="inline-flex items-center border border-primary-font/20 text-primary-font
+  <span class="inline-flex items-center border border-tertiary-font/20 text-tertiary-font
                rounded-full px-4 py-1 text-xs font-medium uppercase tracking-wider">
     {{ text }}
   </span>

@@ -7,16 +7,16 @@
       <div class="col-span-2 lg:col-span-1 flex flex-col gap-4">
         <div class="flex items-center gap-3 text-tertiary-font">
           <SharedLogo />
-          <span class="font-bold text-xl">Vlad R.</span>
+          <span class="font-bold text-xl">Vladislav Rumyantsev</span>
         </div>
         <p class="text-tertiary-font/60 text-sm leading-relaxed max-w-xs">
-          IT Specialist combining DevOps, frontend craft, QA discipline and brand design.
+          I believe we would be a great fit for each other.
         </p>
         <div class="flex items-center gap-2 mt-2">
           <SharedSocialIcon link="https://github.com/rumyantseff" label="GitHub">
             <SharedIconsGithub class="size-5" />
           </SharedSocialIcon>
-          <SharedSocialIcon link="https://www.linkedin.com/in/vladislav-rumyantsev/" label="LinkedIn">
+          <SharedSocialIcon link="https://www.linkedin.com/in/vladislavrumyantsev-vladislavr/" label="LinkedIn">
             <SharedIconsLinkedin class="size-5" />
           </SharedSocialIcon>
         </div>
@@ -26,16 +26,16 @@
       <div class="flex flex-col gap-3">
         <h4 class="text-tertiary-font font-semibold">Address</h4>
         <p class="text-tertiary-font/60 text-sm leading-relaxed">
-          Bratislava<br />Slovakia
+          Slovakia
         </p>
       </div>
 
       <!-- Email -->
       <div class="flex flex-col gap-3">
         <h4 class="text-tertiary-font font-semibold">Email</h4>
-        <a href="mailto:vladik.rumyantsev@gmail.com"
+        <a href="mailto:vladislavr.info@gmail.com"
           class="text-tertiary-font/60 hover:text-tertiary-font transition-colors text-sm break-all">
-          vladik.rumyantsev@gmail.com
+          vladislavr.info@gmail.com
         </a>
       </div>
 
@@ -44,7 +44,7 @@
         <h4 class="text-tertiary-font font-semibold">Phone</h4>
         <a href="tel:+421000000000"
           class="text-tertiary-font/60 hover:text-tertiary-font transition-colors text-sm">
-          +421 XXX XXX XXX
+          +421 940 719 340
         </a>
       </div>
     </div>

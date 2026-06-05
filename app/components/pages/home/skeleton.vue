@@ -1,31 +1,26 @@
 <template>
-  <div class="w-full h-full p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
+  <div class="w-full h-full bg-brand-950 p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
               overflow-hidden
               grid gap-3 sm:gap-4 lg:gap-10
               grid-cols-12 grid-rows-[auto_1fr_auto]
               animate-pulse">
-    <!-- Welcome text skeleton -->
-    <div class="col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-1 flex flex-col gap-4 lg:gap-6">
-      <div class="h-16 sm:h-20 md:h-28 lg:h-36 xl:h-44 w-1/2 sm:w-2/5 lg:w-2/5 rounded-2xl bg-brand-50 self-start" />
-      <div class="self-end max-w-md lg:max-w-[58ch] w-full flex flex-col gap-2">
-        <div class="h-3 sm:h-4 lg:h-5 rounded-full bg-brand-50 w-full" />
-        <div class="h-3 sm:h-4 lg:h-5 rounded-full bg-brand-50 w-11/12 self-end" />
-        <div class="h-3 sm:h-4 lg:h-5 rounded-full bg-brand-50 w-4/5 self-end" />
-      </div>
+    <!-- Info card placeholder (top-right) -->
+    <div class="hidden lg:block lg:col-span-5 lg:col-start-8 lg:row-start-1 justify-self-end
+                w-52 lg:w-68 aspect-[3/4] rounded-3xl bg-white/5" />
+
+    <!-- Name placeholder (bottom-left) -->
+    <div class="col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-3 self-end flex flex-col gap-2 lg:gap-3">
+      <div class="h-10 sm:h-14 lg:h-20 xl:h-24 w-40 sm:w-52 lg:w-64 rounded-2xl bg-white/5" />
+      <div class="h-10 sm:h-14 lg:h-20 xl:h-24 w-64 sm:w-80 lg:w-[28rem] rounded-2xl bg-white/5" />
     </div>
 
-    <!-- Hero cards skeleton (2 light + 1 dark) -->
-    <div class="col-span-12 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2
-                relative w-full h-full max-w-md mx-auto lg:max-w-none">
-      <div class="absolute top-0 left-0 right-0 bottom-[calc(50%+5px)] rounded-3xl bg-brand-950" />
-      <div class="absolute top-[calc(50%+5px)] left-0 right-0 bottom-0 rounded-3xl bg-brand-950" />
-      <div class="absolute bottom-0 left-16 right-16 h-[80%] lg:h-[507px] lg:left-32 lg:right-32 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/40" />
-    </div>
-
-    <!-- Name skeleton -->
-    <div class="col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-2 self-end flex flex-col gap-1 lg:gap-2">
-      <div class="h-9 sm:h-12 lg:h-14 xl:h-16 w-32 sm:w-40 lg:w-48 rounded-2xl bg-brand-50" />
-      <div class="h-9 sm:h-12 lg:h-14 xl:h-16 w-56 sm:w-72 lg:w-96 rounded-2xl bg-brand-50" />
+    <!-- Welcome text placeholder (bottom-right) -->
+    <div class="hidden lg:flex lg:col-span-5 lg:col-start-8 lg:row-start-3 self-end
+                flex-col items-end gap-2 w-full">
+      <div class="h-4 lg:h-5 rounded-full bg-white/5 w-full" />
+      <div class="h-4 lg:h-5 rounded-full bg-white/5 w-11/12" />
+      <div class="h-4 lg:h-5 rounded-full bg-white/5 w-4/5" />
+      <div class="h-4 lg:h-5 rounded-full bg-white/5 w-2/3" />
     </div>
   </div>
 </template>

@@ -30,40 +30,29 @@
 const projects = [
   {
     title: 'Mbrosia — Music Streaming UI',
-    tags: ['Web', 'Vue', 'Design'],
-    image: '/portfolio/mbrosia.svg',
-    link: '#',
+    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS', 'GO'],
+    image: '/portfolio/audio-app.png',
+    link: 'https://mbrosia.netlify.app/',
   },
   {
     title: 'Breathe Triangle — Wellness App',
-    tags: ['Mobile', 'iOS', 'Animation'],
-    image: '/portfolio/triangle.svg',
+    tags: ['Vue 2', 'Vuetify', 'HTML', 'CSS'],
+    image: '/portfolio/breath-triangle.png',
+    link: 'https://triangle-breath.netlify.app/',
+  },
+  {
+    title: 'Tasartir',
+    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS',],
+    image: '/portfolio/tasartir.png',
     link: '#',
   },
   {
-    title: 'CI/CD Pipeline Automation',
-    tags: ['DevOps', 'GitLab', 'Docker'],
-    image: '/portfolio/mbrosia.svg',
-    link: '#',
+    title: 'Sheron — E-commerce Platform',
+    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS',],
+    image: '/portfolio/sheron.png',
+    link: 'https://sheron-web.tasartir.com/en',
   },
-  {
-    title: 'E2E Testing Framework',
-    tags: ['QA', 'Cypress', 'TypeScript'],
-    image: '/portfolio/triangle.svg',
-    link: '#',
-  },
-  {
-    title: 'Brand Identity System',
-    tags: ['Design', 'Branding'],
-    image: '/portfolio/mbrosia.svg',
-    link: '#',
-  },
-  {
-    title: 'Internal Dashboard',
-    tags: ['Dashboard', 'SaaS', 'Vue'],
-    image: '/portfolio/triangle.svg',
-    link: '#',
-  },
+
 ]
 </script>
 

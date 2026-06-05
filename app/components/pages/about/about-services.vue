@@ -16,7 +16,7 @@
   </div>
 
   <!-- Desktop / tablet bento grid (sm+) -->
-  <div class="hidden sm:grid h-full grid-cols-12 grid-rows-2 gap-3 lg:gap-6 auto-rows-fr">
+  <div class="hidden sm:grid h-full grid-cols-12 grid-rows-2 gap-3 lg:gap-2 auto-rows-fr">
     <PagesAboutServiceCard v-for="(service, i) in services" :key="service.title"
       v-motion
       :initial="{ opacity: 0, y: 30 }"

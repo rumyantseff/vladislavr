@@ -52,15 +52,9 @@
       <p class="text-xs sm:text-sm lg:text-base opacity-80 leading-relaxed">{{ description }}</p>
     </div>
 
-    <div :class="[
-          'absolute z-10 bottom-2 right-2 sm:bottom-3 sm:right-3 lg:bottom-6 lg:right-6',
-          'size-7 sm:size-8 lg:size-10 rounded-full flex items-center justify-center',
-          'brand-gradient text-brand-950',
-          'opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0',
-          'transition-all duration-500 ease-out',
-        ]">
-      <SharedIconsArrowUpRight class="size-3.5 sm:size-4 lg:size-5" />
-    </div>
+    <SharedGradientArrowButton tag="div"
+      class="absolute z-10 bottom-2 right-2 sm:bottom-3 sm:right-3 lg:bottom-6 lg:right-6
+             opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0" />
   </div>
 </template>
 

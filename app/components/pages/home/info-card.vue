@@ -3,12 +3,7 @@
               p-5 lg:p-6 flex flex-col">
     <!-- top: round arrow button (right-aligned) -> Contact -->
     <div class="flex justify-end">
-      <button type="button" @click="goToContact" aria-label="Go to contact"
-        class="size-10 lg:size-11 rounded-full brand-gradient hover:brightness-110
-               flex items-center justify-center text-brand-950 cursor-pointer
-               transition-all duration-200">
-        <SharedIconsArrowUpRight class="size-4 lg:size-5" />
-      </button>
+      <SharedGradientArrowButton aria-label="Go to contact" @click="goToContact" />
     </div>
 
     <!-- big text, pushed to the bottom -->

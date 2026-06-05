@@ -29,13 +29,8 @@
     </div>
 
     <!-- arrow button: sits inside the punched hole -->
-    <div class="absolute bottom-1.5 right-1.5 lg:bottom-2 lg:right-2
-                size-12 lg:size-14 rounded-full
-                brand-gradient flex items-center justify-center
-                transition-transform duration-300 ease-out
-                group-hover:scale-105">
-      <SharedIconsArrowUpRight class="size-5 lg:size-6 text-brand-950" />
-    </div>
+    <SharedGradientArrowButton tag="div"
+      class="absolute bottom-1.5 right-1.5 lg:bottom-2 lg:right-2 group-hover:scale-105" />
   </a>
 </template>
 

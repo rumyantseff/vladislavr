@@ -1,7 +1,7 @@
 <template>
-  <p class="font-medium leading-relaxed text-primary-font/70
-            text-sm md:text-base lg:text-lg
-            max-w-md lg:max-w-[58ch]">
+  <p class="font-extralight leading-relaxed text-tertiary-font/70
+            text-sm md:text-base lg:text-xl
+            max-w-md lg:max-w-[560px]">
     <slot>{{ text }}</slot>
   </p>
 </template>

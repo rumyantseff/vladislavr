@@ -3,7 +3,7 @@
     <div :class="['flex whitespace-nowrap w-max', animationClass]">
       <span v-for="i in 2" :key="i" class="flex items-center">
         <span v-for="n in repeat" :key="n"
-          class="font-bold uppercase text-primary-font/15
+          class="font-bold uppercase text-tertiary-font/15
                  text-5xl sm:text-6xl lg:text-7xl xl:text-8xl
                  leading-none px-4 lg:px-8">
           {{ text }}<span class="mx-2 lg:mx-4">·</span>

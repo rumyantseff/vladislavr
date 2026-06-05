@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+
   --color-primary: #B9D42F;
   --color-secondary: #F2E9E1;
   --color-blacker: #1C140D;
@@ -20,7 +22,20 @@
   --color-brand-700: #6F8519;
   --color-brand-800: #4F5E0F;
   --color-brand-900: #2C3508;
-  --color-brand-950: #161A04;
+  --color-brand-950: #131311;
+
+  /* Accent orange — shades for #FF8B33 (#FFC89E kit) */
+  --color-accent-50: #FFF1E5;
+  --color-accent-100: #FFE2CC;
+  --color-accent-200: #FFC599;
+  --color-accent-300: #FFA866;
+  --color-accent-400: #FF8B33;
+  --color-accent-500: #FF6E00;
+  --color-accent-600: #CC5800;
+  --color-accent-700: #994200;
+  --color-accent-800: #662C00;
+  --color-accent-900: #331600;
+  --color-accent-950: #1A0B00;
 
   /* Marquee animations */
   --animate-marquee-left: marquee-left 30s linear infinite;
@@ -50,12 +65,19 @@
 }
 
 html, body, #__nuxt {
-  background-color: var(--color-brand-50);
-  color: var(--color-primary-font);
+  background-color: var(--color-brand-950);
+  color: var(--color-tertiary-font);
+  font-family: var(--font-sans);
 }
 
 @utility container-x {
   width: 100%;
   max-width: 1170px;
   margin-inline: auto;
+}
+
+/* Brand → accent diagonal gradient (5-stop, from Figma) */
+@utility brand-gradient {
+  background-image: linear-gradient(to right bottom,
+    #b9d42f, #d1c318, #e4b212, #f49f20, #ff8b33);
 }

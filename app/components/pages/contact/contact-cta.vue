@@ -3,8 +3,8 @@
     class="group inline-flex items-center gap-3 pr-5 lg:pr-6 pl-1.5 py-1.5
            rounded-full bg-tertiary-font/10 hover:bg-tertiary-font/20
            backdrop-blur-sm transition-colors duration-300">
-    <span class="size-9 lg:size-12 rounded-full bg-brand-950 border border-tertiary-font/20
-                 flex items-center justify-center text-tertiary-font
+    <span class="size-9 lg:size-12 rounded-full brand-gradient
+                 flex items-center justify-center text-brand-950
                  group-hover:translate-x-1 transition-transform duration-300">
       <SharedIconsChevronDoubleRight class="size-4 lg:size-5" />
     </span>

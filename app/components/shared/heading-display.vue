@@ -1,5 +1,5 @@
 <template>
-  <h1 class="font-light tracking-tight leading-none text-primary-font
+  <h1 class="font-light tracking-tight leading-none text-tertiary-font
              text-7xl md:text-8xl lg:text-9xl xl:text-[10rem]">
     {{ text }}
   </h1>

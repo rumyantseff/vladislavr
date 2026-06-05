@@ -9,19 +9,21 @@
         :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"
         :title="service.title" :description="service.description" :initials="service.initials"
         :direction="service.direction"
+        :image="service.image"
         :data-testid="`service-card-${i}`"
         :class="['shrink-0', i % 2 === 0 ? 'snap-start' : '']" />
     </div>
   </div>
 
   <!-- Desktop / tablet bento grid (sm+) -->
-  <div class="hidden sm:grid grid-cols-12 gap-3 lg:gap-6 auto-rows-min">
+  <div class="hidden sm:grid h-full grid-cols-12 grid-rows-2 gap-3 lg:gap-6 auto-rows-fr">
     <PagesAboutServiceCard v-for="(service, i) in services" :key="service.title"
       v-motion
       :initial="{ opacity: 0, y: 30 }"
       :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"
       :title="service.title" :description="service.description" :initials="service.initials"
       :direction="service.direction"
+      :image="service.image"
       :data-testid="`service-card-${i}`"
       :class="service.span" />
   </div>
@@ -35,6 +37,7 @@ const services = [
     description: 'CI/CD pipelines, infrastructure automation and reliable deployments that keep teams shipping safely.',
     span: 'sm:col-span-7',
     direction: 'down',
+    image: '/services/devops.svg',
   },
   {
     title: 'Frontend Development',
@@ -42,6 +45,7 @@ const services = [
     description: 'Modern, performant web interfaces built with Vue and Nuxt — accessible, animated, and responsive.',
     span: 'sm:col-span-5',
     direction: 'down',
+    image: '/services/frontend.svg',
   },
   {
     title: 'QA Engineering',
@@ -49,6 +53,7 @@ const services = [
     description: 'End-to-end testing strategies that catch regressions early and protect critical user flows.',
     span: 'sm:col-span-5',
     direction: 'up',
+    image: '/services/e2e.svg',
   },
   {
     title: 'Brand Design',
@@ -56,6 +61,7 @@ const services = [
     description: 'Visual systems and identity work that connect product, brand, and experience into one consistent voice.',
     span: 'sm:col-span-7',
     direction: 'up',
+    image: null,
   },
 ]
 </script>

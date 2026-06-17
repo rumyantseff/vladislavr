@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ['@vueuse/motion/nuxt', '@nuxt/fonts'],
+  modules: ['@vueuse/motion/nuxt', '@nuxt/fonts', '@pinia/nuxt'],
 
   fonts: {
     families: [

@@ -4,7 +4,7 @@
       v-motion
       :initial="{ opacity: 0, x: -50 }"
       :enter="{ opacity: 1, x: 0, transition: { duration: 700, delay: 800 } }"
-      text="Vlad" />
+      text="Vladislav" />
     <PagesHomeNameLine
       v-motion
       :initial="{ opacity: 0, x: -50 }"

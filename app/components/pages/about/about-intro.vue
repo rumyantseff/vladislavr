@@ -1,20 +1,18 @@
 <template>
-  <div class="flex flex-col items-end text-right gap-3 lg:gap-4">
+  <div class="h-full flex flex-col justify-center">
     <h2
       v-motion
-      :initial="{ opacity: 0, x: 50 }"
+      :initial="{ opacity: 0, x: -40 }"
       :enter="{ opacity: 1, x: 0, transition: { duration: 700, delay: 300 } }"
-      class="font-bold uppercase tracking-tight leading-[0.95] text-brand-950
-             text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
-       A comprehensive <br />look
+      class="font-regular uppercase tracking-tight leading-[1.25] text-brand-50
+             text-2xl sm:text-3xl lg:text-4xl xl:text-5xl max-w-[11.5ch]">
+      {{ t('about.intro.title.1') }} {{ t('about.intro.title.2') }}
     </h2>
-    <p
-      v-motion
-      :initial="{ opacity: 0, x: 50 }"
-      :enter="{ opacity: 1, x: 0, transition: { duration: 700, delay: 450 } }"
-      class="text-sm lg:text-base text-brand-950/80 leading-relaxed max-w-sm">
-      A glimpse into my world — the tools, technologies, and craft I use
-      to build reliable, scalable, and visually consistent solutions.
-    </p>
   </div>
 </template>
+
+<script setup>
+import { useI18n } from '~/composables/useI18n'
+
+const { t } = useI18n()
+</script>

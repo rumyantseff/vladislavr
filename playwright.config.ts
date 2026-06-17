@@ -15,6 +15,9 @@ export default defineConfig({
   // stored next to the spec to keep PR diffs reviewable.
   snapshotPathTemplate: '{testDir}/__snapshots__/{testFilePath}/{arg}-{projectName}{ext}',
   expect: {
+    // Generous timeout: generating/matching a baseline waits for two stable consecutive
+    // frames, and the scroll-driven card choreography can take a few seconds to fully settle.
+    timeout: 15_000,
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.02,
       animations: 'disabled',

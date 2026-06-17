@@ -26,7 +26,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 20;
+  z-index: 0;
   display: flex;
   justify-content: center;
   pointer-events: none;

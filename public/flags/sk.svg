@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <rect width="40" height="13.34" fill="#fff"/>
+  <rect y="13.34" width="40" height="13.33" fill="#0b4ea2"/>
+  <rect y="26.67" width="40" height="13.33" fill="#ee1c25"/>
+  <!-- simplified white double-cross shield, centred-left -->
+  <path d="M11 11 h12 v13 a6 6 0 0 1 -6 6 a6 6 0 0 1 -6 -6 Z" fill="#ee1c25" stroke="#fff" stroke-width="1.4"/>
+  <g fill="#fff">
+    <rect x="15.6" y="13.5" width="2.8" height="14"/>
+    <rect x="12.8" y="16.5" width="8.4" height="2.4"/>
+    <rect x="11.4" y="20.5" width="11.2" height="2.4"/>
+  </g>
+</svg>

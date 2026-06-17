@@ -1,67 +1,62 @@
 <template>
-  <!-- Mobile carousel (< sm) -->
-  <div class="sm:hidden overflow-x-auto snap-x snap-mandatory scroll-smooth
-              [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-    <div class="grid grid-flow-col auto-cols-[calc(50%-0.375rem)] gap-3 pb-2">
-      <PagesAboutServiceCard v-for="(service, i) in services" :key="service.title"
-        v-motion
-        :initial="{ opacity: 0, y: 30 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"
-        :title="service.title" :description="service.description" :initials="service.initials"
-        :direction="service.direction"
-        :image="service.image"
-        :data-testid="`service-card-${i}`"
-        :class="['shrink-0', i % 2 === 0 ? 'snap-start' : '']" />
-    </div>
-  </div>
-
-  <!-- Desktop / tablet bento grid (sm+) -->
-  <div class="hidden sm:grid h-full grid-cols-12 grid-rows-2 gap-3 lg:gap-2 auto-rows-fr">
-    <PagesAboutServiceCard v-for="(service, i) in services" :key="service.title"
-      v-motion
-      :initial="{ opacity: 0, y: 30 }"
-      :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 500 + i * 120 } }"
-      :title="service.title" :description="service.description" :initials="service.initials"
-      :direction="service.direction"
-      :image="service.image"
-      :data-testid="`service-card-${i}`"
-      :class="service.span" />
-  </div>
+  <PagesAboutServiceCarousel :services="services" />
+  <PagesAboutServiceGrid :services="services" :card-styles="cardStyles" />
 </template>
 
 <script setup>
-const services = [
+import { computed } from 'vue'
+import { useCardTransition } from '~/composables/useCardTransition'
+import { usePageReveal } from '~/composables/usePageStack'
+import { useI18n } from '~/composables/useI18n'
+
+const { t } = useI18n()
+
+const services = computed(() => [
   {
-    title: 'DevOps',
-    initials: 'DV',
-    description: 'CI/CD pipelines, infrastructure automation and reliable deployments that keep teams shipping safely.',
+    area: 'devops',
+    title: t('about.devops.title'),
+    description: t('about.devops.desc'),
     span: 'sm:col-span-7',
     direction: 'down',
-    image: '/services/devops.svg',
+    tech: ['Linux', 'CI/CD', 'Kubernetes'],
   },
   {
-    title: 'Frontend Development',
-    initials: 'FE',
-    description: 'Modern, performant web interfaces built with Vue and Nuxt — accessible, animated, and responsive.',
+    area: 'frontend',
+    title: t('about.frontend.title'),
+    description: t('about.frontend.desc'),
     span: 'sm:col-span-5',
     direction: 'down',
-    image: '/services/frontend.svg',
+    tech: ['Vue', 'Nuxt', 'Tailwind'],
   },
   {
-    title: 'QA Engineering',
-    initials: 'QA',
-    description: 'End-to-end testing strategies that catch regressions early and protect critical user flows.',
+    area: 'qa',
+    title: t('about.qa.title'),
+    description: t('about.qa.desc'),
     span: 'sm:col-span-5',
     direction: 'up',
-    image: '/services/e2e.svg',
+    tech: ['Cypress', 'Playwright', 'Postman'],
   },
   {
-    title: 'Brand Design',
-    initials: 'BD',
-    description: 'Visual systems and identity work that connect product, brand, and experience into one consistent voice.',
+    area: 'brand',
+    title: t('about.brand.title'),
+    description: t('about.brand.desc'),
     span: 'sm:col-span-7',
     direction: 'up',
-    image: null,
+    tech: ['Figma', 'UX/UI', 'Inkscape'],
   },
-]
+])
+
+const arrive = usePageReveal(1)
+
+const CARD_COUNT = 4
+const cardStyles = Array.from({ length: CARD_COUNT }, (_, i) =>
+  useCardTransition({
+    pageIndex: 1,
+    index: i,
+    count: CARD_COUNT,
+    enter: { y: 60 },
+    exit: { x: 160 },
+    arrive,
+  }),
+)
 </script>

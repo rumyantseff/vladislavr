@@ -1,61 +1,37 @@
 <template>
   <PagesHomeSkeleton v-if="isLoading" />
-  <div v-else data-testid="page-home" class="relative w-full h-full bg-brand-950 p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
-              overflow-hidden
-              grid gap-3 sm:gap-4 lg:gap-10
-              grid-cols-12 grid-rows-[auto_1fr_auto]">
-    <div aria-hidden="true" class="home-glow" />
-    <div aria-hidden="true" class="home-glow home-glow--right" />
-    <PagesHomeHelloOverlay />
-    <PagesHomeInfoCard class="relative z-20 hidden lg:flex lg:col-span-5 lg:col-start-8 lg:row-start-1 justify-self-end"
-      v-motion
-      :initial="{ opacity: 0, y: -30 }"
-      :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 600 } }" />
-    <PagesHomeHeroCards class="relative z-10 col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:row-span-2" />
-    <PagesHomeName class="relative z-10 col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-3 self-end" />
-    <PagesHomeWelcomeText class="relative z-10 col-span-12 lg:col-span-5 lg:col-start-8 lg:row-start-3 self-end" />
-  </div>
+  <template v-else>
+    <ClientOnly>
+      <SharedAbstractScene class="fixed inset-0 z-10 pointer-events-none" />
+    </ClientOnly>
+
+    <div data-testid="page-home" class="relative w-full h-full p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
+                overflow-hidden
+                grid gap-3 sm:gap-4 lg:gap-10
+                grid-cols-12 grid-rows-[auto_1fr_auto]"
+      :style="{ opacity: t, pointerEvents: t < 0.5 ? 'none' : 'auto' }">
+
+      <PagesHomeHelloOverlay />
+
+      <div aria-hidden="true"
+        class="fixed inset-x-0 top-0 h-40 z-20 pointer-events-none
+               bg-linear-to-b from-brand-950 via-brand-950/80 to-transparent" />
+      <PagesHomeInfoCard class="relative z-20 hidden lg:flex lg:col-span-5 lg:col-start-8 lg:row-start-1 justify-self-end"
+        v-motion
+        :initial="{ opacity: 0, y: -30 }"
+        :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 600 } }" />
+      <PagesHomeHeroCards class="relative z-10 col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:row-span-2" />
+      <PagesHomeName class="relative z-10 col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-3 self-end" />
+      <PagesHomeWelcomeText class="relative z-10 col-span-12 lg:col-span-5 lg:col-start-8 lg:row-start-3 self-end" />
+    </div>
+  </template>
 </template>
 
-<style scoped>
-.home-glow {
-  position: absolute;
-  z-index: 0;
-  left: -15%;
-  bottom: 5%;
-  width: 70%;
-  height: 80%;
-  pointer-events: none;
-  background: radial-gradient(ellipse at center,
-    rgba(185, 212, 47, 0.40) 0%,
-    rgba(185, 212, 47, 0.16) 35%,
-    transparent 70%);
-  filter: blur(70px);
-}
-
-.home-glow--right {
-  left: auto;
-  bottom: auto;
-  right: 10%;
-  top: 32%;
-  width: 34%;
-  height: 50%;
-  background: radial-gradient(ellipse at center,
-    rgba(194, 220, 81, 0.30) 0%,
-    rgba(185, 212, 47, 0.10) 30%,
-    transparent 58%);
-  filter: blur(100px);
-}
-</style>
-
 <script setup>
-import { ref, onMounted } from 'vue'
+import { usePageVisibility } from '~/composables/usePageStack'
+import { usePageSkeleton } from '~/composables/usePageSkeleton'
 
-const isLoading = ref(true)
+const { isLoading } = usePageSkeleton(0)
 
-onMounted(() => {
-  requestAnimationFrame(() => {
-    setTimeout(() => { isLoading.value = false }, 500)
-  })
-})
+const t = usePageVisibility(0)
 </script>

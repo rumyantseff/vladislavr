@@ -29,6 +29,15 @@ type Fixtures = {
 }
 
 export const test = base.extend<Fixtures>({
+  // Suppress the first-visit loading screen so tests see the steady-state UI immediately
+  // (the loader checks this localStorage flag at mount and skips when it's set).
+  page: async ({ page }, use) => {
+    await page.addInitScript(() => {
+      try { window.localStorage.setItem('vr-loader-seen', '1') } catch { /* ignore */ }
+    })
+    await use(page)
+  },
+
   nav: async ({ page }, use) => { await use(new Navigation(page)) },
   stack: async ({ page }, use) => { await use(new PageStack(page)) },
   homePage: async ({ page }, use) => { await use(new HomePage(page)) },

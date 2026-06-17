@@ -3,12 +3,11 @@
     <div v-for="(page, i) in PAGE_STACK_PAGES" :key="page.path"
          :data-index="i"
          :style="{ zIndex: i + 1, height: `${slideHeight}px` }"
-         class="sticky top-0 w-full overflow-hidden bg-brand-950">
+         class="sticky top-0 w-full overflow-hidden">
       <PagesHomeView v-if="i === 0" />
       <PagesAboutView v-else-if="i === 1" />
-      <PagesEducationView v-else-if="i === 2" />
-      <PagesProjectsView v-else-if="i === 3" />
-      <PagesContactView v-else-if="i === 4" />
+      <PagesProjectsView v-else-if="i === 2" />
+      <PagesContactView v-else-if="i === 3" />
     </div>
   </div>
 </template>
@@ -26,8 +25,9 @@ const isScrollingByClick = ref(false)
 const scrollEl = ref<HTMLElement | null>(null)
 const slideHeight = ref(0)
 
-// Smooth-scroll transition between pages (custom easing, gentler than native 'smooth').
-const SCROLL_MS = 1050
+const MOVE_MS = 900
+const DWELL_MS = 500
+const SCROLL_MS = MOVE_MS * 2 + DWELL_MS
 const SNAP_COOLDOWN_MS = SCROLL_MS
 const TOUCH_THRESHOLD_PX = 50
 let locked = false
@@ -37,19 +37,33 @@ let scrollRaf = 0
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+const easeInOutCubic = (t: number): number =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+
 function animateScrollTo(el: HTMLElement, to: number, duration: number) {
   cancelAnimationFrame(scrollRaf)
   if (duration <= 0) { el.scrollTop = to; return }
   const start = el.scrollTop
   const diff = to - start
+  const mid = start + diff / 2
   let startTime = 0
   const step = (ts: number) => {
     if (!startTime) startTime = ts
-    const t = Math.min(1, (ts - startTime) / duration)
-    // easeInOutCubic
-    const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-    el.scrollTop = start + diff * eased
-    if (t < 1) scrollRaf = requestAnimationFrame(step)
+    const elapsed = ts - startTime
+    if (elapsed < MOVE_MS) {
+
+      el.scrollTop = start + (diff / 2) * easeInOutCubic(elapsed / MOVE_MS)
+    } else if (elapsed < MOVE_MS + DWELL_MS) {
+
+      el.scrollTop = mid
+    } else if (elapsed < SCROLL_MS) {
+
+      el.scrollTop = mid + (diff / 2) * easeInOutCubic((elapsed - MOVE_MS - DWELL_MS) / MOVE_MS)
+    } else {
+      el.scrollTop = to
+      return
+    }
+    scrollRaf = requestAnimationFrame(step)
   }
   scrollRaf = requestAnimationFrame(step)
 }
@@ -77,8 +91,11 @@ function measureSlide() {
 }
 
 function onScroll() {
-  if (isScrollingByClick.value || !scrollEl.value || slideHeight.value === 0) return
+  if (!scrollEl.value || slideHeight.value === 0) return
   const slideH = slideHeight.value
+
+  stack.scrollProgress.value = scrollEl.value.scrollTop / slideH
+  if (isScrollingByClick.value) return
   const scrollY = scrollEl.value.scrollTop + slideH / 2
   const max = PAGE_STACK_PAGES.length - 1
   const idx = Math.max(0, Math.min(max, Math.floor(scrollY / slideH)))
@@ -108,7 +125,6 @@ function scrollToIndex(index: number, smooth = true) {
 
 stack.registerScrollTo(scrollToIndex)
 
-// Keep the browser tab title in sync with the active page.
 watch(stack.activeIndex, (idx: number) => {
   if (typeof document === 'undefined') return
   const entry = PAGE_STACK_PAGES[idx]

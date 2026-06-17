@@ -1,3 +1,3 @@
 <template>
-  <LayoutPageStack :initial-index="4" />
+  <LayoutPageStack :initial-index="3" />
 </template>

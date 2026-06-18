@@ -6,6 +6,14 @@ export default defineNuxtConfig({
 
   modules: ['@vueuse/motion/nuxt', '@nuxt/fonts', '@pinia/nuxt'],
 
+  runtimeConfig: {
+    public: {
+      // Web3Forms access key — empty by default (form shows a success placeholder and does
+      // not actually send). Set NUXT_PUBLIC_WEB3FORMS_KEY in .env to enable real sending.
+      web3formsKey: '',
+    },
+  },
+
   fonts: {
     families: [
       { name: 'Sora', provider: 'google', weights: [300, 400, 500, 600, 700, 800] },

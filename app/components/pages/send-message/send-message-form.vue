@@ -15,13 +15,17 @@
           <form class="flex flex-col gap-5 lg:gap-6" @submit.prevent="onSubmit">
             <div class="flex flex-col gap-2">
               <label for="sm-name" class="text-tertiary-font/80 text-sm font-medium">{{ t('form.name') }}</label>
-              <input id="sm-name" v-model="name" type="text" required class="field" />
+              <input id="sm-name" v-model="name" type="text" class="field"
+                :class="{ 'field--error': errors.name }" @input="revalidate('name')" />
+              <p v-if="errors.name" class="text-red-400 text-xs">{{ errors.name }}</p>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-5 lg:gap-4">
               <div class="flex flex-col gap-2 lg:basis-2/3">
                 <label for="sm-email" class="text-tertiary-font/80 text-sm font-medium">{{ t('form.email') }}</label>
-                <input id="sm-email" v-model="email" type="email" required class="field rounded-lg" />
+                <input id="sm-email" v-model="email" type="email" class="field rounded-lg"
+                  :class="{ 'field--error': errors.email }" @input="revalidate('email')" />
+                <p v-if="errors.email" class="text-red-400 text-xs">{{ errors.email }}</p>
               </div>
 
               <div ref="areaRoot" class="relative flex flex-col gap-2 lg:basis-1/3">
@@ -59,15 +63,19 @@
 
             <div class="flex flex-col gap-2">
               <label for="sm-message" class="text-tertiary-font/80 text-sm font-medium">{{ t('form.message') }}</label>
-              <textarea id="sm-message" v-model="message" rows="4" required
-                :placeholder="t('form.messagePlaceholder')" class="field resize-none rounded-lg" />
+              <textarea id="sm-message" v-model="message" rows="4"
+                :placeholder="t('form.messagePlaceholder')" class="field resize-none rounded-lg"
+                :class="{ 'field--error': errors.message }" @input="revalidate('message')" />
+              <p v-if="errors.message" class="text-red-400 text-xs">{{ errors.message }}</p>
             </div>
 
-            <button type="submit"
+            <p v-if="submitError" class="text-red-400 text-sm">{{ submitError }}</p>
+
+            <button type="submit" :disabled="submitting"
               class="brand-gradient text-brand-950 font-semibold rounded-lg
                      py-4 lg:py-5 px-6 text-base lg:text-lg
-                     hover:brightness-110 transition mt-2">
-              {{ t('form.send') }}
+                     hover:brightness-110 transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
+              {{ submitting ? t('form.sending') : t('form.send') }}
             </button>
           </form>
         </template>
@@ -90,7 +98,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, reactive, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from '~/composables/useI18n'
 import { useServiceAreas } from '~/composables/useServiceAreas'
 import { useContactStore } from '~/stores/contact'
@@ -103,6 +111,26 @@ const name = ref('')
 const email = ref('')
 const message = ref('')
 const sent = ref(false)
+const submitting = ref(false)
+const submitError = ref('')
+const submitted = ref(false)
+const errors = reactive({ name: '', email: '', message: '' })
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+function validate() {
+  errors.name = name.value.trim() ? '' : t('form.err.name')
+  if (!email.value.trim()) errors.email = t('form.err.emailRequired')
+  else if (!EMAIL_RE.test(email.value.trim())) errors.email = t('form.err.emailInvalid')
+  else errors.email = ''
+  errors.message = message.value.trim() ? '' : t('form.err.message')
+  return !errors.name && !errors.email && !errors.message
+}
+
+// re-check a single field after the first submit attempt, so errors clear as the user fixes them
+function revalidate(field) {
+  if (submitted.value) validate()
+}
 
 const areaOpen = ref(false)
 const areaRoot = ref(null)

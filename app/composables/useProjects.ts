@@ -8,14 +8,14 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    title: 'Mbrosia — Music Streaming UI',
+    title: 'Mbrosia - Music Streaming UI',
     tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS', 'GO'],
     image: '/portfolio/audio-app.png',
     link: 'https://mbrosia.netlify.app/',
     status: 'published',
   },
   {
-    title: 'Breathe Triangle — Wellness App',
+    title: 'Breathe Triangle - Wellness App',
     tags: ['Vue 2', 'Vuetify', 'HTML', 'CSS'],
     image: '/portfolio/breath-triangle.png',
     link: 'https://triangle-breath.netlify.app/',
@@ -29,14 +29,21 @@ export const PROJECTS: Project[] = [
     status: 'coming_soon',
   },
   {
-    title: 'Sheron — E-commerce Platform',
+    title: 'Sheron - E-commerce Platform',
     tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS'],
     image: '/portfolio/sheron.png',
     link: 'https://sheron-web.tasartir.com/en',
     status: 'published',
   },
   {
-    title: 'Landing Page for Pavel Ivannikov',
+    title: 'Official Rolex Retailer in Bratislava',
+    tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS'],
+    image: '/portfolio/rolex.png',
+    link: 'https://sheron-web.tasartir.com/en/rolex',
+    status: 'published',
+  },
+  {
+    title: 'Pavel Ivannikov\'s Portfolio Page',
     tags: ['Tailwind CSS', 'HTML', 'CSS'],
     image: '/portfolio/pivannikov.png',
     link: '#',

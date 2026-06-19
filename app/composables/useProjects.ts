@@ -22,11 +22,11 @@ export const PROJECTS: Project[] = [
     status: 'published',
   },
   {
-    title: 'Tasartir',
+    title: 'Company\'s Page Redesign',
     tags: ['Vue 3', 'Tailwind CSS', 'HTML', 'CSS'],
-    image: '/portfolio/tasartir.png',
+    image: '/portfolio/company.png',
     link: '#',
-    status: 'coming_soon',
+    status: 'published',
   },
   {
     title: 'Sheron - E-commerce Platform',

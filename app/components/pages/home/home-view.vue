@@ -16,6 +16,9 @@
       <div aria-hidden="true"
         class="fixed inset-x-0 top-0 h-40 z-20 pointer-events-none
                bg-linear-to-b from-brand-950 via-brand-950/80 to-transparent" />
+      <div aria-hidden="true"
+        class="fixed inset-x-0 bottom-0 h-64 z-10 pointer-events-none
+               bg-linear-to-t from-brand-950 via-brand-950/80 to-transparent" />
       <PagesHomeInfoCard class="relative z-20 hidden lg:flex lg:col-span-5 lg:col-start-8 lg:row-start-1 justify-self-end"
         v-motion
         :initial="{ opacity: 0, y: -30 }"

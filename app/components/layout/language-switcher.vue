@@ -1,7 +1,7 @@
 <template>
   <div ref="root" class="relative shrink-0">
 
-    <button type="button" :aria-label="`Language: ${active.code}`" @click.stop="open = !open"
+    <button type="button" :aria-label="`Language: ${active.code}`" @click.stop="toggle"
       class="p-0.5 rounded-full block hover:brightness-110 transition"
       :class="open ? 'opacity-0 pointer-events-none' : ''">
       <span class="lang-pin size-9 lg:size-10 rounded-full overflow-hidden block border border-white/15">
@@ -31,17 +31,16 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed } from 'vue'
 import { useLocale } from '~/composables/useLocale'
+import { useDropdownToggle } from '~/composables/useDropdownToggle'
 
 defineProps({
-
   align: { type: String, default: 'right' },
 })
 
 const { currentLocale, locales, setLocale } = useLocale()
-const open = ref(false)
-const root = ref(null)
+const { open, root, close, toggle } = useDropdownToggle()
 
 const active = computed(() => locales.find(l => l.code === currentLocale.value) ?? locales[0])
 
@@ -52,24 +51,8 @@ const orderedLocales = computed(() => [
 
 function choose(code) {
   setLocale(code)
-  open.value = false
+  close()
 }
-
-function onDocClick(e) {
-  if (open.value && root.value && !root.value.contains(e.target)) open.value = false
-}
-function onKey(e) {
-  if (e.key === 'Escape') open.value = false
-}
-
-onMounted(() => {
-  document.addEventListener('click', onDocClick)
-  window.addEventListener('keydown', onKey)
-})
-onBeforeUnmount(() => {
-  document.removeEventListener('click', onDocClick)
-  window.removeEventListener('keydown', onKey)
-})
 </script>
 
 <style scoped>

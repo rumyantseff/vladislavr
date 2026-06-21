@@ -6,8 +6,12 @@
     <div class="absolute inset-0 rounded-xl lg:rounded-2xl overflow-hidden"
       :class="{ 'card-cut': !comingSoon }">
 
-      <img v-if="!comingSoon" :src="image" :alt="title"
-        class="absolute inset-0 w-full h-full object-cover" />
+      <picture v-if="!comingSoon">
+        <source :srcset="image" type="image/webp" />
+        <img :src="pngFallback" :alt="title"
+          loading="lazy" decoding="async"
+          class="absolute inset-0 w-full h-full object-cover" />
+      </picture>
 
       <canvas v-else ref="blurCanvas"
         class="absolute inset-0 w-full h-full" />
@@ -54,6 +58,7 @@ const props = defineProps({
 })
 
 const comingSoon = computed(() => props.status === 'coming_soon')
+const pngFallback = computed(() => props.image.replace(/\.webp$/, '.png'))
 
 const blurCanvas = ref(null)
 useCanvasBlur(blurCanvas, () => props.image, () => comingSoon.value)

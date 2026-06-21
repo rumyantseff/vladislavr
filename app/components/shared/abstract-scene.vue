@@ -10,9 +10,9 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { usePageStack } from '~/composables/usePageStack'
-import { makeGlowTexture } from '~/composables/scene/glowTexture'
 import { createCosmicStars } from '~/composables/scene/useCosmicStars'
 import { createCometSystem } from '~/composables/scene/useCometSystem'
+import { knotGlassMat, knotPoint, makeQuantum, KNOT_R, KNOT_P, KNOT_Q } from '~/composables/scene/sceneFactories'
 
 const container = ref(null)
 
@@ -32,6 +32,9 @@ const knotPos = new THREE.Vector3()
 
 let starField = null
 let cometSystem = null
+// perf: cached viewport flag (avoid window.innerWidth per frame) + render gating state
+let isMobile = false
+let hidden = false
 const STAR_PLANE_Z = -4
 const pointer = new THREE.Vector2(-10, -10)
 const cursorWorld = new THREE.Vector3()
@@ -90,20 +93,6 @@ function onPointerUp() {
 const reducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-function knotGlassMat() {
-  return new THREE.MeshPhysicalMaterial({
-    color: 0xffffff, metalness: 0, roughness: 0,
-    transmission: 1, thickness: 1.2, transparent: true,
-    opacity: 0.42,
-    ior: 1.6, dispersion: 2,
-    clearcoat: 0.5, clearcoatRoughness: 0.1,
-    reflectivity: 0.4, specularIntensity: 0.5,
-    envMapIntensity: 0.4,
-    attenuationDistance: 12,
-    flatShading: true,
-  })
-}
-
 function init() {
   const el = container.value
   const width = el.clientWidth || window.innerWidth
@@ -157,6 +146,13 @@ function init() {
   window.addEventListener('mousemove', onPointerMove, { passive: true })
   window.addEventListener('mousedown', onPointerDown)
   window.addEventListener('mouseup', onPointerUp)
+  document.addEventListener('visibilitychange', onVisibility)
+}
+
+// pause the render loop while the tab is in the background; resume on return
+function onVisibility() {
+  hidden = document.hidden
+  if (!hidden && !raf) { lastT = clock.getElapsedTime(); animate() }
 }
 
 function addLights() {
@@ -177,23 +173,6 @@ function addLights() {
   const fill = new THREE.DirectionalLight(0xffffff, 0.3)
   fill.position.set(0, -2, 8)
   scene.add(fill)
-}
-
-const KNOT_R = 1.6
-const KNOT_P = 2
-const KNOT_Q = 3
-
-function knotPoint(u, target) {
-  const p = KNOT_P, q = KNOT_Q
-  const cu = Math.cos(u), su = Math.sin(u)
-  const quOverP = (q / p) * u
-  const cs = Math.cos(quOverP)
-  target.set(
-    KNOT_R * (2 + cs) * 0.5 * cu,
-    KNOT_R * (2 + cs) * 0.5 * su,
-    KNOT_R * Math.sin(quOverP) * 0.5,
-  )
-  return target
 }
 
 function addObjects() {
@@ -223,37 +202,11 @@ function addObjects() {
   greenQuantum = makeQuantum(GREEN)
   centerKnot.add(greenQuantum)
 
-  starField = createCosmicStars(scene, { green: GREEN, orange: ORANGE, planeZ: STAR_PLANE_Z })
+  // fewer stars on mobile (imperceptible on a small display, much cheaper per frame)
+  const starCount = window.innerWidth < 1024 ? 260 : 520
+  starField = createCosmicStars(scene, { count: starCount, green: GREEN, orange: ORANGE, planeZ: STAR_PLANE_Z })
   cometSystem = createCometSystem(scene, { green: GREEN, orange: ORANGE })
   addAltarBeam()
-}
-
-function makeQuantum(color) {
-  const glowTex = makeGlowTexture()
-  const g = new THREE.Group()
-
-  const core = new THREE.Mesh(
-    new THREE.SphereGeometry(0.09, 16, 16),
-    new THREE.MeshBasicMaterial({
-      color: 0xffffff, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false,
-    }),
-  )
-  core.renderOrder = 10
-  g.add(core)
-  const sprite = (size, opacity) => {
-    const s = new THREE.Sprite(new THREE.SpriteMaterial({
-      map: glowTex, color, transparent: true, opacity,
-      blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false,
-    }))
-    s.scale.setScalar(size)
-    s.renderOrder = 11
-    g.add(s)
-    return s
-  }
-  const inner = sprite(0.9, 0.9)
-  const outer = sprite(1.8, 0.45)
-  g.userData.glow = { inner, outer, baseInner: 0.9, baseOuter: 1.8 }
-  return g
 }
 
 let beamGroup = null
@@ -287,6 +240,7 @@ function addAltarBeam() {
 
 function applyResponsive() {
   const mobile = window.innerWidth < 1024
+  isMobile = mobile // cache so the animate loop doesn't read window.innerWidth per frame
   if (camera) {
     camera.position.z = mobile ? 18 : 13
     camera.position.y = mobile ? 2.5 : 0
@@ -299,12 +253,42 @@ function applyResponsive() {
     altarBeam.coreMax = mobile ? 0.85 : 1
     altarBeam.hotMax = mobile ? 0.9 : 1
   }
-
+  // adaptive quality on mobile (desktop untouched): lighter pixel ratio + half-res bloom
+  if (renderer) {
+    const dpr = window.devicePixelRatio || 1
+    renderer.setPixelRatio(Math.min(dpr, mobile ? 1.75 : 2.5))
+  }
+  if (bloomPass && container.value) {
+    const w = container.value.clientWidth, h = container.value.clientHeight
+    const s = mobile ? 0.5 : 1
+    bloomPass.setSize(Math.max(1, Math.round(w * s)), Math.max(1, Math.round(h * s)))
+  }
 }
 
 let lastT = 0
 function animate() {
+  // pause entirely when the tab is hidden (no rendering off-screen)
+  if (hidden) { raf = 0; return }
   raf = requestAnimationFrame(animate)
+
+  // the scene only shows through Home + (glass) About; on Projects/Contact the page is
+  // opaque on top, so skip ALL per-frame work + render once we're past About.
+  const visible = scrollProgress.value < 1.6
+  if (!visible) {
+    // A multi-step jump (e.g. Home -> Contact) eases the knot out only halfway before the
+    // dwell teleports scrollProgress past this gate, freezing the knot mid-fade — it would
+    // then sit partially visible at the top of Projects/Contact while the target page eases
+    // in. Snap it fully hidden and render that one last frame so the canvas actually clears
+    // the stale knot (after that we go back to skipping render while off-screen).
+    if (knotShow !== 0) {
+      knotShow = 0
+      if (knotMount) knotMount.visible = false
+      knotVisible.value = 0
+      composer.render()
+    }
+    return
+  }
+
   const t = clock.getElapsedTime()
   const dt = Math.min(t - lastT, 0.05)
   lastT = t
@@ -347,7 +331,7 @@ function animate() {
       if (target === 0 && knotShow < 0.003) knotShow = 0
       if (target === 1 && knotShow > 0.98) knotShow = 1
     }
-    const mobile = window.innerWidth < 1024
+    const mobile = isMobile
 
     const base = (mobile ? 2.8 * 0.58 : 2.8)
     const restY = mobile ? 3.2 : 0
@@ -378,8 +362,7 @@ function onResize() {
   camera.updateProjectionMatrix()
   renderer.setSize(width, height)
   composer?.setSize(width, height)
-  bloomPass?.setSize(width, height)
-  applyResponsive()
+  applyResponsive() // sets pixelRatio + bloom resolution (adaptive on mobile)
 }
 
 function dispose() {
@@ -388,6 +371,7 @@ function dispose() {
   window.removeEventListener('mousemove', onPointerMove)
   window.removeEventListener('mousedown', onPointerDown)
   window.removeEventListener('mouseup', onPointerUp)
+  document.removeEventListener('visibilitychange', onVisibility)
   starField?.dispose()
   cometSystem?.dispose()
   scene?.traverse((obj) => {

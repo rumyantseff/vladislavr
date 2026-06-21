@@ -25,8 +25,8 @@ const isScrollingByClick = ref(false)
 const scrollEl = ref<HTMLElement | null>(null)
 const slideHeight = ref(0)
 
-const MOVE_MS = 900
-const DWELL_MS = 500
+const MOVE_MS = 550
+const DWELL_MS = 200
 const SCROLL_MS = MOVE_MS * 2 + DWELL_MS
 const SNAP_COOLDOWN_MS = SCROLL_MS
 const TOUCH_THRESHOLD_PX = 50
@@ -45,20 +45,32 @@ function animateScrollTo(el: HTMLElement, to: number, duration: number) {
   if (duration <= 0) { el.scrollTop = to; return }
   const start = el.scrollTop
   const diff = to - start
-  const mid = start + diff / 2
+  const slideH = slideHeight.value || Math.abs(diff)
+  const dir = Math.sign(diff)
+
+  // For a MULTI-step jump (e.g. Home -> Projects/Contact) we must NOT scroll through the
+  // pages in between (you'd see them flash by). Instead: ease the CURRENT page out by half a
+  // slide, instantly jump across the gap during the dwell, then ease the TARGET page in over
+  // the last half slide. So only the current + target pages are ever near the viewport.
+  const multi = Math.abs(diff) > slideH + 1
+  // beat 1 ends here (current page faded out by ~half a slide)
+  const outY = multi ? start + dir * slideH * 0.5 : start + diff / 2
+  // beat 3 starts here (target page begins half a slide away, fades in)
+  const inStartY = multi ? to - dir * slideH * 0.5 : start + diff / 2
+
   let startTime = 0
   const step = (ts: number) => {
     if (!startTime) startTime = ts
     const elapsed = ts - startTime
     if (elapsed < MOVE_MS) {
-
-      el.scrollTop = start + (diff / 2) * easeInOutCubic(elapsed / MOVE_MS)
+      // beat 1 — current page eases out
+      el.scrollTop = start + (outY - start) * easeInOutCubic(elapsed / MOVE_MS)
     } else if (elapsed < MOVE_MS + DWELL_MS) {
-
-      el.scrollTop = mid
+      // dwell — sit at the empty point; for multi-step, jump across the gap now (no scroll-through)
+      el.scrollTop = inStartY
     } else if (elapsed < SCROLL_MS) {
-
-      el.scrollTop = mid + (diff / 2) * easeInOutCubic((elapsed - MOVE_MS - DWELL_MS) / MOVE_MS)
+      // beat 3 — target page eases in
+      el.scrollTop = inStartY + (to - inStartY) * easeInOutCubic((elapsed - MOVE_MS - DWELL_MS) / MOVE_MS)
     } else {
       el.scrollTop = to
       return
@@ -90,7 +102,18 @@ function measureSlide() {
   slideHeight.value = scrollEl.value?.clientHeight ?? window.innerHeight
 }
 
+// coalesce scroll events to at most one reactive update per animation frame, so the
+// ~18 scrollProgress-dependent computeds recompute once a frame instead of per event.
+let scrollTick = 0
 function onScroll() {
+  if (scrollTick) return
+  scrollTick = requestAnimationFrame(() => {
+    scrollTick = 0
+    applyScroll()
+  })
+}
+
+function applyScroll() {
   if (!scrollEl.value || slideHeight.value === 0) return
   const slideH = slideHeight.value
 
@@ -175,6 +198,7 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   cancelAnimationFrame(scrollRaf)
+  if (scrollTick) cancelAnimationFrame(scrollTick)
   scrollEl.value?.removeEventListener('scroll', onScroll)
   scrollEl.value?.removeEventListener('wheel', onWheel)
   scrollEl.value?.removeEventListener('touchstart', onTouchStart)

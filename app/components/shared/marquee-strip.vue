@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-hidden w-full">
-    <div :class="['flex whitespace-nowrap w-max', animationClass]">
+    <div :class="['flex whitespace-nowrap w-max will-change-transform', animationClass]">
       <span v-for="i in 2" :key="i" class="flex items-center">
         <span v-for="n in repeat" :key="n"
           class="font-bold uppercase text-tertiary-font/15

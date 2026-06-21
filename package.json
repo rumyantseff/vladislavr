@@ -27,6 +27,7 @@
     "@nuxt/fonts": "^0.14.0",
     "@playwright/test": "^1.49.0",
     "@tailwindcss/vite": "^4.2.4",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4.2.4"
   }
 }

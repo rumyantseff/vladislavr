@@ -70,17 +70,15 @@
 </style>
 
 <script setup>
-import { computed } from 'vue'
 import { usePageReveal } from '~/composables/usePageStack'
 import { usePageSkeleton } from '~/composables/usePageSkeleton'
 import { useCardTransition } from '~/composables/useCardTransition'
 import { useI18n } from '~/composables/useI18n'
 
-const { t } = useI18n()
-
-// flowing wave lines — a stack of parallel sine curves running top→bottom, gently shifting
-// phase/amplitude down the card so they swirl like the reference image. viewBox 100 x 130.
-const waves = computed(() => {
+// flowing wave lines — fully static SVG paths, computed ONCE at module load (was a per-scroll
+// computed doing 34×26 = 884 iterations). viewBox 100 x 130.
+const waves = buildWaves()
+function buildWaves() {
   const out = []
   const COUNT = 34
   const STEPS = 26
@@ -89,16 +87,17 @@ const waves = computed(() => {
     let d = ''
     for (let s = 0; s <= STEPS; s++) {
       const y = (s / STEPS) * 130
-      const t = s / STEPS
-      // amplitude grows toward the middle/bottom; phase shifts per line for the swirl
-      const amp = 6 + 10 * Math.sin(t * Math.PI)
-      const x = baseX + amp * Math.sin(t * 3.2 + n * 0.45)
+      const tt = s / STEPS
+      const amp = 6 + 10 * Math.sin(tt * Math.PI)
+      const x = baseX + amp * Math.sin(tt * 3.2 + n * 0.45)
       d += (s === 0 ? 'M' : 'L') + x.toFixed(2) + ' ' + y.toFixed(2) + ' '
     }
     out.push(d.trim())
   }
   return out
-})
+}
+
+const { t } = useI18n()
 
 const { isLoading } = usePageSkeleton(1)
 

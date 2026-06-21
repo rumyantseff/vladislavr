@@ -32,8 +32,6 @@ import { useContactStore } from '~/stores/contact'
 const props = defineProps({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  initials: { type: String, default: '' },
-  direction: { type: String, default: 'down' },
   tech: { type: Array, default: () => [] },
   area: { type: String, default: '' },
 })

@@ -21,7 +21,6 @@
 import { useCarousel } from '~/composables/useCarousel'
 
 defineProps({
-
   projects: { type: Array, required: true },
   stacks: { type: Array, required: true },
 })

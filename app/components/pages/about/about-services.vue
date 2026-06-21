@@ -17,7 +17,6 @@ const services = computed(() => [
     title: t('about.devops.title'),
     description: t('about.devops.desc'),
     span: 'sm:col-span-7',
-    direction: 'down',
     tech: ['Linux', 'CI/CD', 'Kubernetes'],
   },
   {
@@ -25,7 +24,6 @@ const services = computed(() => [
     title: t('about.frontend.title'),
     description: t('about.frontend.desc'),
     span: 'sm:col-span-5',
-    direction: 'down',
     tech: ['Vue', 'Nuxt', 'Tailwind'],
   },
   {
@@ -33,7 +31,6 @@ const services = computed(() => [
     title: t('about.qa.title'),
     description: t('about.qa.desc'),
     span: 'sm:col-span-5',
-    direction: 'up',
     tech: ['Cypress', 'Playwright', 'Postman'],
   },
   {
@@ -41,7 +38,6 @@ const services = computed(() => [
     title: t('about.brand.title'),
     description: t('about.brand.desc'),
     span: 'sm:col-span-7',
-    direction: 'up',
     tech: ['Figma', 'UX/UI', 'Inkscape'],
   },
 ])

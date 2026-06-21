@@ -32,6 +32,8 @@ import Briefcase from '~/components/shared/icons/briefcase.vue'
 import InformationCircle from '~/components/shared/icons/information-circle.vue'
 import Identification from '~/components/shared/icons/identification.vue'
 import FaceSmile from '~/components/shared/icons/face-smile.vue'
+import Home from '~/components/shared/icons/home.vue'
+import Contact from '~/components/shared/icons/contact.vue'
 import { usePageStack } from '~/composables/usePageStack'
 import { useI18n } from '~/composables/useI18n'
 
@@ -40,9 +42,9 @@ const { t } = useI18n()
 const menuOpen = ref(false)
 
 const links = computed(() => [
-  { text: t('nav.home'), to: '/', icon: Briefcase },
+  { text: t('nav.home'), to: '/', icon: Home },
   { text: t('nav.about'), to: '/about', icon: InformationCircle },
-  { text: t('nav.projects'), to: '/projects', icon: FaceSmile },
-  { text: t('nav.contact'), to: '/contact', icon: Identification },
+  { text: t('nav.projects'), to: '/projects', icon: Briefcase },
+  { text: t('nav.contact'), to: '/contact', icon: Contact },
 ])
 </script>

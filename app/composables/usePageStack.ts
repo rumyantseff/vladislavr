@@ -41,6 +41,12 @@ const KNOT_GONE = 0.02
 export const usePageReveal = (index: number): ComputedRef<number> =>
   computed(() => {
     const visible = clamp01(1 - Math.abs(scrollProgress.value - index) / HANDOFF)
+    // The knot-vanish gate only matters for About (the page right after Home, where the
+    // sequential "wait for the knot to disappear" effect lives). Projects/Contact are far
+    // from Home — the knot is long gone — so they reveal purely on scroll visibility. This
+    // also avoids depending on knotVisible, which the (paused) 3D loop stops publishing
+    // once the scene is off-screen.
+    if (index !== 1) return easeInOutCubic(visible)
     const gate = clamp01((KNOT_GONE - knotVisible.value) / KNOT_GONE)
     return easeInOutCubic(visible * gate)
   })

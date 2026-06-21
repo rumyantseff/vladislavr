@@ -37,7 +37,7 @@ const SLICES = {
 const imageStyle = computed(() => {
   const s = SLICES[props.imagePosition] ?? SLICES.top
   return {
-    backgroundImage: 'url("/abstract-home-card.png")',
+    backgroundImage: `image-set(url("/abstract-home-card.webp") type("image/webp"), url("/abstract-home-card.png") type("image/png"))`,
     backgroundSize: s.size,
     backgroundPosition: s.pos,
     backgroundRepeat: 'no-repeat',

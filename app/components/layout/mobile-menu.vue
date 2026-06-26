@@ -19,7 +19,7 @@
 
         <div class="relative z-10 flex-1 flex flex-col px-6 sm:px-8 pt-2">
           <nav class="flex flex-col">
-            <button v-for="(link, i) in links" :key="link.to" type="button"
+            <button v-for="(link, i) in links" :key="i" type="button"
               @click="go(i)"
               class="menu-stagger py-2.5 text-left text-3xl sm:text-4xl font-semibold transition-colors"
               :class="activeIndex === i ? 'text-tertiary-font' : 'text-tertiary-font/60 hover:text-tertiary-font'"
@@ -35,7 +35,7 @@
 
         <div class="menu-stagger relative z-10 shrink-0 px-6 sm:px-8 pb-8" :style="delay(2 + links.length)">
           <SharedCtaButton :text="t('nav.contactMe')" align="right" full
-            link="mailto:vladik.rumyantsev@gmail.com" />
+            :link="sendMessagePath" @click="$emit('close')" />
         </div>
       </div>
     </Transition>
@@ -44,25 +44,35 @@
 
 <script setup>
 import { computed } from 'vue'
-import { usePageStack } from '~/composables/usePageStack'
+import { usePageStack, PAGE_STACK_PAGES } from '~/composables/usePageStack'
 import { useI18n } from '~/composables/useI18n'
+import { useLocale } from '~/composables/useLocale'
+import { localizedPath } from '~/i18n/routes'
 
 defineProps({ open: { type: Boolean, default: false } })
 const emit = defineEmits(['close'])
 
 const stack = usePageStack()
 const { t } = useI18n()
+const { currentLocale } = useLocale()
 const activeIndex = stack.activeIndex
 
+const sendMessagePath = computed(() => localizedPath('send-message', currentLocale.value))
+
+// navigation is index-based via go(i) -> stack.scrollTo(i), so only the visible label matters
 const links = computed(() => [
-  { text: t('nav.home'), to: '/' },
-  { text: t('nav.about'), to: '/about' },
-  { text: t('nav.projects'), to: '/projects' },
-  { text: t('nav.contact'), to: '/contact' },
+  { text: t('nav.home') },
+  { text: t('nav.about') },
+  { text: t('nav.projects') },
+  { text: t('nav.contact') },
 ])
 
 function go(i) {
-  stack.scrollTo(i)
+  // a mounted page-stack scrolls to the section; otherwise (on /send-message) navigate by URL
+  if (!stack.scrollTo(i)) {
+    const key = PAGE_STACK_PAGES[i]?.key
+    if (key) navigateTo(localizedPath(key, currentLocale.value))
+  }
   emit('close')
 }
 

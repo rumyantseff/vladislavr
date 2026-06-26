@@ -50,10 +50,15 @@ export function useCardTransition(opts: CardTransitionOpts): ComputedRef<CSSProp
     const tx = (move.x ?? 0) * k
     const ty = (move.y ?? 0) * k
 
+    // only promote to a compositor layer while the card is actually mid-move; leaving
+    // will-change on permanently keeps a live layer per card (GPU memory + extra style cost)
+    // even when the page is at rest.
+    const moving = k > 0.001 && k < 0.999
+
     return {
       transform: `translate3d(${tx}px, ${ty}px, 0)`,
       opacity: 1 - k,
-      willChange: 'transform, opacity',
+      willChange: moving ? 'transform, opacity' : 'auto',
     }
   })
 }

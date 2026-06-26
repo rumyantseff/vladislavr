@@ -17,11 +17,20 @@
                rounded-xl bg-brand-950/90 backdrop-blur-xl border border-white/10
                shadow-[0_12px_40px_rgba(0,0,0,0.5)]">
         <li v-for="a in areas" :key="a.value">
-          <button type="button" @click="selectArea(a.value)"
-            class="w-full flex items-start justify-between gap-3 rounded-lg px-3 py-2.5 text-left
-                   hover:bg-white/5 transition">
+          <button type="button" :disabled="!a.available" @click="selectArea(a)"
+            class="w-full flex items-start justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition"
+            :class="a.available
+              ? 'hover:bg-white/5'
+              : 'opacity-50 cursor-not-allowed'">
             <span class="flex flex-col">
-              <span class="text-tertiary-font font-medium text-sm">{{ t(a.labelKey) }}</span>
+              <span class="text-tertiary-font font-medium text-sm flex items-center gap-2">
+                {{ t(a.labelKey) }}
+                <span v-if="!a.available"
+                  class="rounded-full bg-white/10 border border-white/15 px-1.5 py-0.5
+                         text-[10px] font-semibold uppercase tracking-wide text-tertiary-font/60">
+                  {{ t('area.unavailable') }}
+                </span>
+              </span>
               <span class="text-tertiary-font/50 text-xs">{{ t(a.descKey) }}</span>
             </span>
             <SharedIconsCheck v-if="contact.selectedArea === a.value"
@@ -50,8 +59,9 @@ const selectedLabel = computed(() => {
   return a ? t(a.labelKey) : t('form.areaPlaceholder')
 })
 
-function selectArea(value) {
-  contact.setArea(value)
+function selectArea(area) {
+  if (!area.available) return
+  contact.setArea(area.value)
   close()
 }
 </script>

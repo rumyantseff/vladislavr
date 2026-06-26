@@ -97,6 +97,8 @@ function init() {
   const el = container.value
   const width = el.clientWidth || window.innerWidth
   const height = el.clientHeight || window.innerHeight
+  // decide mobile once up front so init can pick cheaper geometry/materials/AA
+  isMobile = window.innerWidth < 1024
 
   scene = new THREE.Scene()
   scene.background = null
@@ -106,8 +108,10 @@ function init() {
   camera.position.set(0, 0, 13)
   camera.lookAt(0, 0, 0)
 
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.5))
+  // antialias off on mobile — MSAA is costly there and the lower DPR + bloom already soften edges
+  renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true, powerPreference: 'high-performance' })
+  // cap DPR by viewport class from the first frame so we never allocate an oversized buffer
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2.5))
   renderer.setSize(width, height)
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.0
@@ -176,34 +180,39 @@ function addLights() {
 }
 
 function addObjects() {
+  // The knot is the heaviest part of the scene (high-poly torus knots + transmission glass +
+  // clearcoat). On mobile we skip building it entirely — the beam + stars + comets carry the
+  // look, and the home layout already raises/shrinks the knot there anyway. Everything that
+  // touches the knot in the loop is null-guarded, so leaving these refs null is safe.
+  if (!isMobile) {
+    knotMount = new THREE.Group()
+    knotMount.position.set(0, 0, -2)
+    knotMount.rotation.x = Math.PI / 2
+    knotMount.scale.setScalar(2.8)
+    scene.add(knotMount)
 
-  knotMount = new THREE.Group()
-  knotMount.position.set(0, 0, -2)
-  knotMount.rotation.x = Math.PI / 2
-  knotMount.scale.setScalar(2.8)
-  scene.add(knotMount)
+    centerKnot = new THREE.Mesh(
+      new THREE.TorusKnotGeometry(KNOT_R, 0.22, 220, 32, KNOT_P, KNOT_Q),
+      knotGlassMat(),
+    )
+    knotMount.add(centerKnot)
 
-  centerKnot = new THREE.Mesh(
-    new THREE.TorusKnotGeometry(KNOT_R, 0.22, 220, 32, KNOT_P, KNOT_Q),
-    knotGlassMat(),
-  )
-  knotMount.add(centerKnot)
+    const copperVein = new THREE.Mesh(
+      new THREE.TorusKnotGeometry(KNOT_R, 0.07, 220, 32, KNOT_P, KNOT_Q),
+      new THREE.MeshPhysicalMaterial({
+        color: 0xC2702E, metalness: 1, roughness: 0.22,
+        clearcoat: 1, clearcoatRoughness: 0.08,
+        envMapIntensity: 1.6,
+      }),
+    )
+    centerKnot.add(copperVein)
 
-  const copperVein = new THREE.Mesh(
-    new THREE.TorusKnotGeometry(KNOT_R, 0.07, 220, 32, KNOT_P, KNOT_Q),
-    new THREE.MeshPhysicalMaterial({
-      color: 0xC2702E, metalness: 1, roughness: 0.22,
-      clearcoat: 1, clearcoatRoughness: 0.08,
-      envMapIntensity: 1.6,
-    }),
-  )
-  centerKnot.add(copperVein)
-
-  greenQuantum = makeQuantum(GREEN)
-  centerKnot.add(greenQuantum)
+    greenQuantum = makeQuantum(GREEN)
+    centerKnot.add(greenQuantum)
+  }
 
   // fewer stars on mobile (imperceptible on a small display, much cheaper per frame)
-  const starCount = window.innerWidth < 1024 ? 260 : 520
+  const starCount = isMobile ? 180 : 520
   starField = createCosmicStars(scene, { count: starCount, green: GREEN, orange: ORANGE, planeZ: STAR_PLANE_Z })
   cometSystem = createCometSystem(scene, { green: GREEN, orange: ORANGE })
   addAltarBeam()
@@ -253,23 +262,34 @@ function applyResponsive() {
     altarBeam.coreMax = mobile ? 0.85 : 1
     altarBeam.hotMax = mobile ? 0.9 : 1
   }
-  // adaptive quality on mobile (desktop untouched): lighter pixel ratio + half-res bloom
+  // adaptive quality on mobile (desktop untouched): lighter pixel ratio + low-res bloom
   if (renderer) {
     const dpr = window.devicePixelRatio || 1
-    renderer.setPixelRatio(Math.min(dpr, mobile ? 1.75 : 2.5))
+    renderer.setPixelRatio(Math.min(dpr, mobile ? 1.5 : 2.5))
   }
   if (bloomPass && container.value) {
     const w = container.value.clientWidth, h = container.value.clientHeight
-    const s = mobile ? 0.5 : 1
+    // quarter-res bloom on mobile (was half) — the glow is soft so the lower res isn't visible
+    const s = mobile ? 0.35 : 1
     bloomPass.setSize(Math.max(1, Math.round(w * s)), Math.max(1, Math.round(h * s)))
   }
 }
 
 let lastT = 0
+// cap the decorative scene to ~30fps on mobile — the animation is slow and ambient, so half
+// the frames are imperceptible but it halves the GPU/CPU render cost on phones.
+let lastFrameMs = 0
+const MOBILE_FRAME_MS = 1000 / 30
 function animate() {
   // pause entirely when the tab is hidden (no rendering off-screen)
   if (hidden) { raf = 0; return }
   raf = requestAnimationFrame(animate)
+
+  if (isMobile) {
+    const now = performance.now()
+    if (now - lastFrameMs < MOBILE_FRAME_MS) return
+    lastFrameMs = now
+  }
 
   // the scene only shows through Home + (glass) About; on Projects/Contact the page is
   // opaque on top, so skip ALL per-frame work + render once we're past About.

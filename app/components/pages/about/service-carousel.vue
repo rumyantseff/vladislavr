@@ -8,7 +8,7 @@
           :initial="{ opacity: 0, y: 30 }"
           :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 400 + i * 120 } }"
           :title="service.title" :description="service.description"
-          :tech="service.tech" :area="service.area"
+          :tech="service.tech" :area="service.area" :available="service.available"
           :data-testid="`service-card-${i}`"
           class="shrink-0 snap-start" />
       </div>

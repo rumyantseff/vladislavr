@@ -7,14 +7,14 @@
     <SharedLogo data-testid="nav-logo" class="shrink-0 ml-1 lg:ml-2" />
     <nav class="flex-1 hidden lg:flex items-center justify-center gap-1.5 lg:gap-2">
       <SharedNavLink v-for="(link, i) in links" :key="i"
-        :text="link.text" :to="link.to" :icon="link.icon"
+        :text="link.text" :to="link.to" :page-key="link.key" :icon="link.icon"
         :active="stack.activeIndex.value === i" />
     </nav>
     <div class="flex-1 lg:hidden"></div>
     <LayoutLanguageSwitcher class="hidden lg:block" />
     <div class="hidden lg:block shrink-0">
       <SharedCtaButton data-testid="nav-contact-me" :text="t('nav.contactMe')" align="right"
-        link="mailto:vladik.rumyantsev@gmail.com"
+        :link="sendMessagePath"
         size-class="size-8 lg:size-9" icon-class="size-4 lg:size-4.5" />
     </div>
     <button type="button" aria-label="Open menu" @click="menuOpen = true"
@@ -36,15 +36,20 @@ import Home from '~/components/shared/icons/home.vue'
 import Contact from '~/components/shared/icons/contact.vue'
 import { usePageStack } from '~/composables/usePageStack'
 import { useI18n } from '~/composables/useI18n'
+import { useLocale } from '~/composables/useLocale'
+import { localizedPath } from '~/i18n/routes'
 
 const stack = usePageStack()
 const { t } = useI18n()
+const { currentLocale } = useLocale()
 const menuOpen = ref(false)
 
+const sendMessagePath = computed(() => localizedPath('send-message', currentLocale.value))
+
 const links = computed(() => [
-  { text: t('nav.home'), to: '/', icon: Home },
-  { text: t('nav.about'), to: '/about', icon: InformationCircle },
-  { text: t('nav.projects'), to: '/projects', icon: Briefcase },
-  { text: t('nav.contact'), to: '/contact', icon: Contact },
+  { key: 'home', text: t('nav.home'), to: localizedPath('home', currentLocale.value), icon: Home },
+  { key: 'about', text: t('nav.about'), to: localizedPath('about', currentLocale.value), icon: InformationCircle },
+  { key: 'projects', text: t('nav.projects'), to: localizedPath('projects', currentLocale.value), icon: Briefcase },
+  { key: 'contact', text: t('nav.contact'), to: localizedPath('contact', currentLocale.value), icon: Contact },
 ])
 </script>

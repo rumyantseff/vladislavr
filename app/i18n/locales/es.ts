@@ -35,6 +35,7 @@ export const es: Messages = {
   'about.brand.desc': 'Sistemas visuales e identidad que conectan producto, marca y experiencia en una sola voz coherente.',
 
   'projects.comingSoon': 'Próximamente',
+  'area.unavailable': 'No disponible',
 
   'contact.title.1': 'Construyamos',
   'contact.title.2': 'Puentes',
@@ -49,7 +50,7 @@ export const es: Messages = {
   'form.name': 'Nombre y apellido',
   'form.email': 'Correo',
   'form.area': 'Área de interés',
-  'form.areaPlaceholder': 'Selecciona un área',
+  'form.areaPlaceholder': 'Area',
   'area.devops.desc': 'Infra y CI/CD',
   'area.frontend.desc': 'Interfaces web',
   'area.qa.desc': 'Pruebas y calidad',
@@ -63,8 +64,12 @@ export const es: Messages = {
   'form.err.emailInvalid': 'Introduce un correo válido.',
   'form.err.message': 'Escribe un mensaje.',
   'form.err.send': 'Algo salió mal. Inténtalo de nuevo.',
-  'form.success': 'Mensaje enviado — te responderé pronto.',
-  'form.successHint': '¡Gracias por contactarme!',
+  'form.success': '¡Mensaje en camino!',
+  'form.successHint': 'Gracias por escribir — leo cada mensaje personalmente y te responderé pronto. ¡Hablamos!',
   'form.back': 'Volver al inicio',
+  'form.error.title': 'No se pudo enviar',
+  'form.error.hint': 'El mensaje no se pudo enviar ahora mismo. Inténtalo otra vez o escríbeme directamente por correo — será un placer.',
+  'form.error.retry': 'Reintentar',
+  'form.error.contact': 'o encuéntrame aquí',
 
 }

@@ -8,6 +8,7 @@ import { computed } from 'vue'
 import { useCardTransition } from '~/composables/useCardTransition'
 import { usePageReveal } from '~/composables/usePageStack'
 import { useI18n } from '~/composables/useI18n'
+import { isAreaAvailable } from '~/composables/useServiceAreas'
 
 const { t } = useI18n()
 
@@ -18,6 +19,7 @@ const services = computed(() => [
     description: t('about.devops.desc'),
     span: 'sm:col-span-7',
     tech: ['Linux', 'CI/CD', 'Kubernetes'],
+    available: isAreaAvailable('devops'),
   },
   {
     area: 'frontend',
@@ -25,6 +27,7 @@ const services = computed(() => [
     description: t('about.frontend.desc'),
     span: 'sm:col-span-5',
     tech: ['Vue', 'Nuxt', 'Tailwind'],
+    available: isAreaAvailable('frontend'),
   },
   {
     area: 'qa',
@@ -32,6 +35,7 @@ const services = computed(() => [
     description: t('about.qa.desc'),
     span: 'sm:col-span-5',
     tech: ['Cypress', 'Playwright', 'Postman'],
+    available: isAreaAvailable('qa'),
   },
   {
     area: 'brand',
@@ -39,6 +43,7 @@ const services = computed(() => [
     description: t('about.brand.desc'),
     span: 'sm:col-span-7',
     tech: ['Figma', 'UX/UI', 'Inkscape'],
+    available: isAreaAvailable('brand'),
   },
 ])
 

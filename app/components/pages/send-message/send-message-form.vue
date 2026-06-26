@@ -1,49 +1,62 @@
 <template>
   <div class="w-full h-full p-3 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0! overflow-hidden">
-    <div class="sm-root p-4 sm:p-8 lg:p-12 gap-4 sm:gap-8 lg:gap-12 relative
-                w-full h-full bg-brand-950/60 backdrop-blur-xl border border-white/10
-                rounded-2xl lg:rounded-3xl overflow-hidden
-                flex flex-col lg:flex-row">
+    <!-- blur background base (no backdrop-blur: this is a full-screen page, nothing scrolls
+         behind it, so the blur would cost a compositor pass for no visible effect) -->
+    <div class="sm-root relative w-full h-full overflow-hidden
+                bg-brand-950/60 border border-white/10
+                rounded-2xl lg:rounded-3xl
+                p-3 sm:p-5 lg:p-8">
       <SharedGlowField />
-      <div class="sm-image relative z-10 min-h-0 flex-[1_1_30%] lg:flex-none overflow-hidden
-                  bg-brand-950 rounded-2xl lg:rounded-3xl">
-        <!-- the photo, refracted through reeded glass via an SVG displacement filter -->
+
+      <!-- inner stage: stroked rectangular block with the photo as its full background -->
+      <div class="sm-stage relative z-10 w-full h-full overflow-hidden
+                  rounded-xl lg:rounded-2xl border border-white/15
+                  flex flex-col lg:flex-row lg:items-stretch lg:justify-end
+                  p-3 sm:p-5 lg:p-8">
+        <!-- the photo (refracted through reeded glass), covering the whole stage -->
         <div aria-hidden="true" class="sm-photo absolute inset-0 bg-cover bg-center" />
-        <!-- per-rib specular highlight + dark seam, so the ridges catch light -->
         <div aria-hidden="true" class="sm-fluted absolute inset-0" />
-      </div>
+        <!-- a touch of extra darkening on the left where the glass card sits, for contrast -->
+        <div aria-hidden="true" class="sm-scrim absolute inset-0" />
 
-      <div class="sm-fields relative z-10 min-h-0 flex-[1_1_auto] lg:flex-none flex flex-col justify-start lg:justify-center
-                  sm:p-3 lg:p-12">
-        <form v-if="!sent" class="flex flex-col gap-3.5 sm:gap-5 lg:gap-6 min-h-0 flex-1 lg:flex-none" @submit.prevent="onSubmit">
-          <PagesSendMessageFormField id="sm-name" v-model="name" :label="t('form.name')" required
-            :error="errors.name" @update:model-value="revalidate" />
+        <!-- glass form card, floating on the left over the photo -->
+        <div class="sm-fields relative z-10 min-h-0 w-full lg:w-1/2 lg:max-w-xl
+                    flex flex-col justify-start lg:justify-center
+                    rounded-xl lg:rounded-2xl border border-white/15
+                    bg-brand-950/65 backdrop-blur-md lg:backdrop-blur-xl
+                    shadow-[0_18px_50px_-12px_rgba(0,0,0,0.6)]
+                    p-4 sm:p-6 lg:p-10">
+        <Transition name="form-state" mode="out-in">
+          <PagesSendMessageFormSuccess v-if="sent" key="ok" />
+          <PagesSendMessageFormError v-else-if="failed" key="err" @retry="resetToForm" />
 
-          <div class="flex flex-col lg:flex-row gap-5 lg:gap-4">
-            <div class="lg:basis-2/3">
-              <PagesSendMessageFormField id="sm-email" v-model="email" type="email"
-                :label="t('form.email')" required :error="errors.email" @update:model-value="revalidate" />
+          <form v-else key="form" class="flex flex-col gap-3.5 sm:gap-5 lg:gap-6 min-h-0 flex-1 lg:flex-none" @submit.prevent="onSubmit">
+            <PagesSendMessageFormField id="sm-name" v-model="name" :label="t('form.name')" required
+              :error="errors.name" @update:model-value="revalidate" />
+
+            <div class="flex flex-col lg:flex-row gap-5 lg:gap-4">
+              <div class="lg:basis-2/3">
+                <PagesSendMessageFormField id="sm-email" v-model="email" type="email"
+                  :label="t('form.email')" required :error="errors.email" @update:model-value="revalidate" />
+              </div>
+              <div class="lg:basis-1/3">
+                <PagesSendMessageAreaDropdown />
+              </div>
             </div>
-            <div class="lg:basis-1/3">
-              <PagesSendMessageAreaDropdown />
-            </div>
-          </div>
 
-          <PagesSendMessageFormField id="sm-message" v-model="message" type="textarea" :rows="4"
-            :label="t('form.message')" required :placeholder="t('form.messagePlaceholder')"
-            :error="errors.message" @update:model-value="revalidate" />
+            <PagesSendMessageFormField id="sm-message" v-model="message" type="textarea" :rows="4"
+              :label="t('form.message')" required :placeholder="t('form.messagePlaceholder')"
+              :error="errors.message" @update:model-value="revalidate" />
 
-          <p v-if="submitError" class="text-red-400 text-sm">{{ submitError }}</p>
-
-          <button type="submit" :disabled="submitting"
-            class="brand-gradient text-brand-950 font-semibold rounded-lg
-                   py-4 lg:py-5 px-6 text-base lg:text-lg
-                   hover:brightness-110 transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
-            {{ submitting ? t('form.sending') : t('form.send') }}
-          </button>
-        </form>
-
-        <PagesSendMessageFormSuccess v-else />
+            <button type="submit" :disabled="submitting"
+              class="brand-gradient text-brand-950 font-semibold rounded-lg
+                     py-4 lg:py-5 px-6 text-base lg:text-lg
+                     hover:brightness-110 transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
+              {{ submitting ? t('form.sending') : t('form.send') }}
+            </button>
+          </form>
+        </Transition>
+        </div>
       </div>
     </div>
 
@@ -80,10 +93,15 @@ const name = ref('')
 const email = ref('')
 const message = ref('')
 const sent = ref(false)
+const failed = ref(false)
 const submitting = ref(false)
-const submitError = ref('')
 const submitted = ref(false)
 const errors = reactive({ name: '', email: '', message: '' })
+
+// "Try again" on the error screen brings the (still-filled) form back so the user can resubmit.
+function resetToForm() {
+  failed.value = false
+}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
@@ -102,7 +120,6 @@ function revalidate() {
 
 async function onSubmit() {
   submitted.value = true
-  submitError.value = ''
   if (!validate()) return
 
   submitting.value = true
@@ -110,9 +127,13 @@ async function onSubmit() {
     const key = useRuntimeConfig().public.web3formsKey
     if (key) {
       const selected = areas.find(a => a.value === contact.selectedArea)
-      const data = await $fetch('https://api.web3forms.com/submit', {
+      // Web3Forms (free plan) only accepts requests from the client/browser — server-side
+      // calls are rejected ("Pro plan required"). Use the native window.fetch so the request
+      // always originates in the browser, not from Nuxt's SSR/server $fetch.
+      const res = await window.fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: {
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
           access_key: key,
           subject: 'New message from portfolio',
           from_name: name.value,
@@ -120,14 +141,15 @@ async function onSubmit() {
           email: email.value,
           area: selected ? t(selected.labelKey) : '',
           message: message.value,
-        },
+        }),
       })
+      const data = await res.json()
       if (!data?.success) throw new Error('send failed')
     }
     sent.value = true
     contact.reset()
   } catch {
-    submitError.value = t('form.err.send')
+    failed.value = true
   } finally {
     submitting.value = false
   }
@@ -135,6 +157,14 @@ async function onSubmit() {
 </script>
 
 <style scoped>
+/* soft cross-fade + slight lift when switching between form / success / error states */
+.form-state-enter-active,
+.form-state-leave-active {
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+.form-state-enter-from { opacity: 0; transform: translateY(10px) scale(0.98); }
+.form-state-leave-to { opacity: 0; transform: translateY(-8px) scale(0.98); }
+
 /* the photo itself, refracted sideways per rib through the SVG reeded-glass filter.
    Scaled up a hair so the displacement never pulls in the bare edge of the image. */
 .sm-photo {
@@ -173,8 +203,11 @@ async function onSubmit() {
   mix-blend-mode: soft-light;
 }
 
-@media (min-width: 1024px) {
-  .sm-image { flex: 1 1 0; }
-  .sm-fields { flex: 1 1 0; }
+/* darken the right side (and a touch the bottom) so the glass card reads clearly over the
+   busy photo, while the left side of the photo stays bright. */
+.sm-scrim {
+  background-image:
+    linear-gradient(to left, rgba(8, 9, 7, 0.72) 0%, rgba(8, 9, 7, 0.3) 45%, transparent 70%),
+    linear-gradient(to top, rgba(8, 9, 7, 0.5) 0%, transparent 35%);
 }
 </style>

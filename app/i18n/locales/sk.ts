@@ -35,6 +35,7 @@ export const sk: Messages = {
   'about.brand.desc': 'Vizuálne systémy a práca s identitou, ktoré spájajú produkt, značku a zážitok do jedného konzistentného hlasu.',
 
   'projects.comingSoon': 'Už čoskoro',
+  'area.unavailable': 'Nedostupné',
 
   'contact.title.1': 'Postavme',
   'contact.title.2': 'Mosty',
@@ -49,7 +50,7 @@ export const sk: Messages = {
   'form.name': 'Meno a priezvisko',
   'form.email': 'E-mail',
   'form.area': 'Oblasť záujmu',
-  'form.areaPlaceholder': 'Vyberte oblasť',
+  'form.areaPlaceholder': 'Oblasť',
   'area.devops.desc': 'Infra & CI/CD',
   'area.frontend.desc': 'Webové rozhrania',
   'area.qa.desc': 'Testovanie a kvalita',
@@ -63,8 +64,12 @@ export const sk: Messages = {
   'form.err.emailInvalid': 'Zadajte prosím platný e-mail.',
   'form.err.message': 'Napíšte prosím správu.',
   'form.err.send': 'Niečo sa pokazilo. Skúste to znova.',
-  'form.success': 'Správa odoslaná — čoskoro sa ozvem.',
-  'form.successHint': 'Ďakujem, že ste sa ozvali!',
+  'form.success': 'Správa je na ceste!',
+  'form.successHint': 'Ďakujem, že si sa ozval — každú správu si čítam osobne a čoskoro odpíšem. Ozvem sa!',
   'form.back': 'Späť na domov',
+  'form.error.title': 'Nepodarilo sa odoslať',
+  'form.error.hint': 'Správu sa práve teraz nepodarilo poslať. Skús to ešte raz, alebo mi napíš priamo na e-mail — rád sa ozvem.',
+  'form.error.retry': 'Skúsiť znova',
+  'form.error.contact': 'alebo ma nájdeš tu',
 
 }

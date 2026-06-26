@@ -35,6 +35,7 @@ export const de: Messages = {
   'about.brand.desc': 'Visuelle Systeme und Identitätsarbeit, die Produkt, Marke und Erlebnis zu einer konsistenten Stimme vereinen.',
 
   'projects.comingSoon': 'Demnächst',
+  'area.unavailable': 'Nicht verfügbar',
 
   'contact.title.1': 'Lass uns',
   'contact.title.2': 'Brücken bauen',
@@ -49,7 +50,7 @@ export const de: Messages = {
   'form.name': 'Vor- und Nachname',
   'form.email': 'E-Mail',
   'form.area': 'Interessensgebiet',
-  'form.areaPlaceholder': 'Bereich auswählen',
+  'form.areaPlaceholder': 'Bereich',
   'area.devops.desc': 'Infra & CI/CD',
   'area.frontend.desc': 'Web-Oberflächen',
   'area.qa.desc': 'Tests & Qualität',
@@ -63,8 +64,12 @@ export const de: Messages = {
   'form.err.emailInvalid': 'Bitte gib eine gültige E-Mail-Adresse ein.',
   'form.err.message': 'Bitte schreibe eine Nachricht.',
   'form.err.send': 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
-  'form.success': 'Nachricht gesendet — ich melde mich bald.',
-  'form.successHint': 'Danke für deine Nachricht!',
+  'form.success': 'Nachricht unterwegs!',
+  'form.successHint': 'Danke, dass du dich meldest — ich lese jede Nachricht selbst und antworte bald. Bis gleich!',
   'form.back': 'Zurück zur Startseite',
+  'form.error.title': 'Hat nicht geklappt',
+  'form.error.hint': 'Die Nachricht konnte gerade nicht gesendet werden. Versuch es noch einmal oder schreib mir direkt eine E-Mail — ich freue mich.',
+  'form.error.retry': 'Erneut versuchen',
+  'form.error.contact': 'oder erreiche mich hier',
 
 }

@@ -13,13 +13,13 @@
 </template>
 
 <script setup>
-import { indexForPath, usePageStack } from '~/composables/usePageStack'
+import { PAGE_STACK_PAGES, usePageStack } from '~/composables/usePageStack'
 import { useI18n } from '~/composables/useI18n'
 
 const { t } = useI18n()
 const stack = usePageStack()
 
 function goToContact() {
-  stack.scrollTo(indexForPath('/contact'))
+  stack.scrollTo(PAGE_STACK_PAGES.findIndex(p => p.key === 'contact'))
 }
 </script>

@@ -15,11 +15,18 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { PAGE_STACK_PAGES, indexForPath, usePageStack, SITE_NAME } from '~/composables/usePageStack'
+import { localizedPath } from '~/i18n/routes'
+import { useLocale } from '~/composables/useLocale'
 
 const props = defineProps<{ initialIndex?: number }>()
 
 const route = useRoute()
 const stack = usePageStack()
+const { currentLocale } = useLocale()
+
+// the localized URL for a stack index in the current language
+const pathForIndex = (idx: number): string =>
+  localizedPath(PAGE_STACK_PAGES[idx]!.key, currentLocale.value)
 
 const isScrollingByClick = ref(false)
 const scrollEl = ref<HTMLElement | null>(null)
@@ -124,7 +131,7 @@ function applyScroll() {
   const idx = Math.max(0, Math.min(max, Math.floor(scrollY / slideH)))
   if (idx !== stack.activeIndex.value) {
     stack.activeIndex.value = idx
-    const targetPath = PAGE_STACK_PAGES[idx]!.path
+    const targetPath = pathForIndex(idx)
     if (window.location.pathname !== targetPath) {
       window.history.replaceState(window.history.state, '', targetPath)
     }
@@ -139,7 +146,7 @@ function scrollToIndex(index: number, smooth = true) {
   isScrollingByClick.value = true
   animateScrollTo(scrollEl.value, targetY, duration)
   stack.activeIndex.value = clamped
-  const targetPath = PAGE_STACK_PAGES[clamped]!.path
+  const targetPath = pathForIndex(clamped)
   if (window.location.pathname !== targetPath) {
     window.history.replaceState(window.history.state, '', targetPath)
   }
@@ -205,5 +212,8 @@ onBeforeUnmount(() => {
   scrollEl.value?.removeEventListener('touchend', onTouchEnd)
   window.removeEventListener('resize', measureSlide)
   window.removeEventListener('keydown', onKeydown)
+  // leaving the stack (e.g. to /send-message): clear the imperative scrollTo so links know to
+  // navigate by URL instead of calling into an unmounted stack.
+  stack.unregisterScrollTo()
 })
 </script>

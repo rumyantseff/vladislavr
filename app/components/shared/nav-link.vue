@@ -17,7 +17,7 @@
                'size-9 lg:size-10 rounded-full backdrop-blur-xl',
                'flex items-center justify-center',
                'bg-white/15 border border-white/20']">
-      <component v-if="icon" :is="icon" class="size-4 lg:size-4.5 shrink-0" />
+      <component v-if="icon" :is="icon" class="size-4 lg:size-4.5 shrink-0 fill-current" />
     </span>
     <span class="nav-text">{{ text }}</span>
   </NuxtLink>
@@ -30,22 +30,22 @@ import { PAGE_STACK_PAGES, usePageStack } from '~/composables/usePageStack'
 const props = defineProps<{
   text: string
   to: string
+  pageKey: string
   icon?: any
   active?: boolean
 }>()
 
 const stack = usePageStack()
 
-const testSlug = computed(() => {
-  if (props.to === '/') return 'home'
-  return props.to.replace(/^\//, '').replace(/\//g, '-')
-})
+// stable slug for the data-testid, independent of the (now localized) URL
+const testSlug = computed(() => props.pageKey)
 
 function handleClick() {
-  const idx = PAGE_STACK_PAGES.findIndex(p => p.path === props.to)
-  if (idx >= 0) {
-    stack.scrollTo(idx)
-  }
+  const idx = PAGE_STACK_PAGES.findIndex(p => p.key === props.pageKey)
+  // when a page-stack is mounted it scrolls to the section; otherwise (e.g. on the standalone
+  // /send-message page) fall back to a normal route navigation to the link's URL.
+  if (idx >= 0 && stack.scrollTo(idx)) return
+  navigateTo(props.to)
 }
 </script>
 

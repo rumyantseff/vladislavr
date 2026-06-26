@@ -55,3 +55,34 @@ html, body, #__nuxt {
   background-image: linear-gradient(to right bottom,
     #b9d42f, #d1c318, #e4b212, #f49f20, #ff8b33);
 }
+
+/* Stacked "depth" status badge (success / error screens): three offset rounded layers with a
+   centered icon on top, giving an isometric-card look. Colour is set per-variant. */
+.status-badge {
+  position: relative;
+  width: 5.5rem;
+  height: 5.5rem;
+  display: grid;
+  place-items: center;
+}
+.status-layer {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 1.1rem;
+  display: grid;
+  place-items: center;
+}
+/* back layers: progressively larger, more transparent, nudged up — the "stack" */
+.status-layer--3 { transform: translateY(-1.1rem) scale(1.32); opacity: 0.22; }
+.status-layer--2 { transform: translateY(-0.55rem) scale(1.16); opacity: 0.45; }
+.status-layer--1 { box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.45); }
+
+.status-badge--ok .status-layer { background-image: var(--badge-ok); }
+.status-badge--err .status-layer { background-image: var(--badge-err); }
+
+/* green (brand) for success, warm red for error — kept on-brand, not stock semantic colours */
+.status-badge--ok { --badge-ok: linear-gradient(150deg, #d6ec6a, #9cc02a); }
+.status-badge--err { --badge-err: linear-gradient(150deg, #ff7a6b, #e0432f); }

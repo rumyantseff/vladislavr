@@ -35,6 +35,7 @@ export const en: Messages = {
   'about.brand.desc': 'Visual systems and identity work that connect product, brand, and experience into one consistent voice.',
 
   'projects.comingSoon': 'Coming soon',
+  'area.unavailable': 'Unavailable',
 
   'contact.title.1': "Let's Build",
   'contact.title.2': 'Bridges',
@@ -49,7 +50,7 @@ export const en: Messages = {
   'form.name': 'Full name',
   'form.email': 'Email',
   'form.area': 'Area of interest',
-  'form.areaPlaceholder': 'Select an area',
+  'form.areaPlaceholder': 'Area',
   'area.devops.desc': 'Infra & CI/CD',
   'area.frontend.desc': 'Web interfaces',
   'area.qa.desc': 'Testing & quality',
@@ -63,8 +64,12 @@ export const en: Messages = {
   'form.err.emailInvalid': 'Please enter a valid email address.',
   'form.err.message': 'Please write a message.',
   'form.err.send': 'Something went wrong. Please try again.',
-  'form.success': "Message sent — I'll get back to you soon.",
-  'form.successHint': 'Thanks for reaching out!',
+  'form.success': 'Message on its way!',
+  'form.successHint': "Thanks for reaching out — I read every message myself and will reply soon. Talk shortly!",
   'form.back': 'Back to home',
+  'form.error.title': "That didn't go through",
+  'form.error.hint': "The message couldn't be sent right now. Give it another try, or just email me directly — I'd love to hear from you.",
+  'form.error.retry': 'Try again',
+  'form.error.contact': 'or reach me here',
 
 }

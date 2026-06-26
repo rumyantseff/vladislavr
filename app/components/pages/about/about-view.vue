@@ -28,7 +28,7 @@
         <svg aria-hidden="true" class="wave-pattern absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice">
           <path v-for="(d, i) in waves" :key="i" :d="d"
-            fill="none" stroke="#ffffff" :stroke-width="0.35" :opacity="0.03" />
+            fill="none" stroke="#131311" :stroke-width="0.35" :opacity="0.06" />
         </svg>
         <PagesAboutIntro class="relative z-10 flex-1 min-h-0" />
       </div>
@@ -54,18 +54,24 @@
 </template>
 
 <style scoped>
+/* vivid brand gradient (green → accent orange), same family as the buttons, on a diagonal so
+   it reads like the reference card. Bright surface ⇒ the intro text on it is dark (set below). */
 .intro-card {
-  background-color: #131311;
-  background-image:
-    radial-gradient(120% 90% at 100% 100%,
-      rgba(255, 139, 51, 0.55) 0%,
-      rgba(255, 139, 51, 0.18) 28%,
-      transparent 55%),
-    radial-gradient(120% 90% at 0% 0%,
-      rgba(185, 212, 47, 0.5) 0%,
-      rgba(185, 212, 47, 0.16) 30%,
-      transparent 58%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  background-image: linear-gradient(150deg,
+    #b9d42f 0%,
+    #cdc81d 28%,
+    #e9aa17 60%,
+    #ff8b33 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+/* soft diagonal light streak for a touch of depth on the flat gradient */
+.intro-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.25) 0%, transparent 42%);
+  mix-blend-mode: soft-light;
 }
 </style>
 

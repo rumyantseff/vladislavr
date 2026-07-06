@@ -1,17 +1,3 @@
-<template>
-  <div :style="{ height: `${totalHeight}px` }" class="relative w-full">
-    <div v-for="(page, i) in PAGE_STACK_PAGES" :key="page.path"
-         :data-index="i"
-         :style="{ zIndex: i + 1, height: `${slideHeight}px` }"
-         class="sticky top-0 w-full overflow-hidden">
-      <PagesHomeView v-if="i === 0" />
-      <PagesAboutView v-else-if="i === 1" />
-      <PagesProjectsView v-else-if="i === 2" />
-      <PagesContactView v-else-if="i === 3" />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { PAGE_STACK_PAGES, indexForPath, usePageStack, SITE_NAME } from '~/composables/usePageStack'
@@ -24,7 +10,6 @@ const route = useRoute()
 const stack = usePageStack()
 const { currentLocale } = useLocale()
 
-// the localized URL for a stack index in the current language
 const pathForIndex = (idx: number): string =>
   localizedPath(PAGE_STACK_PAGES[idx]!.key, currentLocale.value)
 
@@ -55,14 +40,8 @@ function animateScrollTo(el: HTMLElement, to: number, duration: number) {
   const slideH = slideHeight.value || Math.abs(diff)
   const dir = Math.sign(diff)
 
-  // For a MULTI-step jump (e.g. Home -> Projects/Contact) we must NOT scroll through the
-  // pages in between (you'd see them flash by). Instead: ease the CURRENT page out by half a
-  // slide, instantly jump across the gap during the dwell, then ease the TARGET page in over
-  // the last half slide. So only the current + target pages are ever near the viewport.
   const multi = Math.abs(diff) > slideH + 1
-  // beat 1 ends here (current page faded out by ~half a slide)
   const outY = multi ? start + dir * slideH * 0.5 : start + diff / 2
-  // beat 3 starts here (target page begins half a slide away, fades in)
   const inStartY = multi ? to - dir * slideH * 0.5 : start + diff / 2
 
   let startTime = 0
@@ -70,13 +49,10 @@ function animateScrollTo(el: HTMLElement, to: number, duration: number) {
     if (!startTime) startTime = ts
     const elapsed = ts - startTime
     if (elapsed < MOVE_MS) {
-      // beat 1 — current page eases out
       el.scrollTop = start + (outY - start) * easeInOutCubic(elapsed / MOVE_MS)
     } else if (elapsed < MOVE_MS + DWELL_MS) {
-      // dwell — sit at the empty point; for multi-step, jump across the gap now (no scroll-through)
       el.scrollTop = inStartY
     } else if (elapsed < SCROLL_MS) {
-      // beat 3 — target page eases in
       el.scrollTop = inStartY + (to - inStartY) * easeInOutCubic((elapsed - MOVE_MS - DWELL_MS) / MOVE_MS)
     } else {
       el.scrollTop = to
@@ -109,8 +85,6 @@ function measureSlide() {
   slideHeight.value = scrollEl.value?.clientHeight ?? window.innerHeight
 }
 
-// coalesce scroll events to at most one reactive update per animation frame, so the
-// ~18 scrollProgress-dependent computeds recompute once a frame instead of per event.
 let scrollTick = 0
 function onScroll() {
   if (scrollTick) return
@@ -212,8 +186,20 @@ onBeforeUnmount(() => {
   scrollEl.value?.removeEventListener('touchend', onTouchEnd)
   window.removeEventListener('resize', measureSlide)
   window.removeEventListener('keydown', onKeydown)
-  // leaving the stack (e.g. to /send-message): clear the imperative scrollTo so links know to
-  // navigate by URL instead of calling into an unmounted stack.
   stack.unregisterScrollTo()
 })
 </script>
+
+<template>
+  <div :style="{ height: `${totalHeight}px` }" class="relative w-full">
+    <div v-for="(page, i) in PAGE_STACK_PAGES" :key="page.path"
+         :data-index="i"
+         :style="{ zIndex: i + 1, height: `${slideHeight}px` }"
+         class="sticky top-0 w-full overflow-hidden">
+      <PagesHomeView v-if="i === 0" />
+      <PagesAboutView v-else-if="i === 1" />
+      <PagesProjectsView v-else-if="i === 2" />
+      <PagesContactView v-else-if="i === 3" />
+    </div>
+  </div>
+</template>

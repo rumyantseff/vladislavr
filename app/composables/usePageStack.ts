@@ -22,16 +22,10 @@ export const indexForPath = (path: string): number => {
   return i >= 0 ? i : 0
 }
 
-// request-scoped on the server (no cross-request leakage of which page is active / scrolled),
-// singleton on the client. activeIndex is seeded from the URL by the `locale` global middleware
-// so the server-rendered nav active-state matches the requested route (no hydration mismatch).
 const useActiveIndex = () => useState<number>('pageActiveIndex', () => 0)
 const useScrollProgress = () => useState<number>('pageScrollProgress', () => 0)
 const useKnotVisible = () => useState<number>('pageKnotVisible', () => 1)
 
-// scrollTo is a client-only imperative callback, registered by the page-stack on mount.
-// `null` while no page-stack is mounted (e.g. on the standalone /send-message page), so callers
-// can tell whether the scroll was handled and fall back to a real route navigation if not.
 let scrollToFn: ((index: number) => void) | null = null
 
 const easeInOutCubic = (x: number): number =>
@@ -53,14 +47,7 @@ export const usePageReveal = (index: number): ComputedRef<number> => {
   const knotVisible = useKnotVisible()
   return computed(() => {
     const visible = clamp01(1 - Math.abs(scrollProgress.value - index) / HANDOFF)
-    // The knot-vanish gate only matters for About (the page right after Home, where the
-    // sequential "wait for the knot to disappear" effect lives). Projects/Contact are far
-    // from Home — the knot is long gone — so they reveal purely on scroll visibility. This
-    // also avoids depending on knotVisible, which the (paused) 3D loop stops publishing
-    // once the scene is off-screen.
     if (index !== 1) return easeInOutCubic(visible)
-    // On mobile the 3D knot isn't built at all, so there's nothing to wait for — reveal About
-    // purely on scroll (otherwise the gate would stay closed forever and About never appears).
     if (typeof window !== 'undefined' && window.innerWidth < 1024) return easeInOutCubic(visible)
     const gate = clamp01((KNOT_GONE - knotVisible.value) / KNOT_GONE)
     return easeInOutCubic(visible * gate)
@@ -71,8 +58,6 @@ export const usePageStack = () => ({
   activeIndex: useActiveIndex(),
   scrollProgress: useScrollProgress(),
   knotVisible: useKnotVisible(),
-  // returns true if a mounted page-stack handled the scroll; false when none is mounted (the
-  // caller should then navigate to the page's URL instead).
   scrollTo: (index: number): boolean => {
     if (!scrollToFn) return false
     scrollToFn(index)

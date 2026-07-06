@@ -1,15 +1,35 @@
+<script setup>
+import { ref, computed } from 'vue'
+import { useI18n } from '~/composables/useI18n'
+import { useCanvasBlur } from '~/composables/useCanvasBlur'
+
+const { t } = useI18n()
+
+const props = defineProps({
+  title: { type: String, required: true },
+  tags: { type: Array, default: () => [] },
+  image: { type: String, required: true },
+  link: { type: String, default: '#' },
+  status: { type: String, default: 'published' },
+})
+
+const comingSoon = computed(() => props.status === 'coming_soon')
+const pngFallback = computed(() => props.image.replace(/\.webp$/, '.png'))
+
+const blurCanvas = ref(null)
+useCanvasBlur(blurCanvas, () => props.image, () => comingSoon.value)
+</script>
+
 <template>
-  <a :href="comingSoon ? undefined : link" :target="comingSoon ? undefined : '_blank'" rel="noopener"
+  <NuxtLink :to="comingSoon ? undefined : link" :target="comingSoon ? undefined : '_blank'" rel="noopener"
     class="group relative block rounded-xl lg:rounded-2xl h-full"
     :class="comingSoon ? 'cursor-default' : 'cursor-pointer'">
-
     <div class="absolute inset-0 rounded-xl lg:rounded-2xl overflow-hidden"
       :class="{ 'card-cut': !comingSoon }">
-
       <picture v-if="!comingSoon">
         <source :srcset="image" type="image/webp" />
-        <img :src="pngFallback" :alt="title"
-          loading="lazy" decoding="async"
+        <NuxtImg :src="pngFallback" :alt="title"
+          loading="lazy" decoding="async" fetchpriority="low"
           class="absolute inset-0 w-full h-full object-cover" />
       </picture>
 
@@ -39,30 +59,8 @@
 
     <SharedGradientArrowButton v-if="!comingSoon" tag="div"
       class="absolute bottom-1.5 right-1.5 lg:bottom-2 lg:right-2" />
-  </a>
+  </NuxtLink>
 </template>
-
-<script setup>
-import { ref, computed } from 'vue'
-import { useI18n } from '~/composables/useI18n'
-import { useCanvasBlur } from '~/composables/useCanvasBlur'
-
-const { t } = useI18n()
-
-const props = defineProps({
-  title: { type: String, required: true },
-  tags: { type: Array, default: () => [] },
-  image: { type: String, required: true },
-  link: { type: String, default: '#' },
-  status: { type: String, default: 'published' },
-})
-
-const comingSoon = computed(() => props.status === 'coming_soon')
-const pngFallback = computed(() => props.image.replace(/\.webp$/, '.png'))
-
-const blurCanvas = ref(null)
-useCanvasBlur(blurCanvas, () => props.image, () => comingSoon.value)
-</script>
 
 <style scoped>
 .card-cut {

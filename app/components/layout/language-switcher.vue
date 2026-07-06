@@ -1,6 +1,30 @@
+<script setup>
+import { computed } from 'vue'
+import { useLocale } from '~/composables/useLocale'
+import { useDropdownToggle } from '~/composables/useDropdownToggle'
+
+defineProps({
+  align: { type: String, default: 'right' },
+})
+
+const { currentLocale, locales, setLocale } = useLocale()
+const { open, root, close, toggle } = useDropdownToggle()
+
+const active = computed(() => locales.find(l => l.code === currentLocale.value) ?? locales[0])
+
+const orderedLocales = computed(() => [
+  active.value,
+  ...locales.filter(l => l.code !== currentLocale.value),
+])
+
+function choose(code) {
+  setLocale(code)
+  close()
+}
+</script>
+
 <template>
   <div ref="root" class="relative shrink-0">
-
     <button type="button" :aria-label="`Language: ${active.code}`" @click.stop="toggle"
       class="p-0.5 rounded-full block hover:brightness-110 transition"
       :class="open ? 'opacity-0 pointer-events-none' : ''">
@@ -31,31 +55,6 @@
   </div>
 </template>
 
-<script setup>
-import { computed } from 'vue'
-import { useLocale } from '~/composables/useLocale'
-import { useDropdownToggle } from '~/composables/useDropdownToggle'
-
-defineProps({
-  align: { type: String, default: 'right' },
-})
-
-const { currentLocale, locales, setLocale } = useLocale()
-const { open, root, close, toggle } = useDropdownToggle()
-
-const active = computed(() => locales.find(l => l.code === currentLocale.value) ?? locales[0])
-
-const orderedLocales = computed(() => [
-  active.value,
-  ...locales.filter(l => l.code !== currentLocale.value),
-])
-
-function choose(code) {
-  setLocale(code)
-  close()
-}
-</script>
-
 <style scoped>
 .lang-pin { position: relative; }
 .lang-flag {
@@ -66,12 +65,6 @@ function choose(code) {
   background-position: center;
   background-repeat: no-repeat;
 }
-
-/* OPEN:  shell expands from the trigger side, then flags pop in forward (i = 0 → last).
-   CLOSE: exact reverse — flags pop out backward (last → 0) first, then the shell collapses.
-   Stagger step is shared so both directions feel symmetric. */
-
-/* --- the pill shell --- */
 .lang-shell-enter-active {
   transition: opacity 0.22s ease, transform 0.42s cubic-bezier(0.34, 1.3, 0.5, 1);
   transform-origin: center right;
@@ -80,7 +73,6 @@ function choose(code) {
   transition: opacity 0.22s ease, transform 0.42s cubic-bezier(0.34, 1.3, 0.5, 1);
   transform-origin: center left;
 }
-/* on close the shell waits for the flags to leave, then collapses (mirror of open) */
 .lang-shell-leave-active {
   transition: opacity 0.2s ease 0.12s, transform 0.34s cubic-bezier(0.5, 0, 0.75, 0.4) 0.1s;
   transform-origin: center right;
@@ -89,23 +81,19 @@ function choose(code) {
   transition: opacity 0.2s ease 0.12s, transform 0.34s cubic-bezier(0.5, 0, 0.75, 0.4) 0.1s;
   transform-origin: center left;
 }
-/* header switcher unrolls toward the LEFT, mobile-menu one toward the RIGHT */
 .lang-shell-enter-from,
 .lang-shell-leave-to { opacity: 0; transform: scaleX(0.55) translateX(14px); }
 .lang-shell-l-enter-from,
 .lang-shell-l-leave-to { opacity: 0; transform: scaleX(0.55) translateX(-14px); }
 
-/* --- each flag, staggered --- */
 .lang-shell-enter-active .lang-item,
 .lang-shell-l-enter-active .lang-item {
   animation: lang-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  /* forward stagger; active flag (i=0) is already at the trigger spot */
   animation-delay: calc(var(--i) * 55ms + 60ms);
 }
 .lang-shell-leave-active .lang-item,
 .lang-shell-l-leave-active .lang-item {
   animation: lang-unpop 0.28s cubic-bezier(0.4, 0, 0.7, 0.5) both;
-  /* reverse stagger: the last flag to appear is the first to leave */
   animation-delay: calc((var(--n) - 1 - var(--i)) * 55ms);
 }
 @keyframes lang-pop {

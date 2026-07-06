@@ -1,10 +1,3 @@
-<template>
-  <div class="w-full h-full overflow-hidden flex flex-col gap-3 lg:gap-5">
-    <PagesProjectsCarousel :projects="projects" :stacks="stacks" />
-    <PagesProjectsRowGrid :projects="projects" :card-styles="cardStyles" />
-  </div>
-</template>
-
 <script setup>
 import { computed } from 'vue'
 import { useCardTransition } from '~/composables/useCardTransition'
@@ -29,3 +22,10 @@ const cardStyles = projects.map((_, i) =>
   }),
 )
 </script>
+
+<template>
+  <div class="w-full h-full overflow-hidden flex flex-col gap-3 lg:gap-5">
+    <PagesProjectsCarousel :projects="projects" :stacks="stacks" />
+    <PagesProjectsRowGrid :projects="projects" :card-styles="cardStyles" />
+  </div>
+</template>

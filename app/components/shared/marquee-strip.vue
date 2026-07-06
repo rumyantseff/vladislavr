@@ -1,3 +1,17 @@
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  text: { type: String, required: true },
+  direction: { type: String, default: 'left' },
+  repeat: { type: Number, default: 6 },
+})
+
+const animationClass = computed(() =>
+  props.direction === 'right' ? 'animate-marquee-right' : 'animate-marquee-left'
+)
+</script>
+
 <template>
   <div class="overflow-hidden w-full">
     <div :class="['flex whitespace-nowrap w-max will-change-transform', animationClass]">
@@ -12,17 +26,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-
-const props = defineProps({
-  text: { type: String, required: true },
-  direction: { type: String, default: 'left' },
-  repeat: { type: Number, default: 6 },
-})
-
-const animationClass = computed(() =>
-  props.direction === 'right' ? 'animate-marquee-right' : 'animate-marquee-left'
-)
-</script>

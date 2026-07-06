@@ -1,8 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
 
-// Localized routes for SSG prerendering. Kept in sync with app/i18n/routes.ts (the runtime
-// source of truth); duplicated here because nuxt.config is evaluated before the app aliases
-// resolve. If you add a page/locale there, mirror it here.
 const LOCALES = ['en', 'sk', 'de', 'es']
 const SLUGS: Record<string, Record<string, string>> = {
   home: { en: '', sk: '', de: '', es: '' },
@@ -18,13 +15,11 @@ const localizedRoutes = LOCALES.flatMap(loc =>
   }),
 )
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ['@vueuse/motion/nuxt', '@nuxt/fonts', '@pinia/nuxt'],
+  modules: ['@vueuse/motion/nuxt', '@nuxt/fonts', '@pinia/nuxt', '@nuxt/image'],
 
-  // bare "/" -> default-locale home; prerender every localized page for SSG.
   routeRules: {
     '/': { redirect: '/en' },
   },
@@ -38,8 +33,6 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      // Web3Forms access key — empty by default (form shows a success placeholder and does
-      // not actually send). Set NUXT_PUBLIC_WEB3FORMS_KEY in .env to enable real sending.
       web3formsKey: '',
     },
   },
@@ -67,5 +60,16 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        prefetchOn: {
+          interaction: true,
+          visibility: false,
+        },
+      },
+    },
   },
 })

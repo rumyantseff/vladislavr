@@ -1,3 +1,12 @@
+<script setup>
+import { usePageReveal } from '~/composables/usePageStack'
+import { usePageSkeleton } from '~/composables/usePageSkeleton'
+
+const { isLoading } = usePageSkeleton(3)
+
+const reveal = usePageReveal(3)
+</script>
+
 <template>
   <PagesContactSkeleton v-if="isLoading" />
   <div v-else data-testid="page-contact" class="w-full h-full p-4 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0!
@@ -21,12 +30,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { usePageReveal } from '~/composables/usePageStack'
-import { usePageSkeleton } from '~/composables/usePageSkeleton'
-
-const { isLoading } = usePageSkeleton(3)
-
-const reveal = usePageReveal(3)
-</script>

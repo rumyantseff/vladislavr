@@ -1,12 +1,12 @@
+<script setup>
+defineProps({
+  text: { type: String, required: true },
+})
+</script>
+
 <template>
   <span class="inline-flex items-center border border-tertiary-font/20 text-tertiary-font
                rounded-full px-4 py-1 text-xs font-medium uppercase tracking-wider">
     {{ text }}
   </span>
 </template>
-
-<script setup>
-defineProps({
-  text: { type: String, required: true },
-})
-</script>

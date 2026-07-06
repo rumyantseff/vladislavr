@@ -1,3 +1,9 @@
+<script setup>
+import { useI18n } from '~/composables/useI18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <div class="flex flex-col gap-4 lg:gap-6">
     <SharedHeadingSubtitle
@@ -14,9 +20,3 @@
     </SharedHeadingSubtitle>
   </div>
 </template>
-
-<script setup>
-import { useI18n } from '~/composables/useI18n'
-
-const { t } = useI18n()
-</script>

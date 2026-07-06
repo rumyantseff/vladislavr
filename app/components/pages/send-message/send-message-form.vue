@@ -1,25 +1,92 @@
+<script setup>
+import { ref, reactive } from 'vue'
+import { useI18n } from '~/composables/useI18n'
+import { useContactStore } from '~/stores/contact'
+import { useServiceAreas } from '~/composables/useServiceAreas'
+
+const { t } = useI18n()
+const contact = useContactStore()
+const areas = useServiceAreas()
+
+const name = ref('')
+const email = ref('')
+const message = ref('')
+const sent = ref(false)
+const failed = ref(false)
+const submitting = ref(false)
+const submitted = ref(false)
+const errors = reactive({ name: '', email: '', message: '' })
+
+function resetToForm() {
+  failed.value = false
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+
+function validate() {
+  errors.name = name.value.trim() ? '' : t('form.err.name')
+  if (!email.value.trim()) errors.email = t('form.err.emailRequired')
+  else if (!EMAIL_RE.test(email.value.trim())) errors.email = t('form.err.emailInvalid')
+  else errors.email = ''
+  errors.message = message.value.trim() ? '' : t('form.err.message')
+  return !errors.name && !errors.email && !errors.message
+}
+
+function revalidate() {
+  if (submitted.value) validate()
+}
+
+async function onSubmit() {
+  submitted.value = true
+  if (!validate()) return
+
+  submitting.value = true
+  try {
+    const key = useRuntimeConfig().public.web3formsKey
+    if (key) {
+      const selected = areas.find(a => a.value === contact.selectedArea)
+      const res = await window.fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: key,
+          subject: 'New message from portfolio',
+          from_name: name.value,
+          name: name.value,
+          email: email.value,
+          area: selected ? t(selected.labelKey) : '',
+          message: message.value,
+        }),
+      })
+      const data = await res.json()
+      if (!data?.success) throw new Error('send failed')
+    }
+    sent.value = true
+    contact.reset()
+  } catch {
+    failed.value = true
+  } finally {
+    submitting.value = false
+  }
+}
+</script>
+
 <template>
   <div class="w-full h-full p-3 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0! overflow-hidden">
-    <!-- blur background base (no backdrop-blur: this is a full-screen page, nothing scrolls
-         behind it, so the blur would cost a compositor pass for no visible effect) -->
     <div class="sm-root relative w-full h-full overflow-hidden
                 bg-brand-950/60 border border-white/10
                 rounded-2xl lg:rounded-3xl
                 p-3 sm:p-5 lg:p-8">
       <SharedGlowField />
 
-      <!-- inner stage: stroked rectangular block with the photo as its full background -->
       <div class="sm-stage relative z-10 w-full h-full overflow-hidden
                   rounded-xl lg:rounded-2xl border border-white/15
                   flex flex-col lg:flex-row lg:items-stretch lg:justify-end
                   p-3 sm:p-5 lg:p-8">
-        <!-- the photo (refracted through reeded glass), covering the whole stage -->
         <div aria-hidden="true" class="sm-photo absolute inset-0 bg-cover bg-center" />
         <div aria-hidden="true" class="sm-fluted absolute inset-0" />
-        <!-- a touch of extra darkening on the left where the glass card sits, for contrast -->
         <div aria-hidden="true" class="sm-scrim absolute inset-0" />
 
-        <!-- glass form card, floating on the left over the photo -->
         <div class="sm-fields relative z-10 min-h-0 w-full lg:w-1/2 lg:max-w-xl
                     flex flex-col justify-start lg:justify-center
                     rounded-xl lg:rounded-2xl border border-white/15
@@ -60,13 +127,9 @@
       </div>
     </div>
 
-    <!-- Reeded-glass refraction: a stepped vertical displacement map shifts each rib of the
-         photo sideways (like looking through fluted glass). Tiled so it repeats every rib. -->
     <svg class="sr-only" aria-hidden="true" focusable="false" width="0" height="0">
       <filter id="reeded-glass" x="-2%" y="-2%" width="104%" height="104%"
         primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-        <!-- one rib: red ramps 0->255 across its width; tiled horizontally it becomes a
-             sawtooth, so feDisplacementMap shoves each rib of the photo sideways. -->
         <feImage
           href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='8'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='rgb(0,128,0)'/%3E%3Cstop offset='1' stop-color='rgb(255,128,0)'/%3E%3C/linearGradient%3E%3Crect width='44' height='8' fill='url(%23g)'/%3E%3C/svg%3E"
           x="0" y="0" width="44" height="8" result="ribTile"
@@ -79,96 +142,14 @@
   </div>
 </template>
 
-<script setup>
-import { ref, reactive } from 'vue'
-import { useI18n } from '~/composables/useI18n'
-import { useContactStore } from '~/stores/contact'
-import { useServiceAreas } from '~/composables/useServiceAreas'
-
-const { t } = useI18n()
-const contact = useContactStore()
-const areas = useServiceAreas()
-
-const name = ref('')
-const email = ref('')
-const message = ref('')
-const sent = ref(false)
-const failed = ref(false)
-const submitting = ref(false)
-const submitted = ref(false)
-const errors = reactive({ name: '', email: '', message: '' })
-
-// "Try again" on the error screen brings the (still-filled) form back so the user can resubmit.
-function resetToForm() {
-  failed.value = false
-}
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-
-function validate() {
-  errors.name = name.value.trim() ? '' : t('form.err.name')
-  if (!email.value.trim()) errors.email = t('form.err.emailRequired')
-  else if (!EMAIL_RE.test(email.value.trim())) errors.email = t('form.err.emailInvalid')
-  else errors.email = ''
-  errors.message = message.value.trim() ? '' : t('form.err.message')
-  return !errors.name && !errors.email && !errors.message
-}
-
-function revalidate() {
-  if (submitted.value) validate()
-}
-
-async function onSubmit() {
-  submitted.value = true
-  if (!validate()) return
-
-  submitting.value = true
-  try {
-    const key = useRuntimeConfig().public.web3formsKey
-    if (key) {
-      const selected = areas.find(a => a.value === contact.selectedArea)
-      // Web3Forms (free plan) only accepts requests from the client/browser — server-side
-      // calls are rejected ("Pro plan required"). Use the native window.fetch so the request
-      // always originates in the browser, not from Nuxt's SSR/server $fetch.
-      const res = await window.fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: key,
-          subject: 'New message from portfolio',
-          from_name: name.value,
-          name: name.value,
-          email: email.value,
-          area: selected ? t(selected.labelKey) : '',
-          message: message.value,
-        }),
-      })
-      const data = await res.json()
-      if (!data?.success) throw new Error('send failed')
-    }
-    sent.value = true
-    contact.reset()
-  } catch {
-    failed.value = true
-  } finally {
-    submitting.value = false
-  }
-}
-</script>
-
 <style scoped>
-/* soft cross-fade + slight lift when switching between form / success / error states */
 .form-state-enter-active,
 .form-state-leave-active {
   transition: opacity 280ms ease, transform 280ms ease;
 }
 .form-state-enter-from { opacity: 0; transform: translateY(10px) scale(0.98); }
 .form-state-leave-to { opacity: 0; transform: translateY(-8px) scale(0.98); }
-
-/* the photo itself, refracted sideways per rib through the SVG reeded-glass filter.
-   Scaled up a hair so the displacement never pulls in the bare edge of the image. */
 .sm-photo {
-  /* dark wash rising from the bottom and fading out by the middle, layered over the photo */
   background-image:
     linear-gradient(to top, rgba(8, 9, 7, 0.92) 0%, rgba(8, 9, 7, 0.55) 28%, transparent 50%),
     image-set(
@@ -186,9 +167,6 @@ async function onSubmit() {
   transform: scale(1.06);
   filter: url(#reeded-glass);
 }
-
-/* a thin specular line down each ridge crest + a dark seam in the valley, so the ribs read
-   as glass catching the light on top of the refraction. */
 .sm-fluted {
   --rib: 44px;
   background-image: repeating-linear-gradient(
@@ -202,9 +180,6 @@ async function onSubmit() {
   background-size: var(--rib) 100%;
   mix-blend-mode: soft-light;
 }
-
-/* darken the right side (and a touch the bottom) so the glass card reads clearly over the
-   busy photo, while the left side of the photo stays bright. */
 .sm-scrim {
   background-image:
     linear-gradient(to left, rgba(8, 9, 7, 0.72) 0%, rgba(8, 9, 7, 0.3) 45%, transparent 70%),

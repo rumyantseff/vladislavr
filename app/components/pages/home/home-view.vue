@@ -1,3 +1,12 @@
+<script setup>
+import { usePageVisibility } from '~/composables/usePageStack'
+import { usePageSkeleton } from '~/composables/usePageSkeleton'
+
+const { isLoading } = usePageSkeleton(0)
+
+const t = usePageVisibility(0)
+</script>
+
 <template>
   <PagesHomeSkeleton v-if="isLoading" />
   <template v-else>
@@ -10,8 +19,6 @@
                 grid gap-3 sm:gap-4 lg:gap-10
                 grid-cols-12 grid-rows-[auto_1fr_auto]"
       :style="{ opacity: t, pointerEvents: t < 0.5 ? 'none' : 'auto' }">
-
-      <PagesHomeHelloOverlay />
 
       <div aria-hidden="true"
         class="fixed inset-x-0 top-0 h-40 z-20 pointer-events-none
@@ -29,12 +36,3 @@
     </div>
   </template>
 </template>
-
-<script setup>
-import { usePageVisibility } from '~/composables/usePageStack'
-import { usePageSkeleton } from '~/composables/usePageSkeleton'
-
-const { isLoading } = usePageSkeleton(0)
-
-const t = usePageVisibility(0)
-</script>

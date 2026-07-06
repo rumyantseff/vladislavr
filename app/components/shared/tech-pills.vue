@@ -1,3 +1,10 @@
+<script setup>
+defineProps({
+  tags: { type: Array, default: () => [] },
+  wrapClass: { type: String, default: '' },
+})
+</script>
+
 <template>
   <div v-if="tags.length" :class="['flex flex-wrap gap-1.5 lg:gap-2', wrapClass]">
     <span v-for="t in tags" :key="t"
@@ -8,10 +15,3 @@
     </span>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  tags: { type: Array, default: () => [] },
-  wrapClass: { type: String, default: '' },
-})
-</script>

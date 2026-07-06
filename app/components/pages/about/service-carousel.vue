@@ -1,3 +1,13 @@
+<script setup>
+import { useCarousel } from '~/composables/useCarousel'
+
+defineProps({
+  services: { type: Array, required: true },
+})
+
+const { el, atStart, atEnd, scrollByPage } = useCarousel(0.9)
+</script>
+
 <template>
   <div class="lg:hidden flex flex-col gap-3">
     <div ref="el" class="overflow-x-auto snap-x snap-mandatory scroll-smooth
@@ -17,13 +27,3 @@
       @prev="scrollByPage(-1)" @next="scrollByPage(1)" />
   </div>
 </template>
-
-<script setup>
-import { useCarousel } from '~/composables/useCarousel'
-
-defineProps({
-  services: { type: Array, required: true },
-})
-
-const { el, atStart, atEnd, scrollByPage } = useCarousel(0.9)
-</script>

@@ -1,3 +1,42 @@
+<script setup>
+import { computed } from 'vue'
+import { usePageStack, PAGE_STACK_PAGES } from '~/composables/usePageStack'
+import { useI18n } from '~/composables/useI18n'
+import { useLocale } from '~/composables/useLocale'
+import { localizedPath } from '~/i18n/routes'
+
+defineProps({ open: { type: Boolean, default: false } })
+const emit = defineEmits(['close'])
+
+const stack = usePageStack()
+const { t } = useI18n()
+const { currentLocale } = useLocale()
+const activeIndex = stack.activeIndex
+
+const sendMessagePath = computed(() => localizedPath('send-message', currentLocale.value))
+
+const links = computed(() => [
+  { text: t('nav.home') },
+  { text: t('nav.about') },
+  { text: t('nav.projects') },
+  { text: t('nav.contact') },
+])
+
+function go(i) {
+  if (!stack.scrollTo(i)) {
+    const key = PAGE_STACK_PAGES[i]?.key
+    if (key) navigateTo(localizedPath(key, currentLocale.value))
+  }
+  emit('close')
+}
+
+const ITEM_COUNT = computed(() => 3 + links.value.length) // logo + links + switcher + cta
+function delay(i) {
+  const out = (ITEM_COUNT.value - 1 - i) * 40
+  return { '--d': `${120 + i * 55}ms`, '--dout': `${out}ms` }
+}
+</script>
+
 <template>
   <Teleport to="body">
     <Transition name="menu">
@@ -42,56 +81,10 @@
   </Teleport>
 </template>
 
-<script setup>
-import { computed } from 'vue'
-import { usePageStack, PAGE_STACK_PAGES } from '~/composables/usePageStack'
-import { useI18n } from '~/composables/useI18n'
-import { useLocale } from '~/composables/useLocale'
-import { localizedPath } from '~/i18n/routes'
-
-defineProps({ open: { type: Boolean, default: false } })
-const emit = defineEmits(['close'])
-
-const stack = usePageStack()
-const { t } = useI18n()
-const { currentLocale } = useLocale()
-const activeIndex = stack.activeIndex
-
-const sendMessagePath = computed(() => localizedPath('send-message', currentLocale.value))
-
-// navigation is index-based via go(i) -> stack.scrollTo(i), so only the visible label matters
-const links = computed(() => [
-  { text: t('nav.home') },
-  { text: t('nav.about') },
-  { text: t('nav.projects') },
-  { text: t('nav.contact') },
-])
-
-function go(i) {
-  // a mounted page-stack scrolls to the section; otherwise (on /send-message) navigate by URL
-  if (!stack.scrollTo(i)) {
-    const key = PAGE_STACK_PAGES[i]?.key
-    if (key) navigateTo(localizedPath(key, currentLocale.value))
-  }
-  emit('close')
-}
-
-// open: each item rises in after a growing delay; close: items fall out in reverse order
-// (last shown leaves first) so the whole thing collapses upward like a mirror of the open.
-const ITEM_COUNT = computed(() => 3 + links.value.length) // logo + links + switcher + cta
-function delay(i) {
-  const out = (ITEM_COUNT.value - 1 - i) * 40
-  return { '--d': `${120 + i * 55}ms`, '--dout': `${out}ms` }
-}
-</script>
-
 <style scoped>
-/* OPEN: clip-path circle expands from the top-right (hamburger spot). */
 .menu-enter-active {
   transition: clip-path 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
 }
-/* CLOSE: the exact reverse — items stagger out first, then the clip-path circle collapses
-   back to the same top-right spot (delayed so it mirrors open: panel-then-items / items-then-panel). */
 .menu-leave-active {
   transition: clip-path 520ms cubic-bezier(0.22, 1, 0.36, 1) 220ms, opacity 200ms ease 540ms;
 }
@@ -110,7 +103,6 @@ function delay(i) {
   opacity: 1;
   transform: translateY(0);
 }
-/* items stagger IN (rise from below + fade) */
 .menu-enter-active .menu-stagger {
   animation: menu-item-in 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--d, 0ms);
@@ -119,7 +111,6 @@ function delay(i) {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-/* items stagger OUT (the reverse: rise further up + fade), reversed order via --dout */
 .menu-leave-active .menu-stagger {
   animation: menu-item-out 320ms cubic-bezier(0.55, 0, 0.45, 1) both;
   animation-delay: var(--dout, 0ms);
@@ -129,7 +120,6 @@ function delay(i) {
   to   { opacity: 0; transform: translateY(-18px); }
 }
 
-/* close button spins IN on open, spins OUT on close (mirror) */
 .menu-enter-active .menu-close {
   animation: menu-close-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: 120ms;

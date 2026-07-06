@@ -16,7 +16,6 @@ export function createCometSystem(
 ) {
   const COMET_TRAIL = 14
   const comets: Comet[] = []
-  // one shared glow texture for every comet (was recreated on each spawn -> GPU upload spam)
   const cometTex = makeGlowTexture()
 
   function spawn(origin: THREE.Vector3) {
@@ -69,7 +68,6 @@ export function createCometSystem(
       }
       if (c.life > 1.6) {
         scene.remove(c.group)
-        // dispose only the materials — the texture is shared, disposed once in dispose()
         c.group.traverse((o) => {
           const mat = (o as THREE.Sprite).material as THREE.SpriteMaterial | undefined
           if (mat) mat.dispose()

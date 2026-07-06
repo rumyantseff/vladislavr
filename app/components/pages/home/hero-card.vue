@@ -1,18 +1,9 @@
-<template>
-  <div :class="['rounded-3xl overflow-hidden', variantClasses]">
-    <!-- one continuous scene sliced across tiles via background-size/position -->
-    <div v-if="variant === 'image'" aria-hidden="true"
-      class="absolute inset-0" :style="imageStyle" />
-    <slot />
-  </div>
-</template>
-
 <script setup>
 import { computed } from 'vue'
 
 const props = defineProps({
   variant: { type: String, default: 'light' },
-  imagePosition: { type: String, default: 'top' }, // 'top' | 'bottom' | 'top-left' | 'top-right'
+  imagePosition: { type: String, default: 'top' },
 })
 
 const variantClasses = computed(() => {
@@ -22,11 +13,6 @@ const variantClasses = computed(() => {
     : 'bg-white/5 border border-white/10'
 })
 
-// The full scene is mapped onto the whole hero-cards block. Each tile enlarges
-// the background to the block's size and positions it to show only its slice,
-// so neighbouring tiles read as one continuous image.
-// Rows are ~50% tall -> 200% height. Top split: left tile is 2/3 wide
-// (1/0.666 ≈ 150%), right tile is 1/3 wide (1/0.333 ≈ 300%).
 const SLICES = {
   'top':       { size: '100% 200%', pos: 'center top' },
   'bottom':    { size: '100% 200%', pos: 'center bottom' },
@@ -44,3 +30,11 @@ const imageStyle = computed(() => {
   }
 })
 </script>
+
+<template>
+  <div :class="['rounded-3xl overflow-hidden', variantClasses]">
+    <div v-if="variant === 'image'" aria-hidden="true"
+      class="absolute inset-0" :style="imageStyle" />
+    <slot />
+  </div>
+</template>

@@ -1,6 +1,4 @@
 <template>
-  <!-- long thin arrow: a stretched shaft that fills the width + a crisp fixed head.
-       The head "blinks" — nudging forward + fading to hint the swipe direction. -->
   <span class="flex items-center w-full px-2.5">
     <span class="long-arrow-shaft flex-1 h-px bg-current" />
     <svg viewBox="0 0 6 12" fill="none" stroke="currentColor" stroke-width="1.5"

@@ -10,8 +10,6 @@ export interface ServiceArea {
   icon: unknown
   iconBg: string
   iconColor: string
-  // false => not bookable yet: the service card shows a "Coming soon" disabled state and the
-  // form dropdown renders the option as disabled. Single source of truth for both.
   available: boolean
 }
 
@@ -22,7 +20,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
   { value: 'brand', labelKey: 'about.brand.title', descKey: 'area.brand.desc', icon: Swatch, iconBg: 'bg-orange-500/15', iconColor: 'text-orange-300', available: true },
 ]
 
-/** Quick lookup: is a given service area currently bookable? Unknown areas default to true. */
 export const isAreaAvailable = (value: string): boolean =>
   SERVICE_AREAS.find(a => a.value === value)?.available ?? true
 

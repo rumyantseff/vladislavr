@@ -1,3 +1,27 @@
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from '~/composables/useI18n'
+import { useServiceAreas } from '~/composables/useServiceAreas'
+import { useContactStore } from '~/stores/contact'
+import { useDropdownToggle } from '~/composables/useDropdownToggle'
+
+const { t } = useI18n()
+const areas = useServiceAreas()
+const contact = useContactStore()
+const { open, root, close, toggle } = useDropdownToggle()
+
+const selectedLabel = computed(() => {
+  const a = areas.find(x => x.value === contact.selectedArea)
+  return a ? t(a.labelKey) : t('form.areaPlaceholder')
+})
+
+function selectArea(area) {
+  if (!area.available) return
+  contact.setArea(area.value)
+  close()
+}
+</script>
+
 <template>
   <div ref="root" class="relative flex flex-col gap-2">
     <span class="sr-only lg:not-sr-only text-tertiary-font/80 text-sm font-medium">{{ t('form.area') }}</span>
@@ -41,30 +65,6 @@
     </Transition>
   </div>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-import { useI18n } from '~/composables/useI18n'
-import { useServiceAreas } from '~/composables/useServiceAreas'
-import { useContactStore } from '~/stores/contact'
-import { useDropdownToggle } from '~/composables/useDropdownToggle'
-
-const { t } = useI18n()
-const areas = useServiceAreas()
-const contact = useContactStore()
-const { open, root, close, toggle } = useDropdownToggle()
-
-const selectedLabel = computed(() => {
-  const a = areas.find(x => x.value === contact.selectedArea)
-  return a ? t(a.labelKey) : t('form.areaPlaceholder')
-})
-
-function selectArea(area) {
-  if (!area.available) return
-  contact.setArea(area.value)
-  close()
-}
-</script>
 
 <style scoped>
 .field {

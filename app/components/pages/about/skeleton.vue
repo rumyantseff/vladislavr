@@ -11,7 +11,6 @@
     </div>
 
     <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-2">
-
       <div class="relative lg:col-span-1 overflow-hidden rounded-2xl lg:rounded-3xl
                   bg-white/5 p-3 lg:p-8 flex flex-col justify-between gap-6">
         <div class="flex flex-col gap-2">
@@ -26,7 +25,6 @@
       </div>
 
       <div class="lg:col-span-2 flex flex-col gap-3 lg:gap-0">
-
         <div class="lg:hidden h-12 sm:h-16 rounded-2xl bg-white/5" />
 
         <div class="lg:hidden flex gap-3 overflow-hidden">

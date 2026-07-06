@@ -1,8 +1,3 @@
-<template>
-  <PagesAboutServiceCarousel :services="services" />
-  <PagesAboutServiceGrid :services="services" :card-styles="cardStyles" />
-</template>
-
 <script setup>
 import { computed } from 'vue'
 import { useCardTransition } from '~/composables/useCardTransition'
@@ -61,3 +56,8 @@ const cardStyles = Array.from({ length: CARD_COUNT }, (_, i) =>
   }),
 )
 </script>
+
+<template>
+  <PagesAboutServiceCarousel :services="services" />
+  <PagesAboutServiceGrid :services="services" :card-styles="cardStyles" />
+</template>

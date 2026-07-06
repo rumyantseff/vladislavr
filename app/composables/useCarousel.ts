@@ -1,7 +1,5 @@
 import { ref, onMounted, onBeforeUnmount, type Ref } from 'vue'
 
-// Horizontal scroll carousel helper: tracks whether more content exists before/after
-// (so prev/next arrows can hide at the ends) and pages by a fraction of the viewport.
 export function useCarousel(pageFraction = 1) {
   const el: Ref<HTMLElement | null> = ref(null)
   const atStart = ref(true)

@@ -1,6 +1,22 @@
+<script setup>
+import { useI18n } from '~/composables/useI18n'
+import Github from '~/components/shared/icons/github.vue'
+import Linkedin from '~/components/shared/icons/linkedin.vue'
+import Contact from '~/components/shared/icons/contact.vue'
+
+defineEmits(['retry'])
+
+const { t } = useI18n()
+
+const contacts = [
+  { label: 'Email', href: 'mailto:vladislavr.info@gmail.com', icon: Contact, external: false },
+  { label: 'GitHub', href: 'https://github.com/rumyantseff', icon: Github, external: true },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vladislavrumyantsev-vladislavr/', icon: Linkedin, external: true },
+]
+</script>
+
 <template>
   <div class="flex flex-col items-center text-center gap-5 lg:gap-6 py-4">
-    <!-- stacked "depth" badge in warm red + a sad face -->
     <div class="status-badge status-badge--err">
       <span class="status-layer status-layer--3" />
       <span class="status-layer status-layer--2" />
@@ -24,31 +40,14 @@
     <div class="flex flex-col items-center gap-3 mt-1">
       <span class="text-xs text-tertiary-font/50">{{ t('form.error.contact') }}</span>
       <div class="flex items-center gap-2.5">
-        <a v-for="c in contacts" :key="c.label" :href="c.href"
+        <NuxtLink v-for="c in contacts" :key="c.label" :to="c.href"
           :target="c.external ? '_blank' : undefined" :rel="c.external ? 'noopener' : undefined"
           :aria-label="c.label"
           class="size-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10
                  flex items-center justify-center text-tertiary-font/80 hover:text-tertiary-font transition">
           <component :is="c.icon" class="size-4.5" />
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>
 </template>
-
-<script setup>
-import { useI18n } from '~/composables/useI18n'
-import Github from '~/components/shared/icons/github.vue'
-import Linkedin from '~/components/shared/icons/linkedin.vue'
-import Contact from '~/components/shared/icons/contact.vue'
-
-defineEmits(['retry'])
-
-const { t } = useI18n()
-
-const contacts = [
-  { label: 'Email', href: 'mailto:vladislavr.info@gmail.com', icon: Contact, external: false },
-  { label: 'GitHub', href: 'https://github.com/rumyantseff', icon: Github, external: true },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vladislavrumyantsev-vladislavr/', icon: Linkedin, external: true },
-]
-</script>

@@ -1,3 +1,18 @@
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  text: { type: String, required: true },
+  direction: { type: String, default: 'up' },
+  repeat: { type: Number, default: 6 },
+  flip: { type: Boolean, default: false },
+})
+
+const animationClass = computed(() =>
+  props.direction === 'down' ? 'animate-marquee-down' : 'animate-marquee-up'
+)
+</script>
+
 <template>
   <div class="overflow-hidden h-full">
     <div :class="['flex flex-col items-center h-max will-change-transform', animationClass]">
@@ -14,19 +29,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-
-const props = defineProps({
-  text: { type: String, required: true },
-  direction: { type: String, default: 'up' },
-  repeat: { type: Number, default: 6 },
-  // rotate each word 180° (text reads bottom-to-top instead of top-to-bottom)
-  flip: { type: Boolean, default: false },
-})
-
-const animationClass = computed(() =>
-  props.direction === 'down' ? 'animate-marquee-down' : 'animate-marquee-up'
-)
-</script>

@@ -1,3 +1,9 @@
+<script setup>
+import { useI18n } from '~/composables/useI18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <div class="flex flex-col gap-4 sm:gap-6 lg:gap-12">
     <div class="h-px w-full bg-linear-to-r from-transparent via-tertiary-font/30 to-transparent" />
@@ -31,18 +37,18 @@
 
       <div class="flex flex-col gap-3">
         <h4 class="text-tertiary-font font-semibold">{{ t('contact.email') }}</h4>
-        <a href="mailto:vladislavr.info@gmail.com"
+        <NuxtLink to="mailto:vladislavr.info@gmail.com"
           class="text-tertiary-font/60 hover:text-tertiary-font transition-colors text-sm break-all">
           vladislavr.info@gmail.com
-        </a>
+        </NuxtLink>
       </div>
 
       <div class="flex flex-col gap-3">
         <h4 class="text-tertiary-font font-semibold">{{ t('contact.phone') }}</h4>
-        <a href="tel:+421000000000"
+        <NuxtLink to="tel:+421000000000"
           class="text-tertiary-font/60 hover:text-tertiary-font transition-colors text-sm">
           +421 940 719 340
-        </a>
+        </NuxtLink>
       </div>
     </div>
 
@@ -52,9 +58,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { useI18n } from '~/composables/useI18n'
-
-const { t } = useI18n()
-</script>

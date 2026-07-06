@@ -1,35 +1,3 @@
-<template>
-  <Transition name="loader">
-    <div v-if="visible"
-      class="fixed inset-0 z-100 bg-brand-950 flex items-center justify-center select-none">
-      <div class="relative flex flex-col items-center gap-6">
-
-        <div class="relative size-32 sm:size-40">
-          <svg viewBox="0 0 600 600" class="w-full h-full" aria-hidden="true">
-            <defs>
-              <linearGradient id="loaderGrad" x1="300" y1="100" x2="300" y2="500"
-                gradientUnits="userSpaceOnUse">
-                <stop stop-color="#B9D42F" />
-                <stop offset="0.33" stop-color="#F3CE47" />
-                <stop offset="0.66" stop-color="#FFC870" />
-                <stop offset="1" stop-color="#FFC89E" />
-              </linearGradient>
-
-              <clipPath id="loaderReveal">
-                <rect x="0" :y="revealY" width="600" :height="600 - revealY" />
-              </clipPath>
-            </defs>
-
-            <path :d="logoPath" fill="#ffffff" fill-opacity="0.14" />
-
-            <path :d="logoPath" fill="url(#loaderGrad)" clip-path="url(#loaderReveal)" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  </Transition>
-</template>
-
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
@@ -88,6 +56,37 @@ function finish() {
 
 onBeforeUnmount(() => cancelAnimationFrame(raf))
 </script>
+
+<template>
+  <Transition name="loader">
+    <div v-if="visible"
+      class="fixed inset-0 z-100 bg-brand-950 flex items-center justify-center select-none">
+      <div class="relative flex flex-col items-center gap-6">
+        <div class="relative size-32 sm:size-40">
+          <svg viewBox="0 0 600 600" class="w-full h-full" aria-hidden="true">
+            <defs>
+              <linearGradient id="loaderGrad" x1="300" y1="100" x2="300" y2="500"
+                gradientUnits="userSpaceOnUse">
+                <stop stop-color="#B9D42F" />
+                <stop offset="0.33" stop-color="#F3CE47" />
+                <stop offset="0.66" stop-color="#FFC870" />
+                <stop offset="1" stop-color="#FFC89E" />
+              </linearGradient>
+
+              <clipPath id="loaderReveal">
+                <rect x="0" :y="revealY" width="600" :height="600 - revealY" />
+              </clipPath>
+            </defs>
+
+            <path :d="logoPath" fill="#ffffff" fill-opacity="0.14" />
+
+            <path :d="logoPath" fill="url(#loaderGrad)" clip-path="url(#loaderReveal)" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </Transition>
+</template>
 
 <style scoped>
 .loader-leave-active {

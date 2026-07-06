@@ -1,3 +1,11 @@
+<script setup>
+defineProps({
+  tag: { type: String, default: 'button' },
+  sizeClass: { type: String, default: 'size-12 lg:size-14' },
+  iconClass: { type: String, default: 'size-5 lg:size-6' },
+})
+</script>
+
 <template>
   <component :is="tag" :class="[
       'rounded-full brand-gradient text-brand-950',
@@ -10,12 +18,3 @@
     <SharedIconsArrowUpRight :class="iconClass" />
   </component>
 </template>
-
-<script setup>
-defineProps({
-  // 'button' for interactive use, 'div'/'span' for decorative (inside an <a>)
-  tag: { type: String, default: 'button' },
-  sizeClass: { type: String, default: 'size-12 lg:size-14' },
-  iconClass: { type: String, default: 'size-5 lg:size-6' },
-})
-</script>

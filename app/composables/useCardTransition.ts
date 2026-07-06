@@ -14,9 +14,6 @@ interface CardTransitionOpts {
   arrive?: Ref<number> | (() => number)
 }
 
-// Wider than the page-opacity HANDOFF (0.5 in usePageStack): the card slide spans more of the
-// transition than the fade, so cards are still visibly gliding into place while the page is
-// already (becoming) visible — instead of finishing their move while it's still hidden.
 const HANDOFF = 0.85
 
 export function useCardTransition(opts: CardTransitionOpts): ComputedRef<CSSProperties> {
@@ -50,9 +47,6 @@ export function useCardTransition(opts: CardTransitionOpts): ComputedRef<CSSProp
     const tx = (move.x ?? 0) * k
     const ty = (move.y ?? 0) * k
 
-    // only promote to a compositor layer while the card is actually mid-move; leaving
-    // will-change on permanently keeps a live layer per card (GPU memory + extra style cost)
-    // even when the page is at rest.
     const moving = k > 0.001 && k < 0.999
 
     return {

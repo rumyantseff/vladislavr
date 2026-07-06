@@ -1,6 +1,16 @@
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from '~/composables/useI18n'
+import { useLocale } from '~/composables/useLocale'
+import { localizedPath } from '~/i18n/routes'
+
+const { t } = useI18n()
+const { currentLocale } = useLocale()
+const homePath = computed(() => localizedPath('home', currentLocale.value))
+</script>
+
 <template>
   <div class="flex flex-col items-center text-center gap-5 lg:gap-6 py-4">
-    <!-- stacked "depth" badge: three offset layers + a check, in brand green -->
     <div class="status-badge status-badge--ok">
       <span class="status-layer status-layer--3" />
       <span class="status-layer status-layer--2" />
@@ -21,14 +31,3 @@
     </NuxtLink>
   </div>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-import { useI18n } from '~/composables/useI18n'
-import { useLocale } from '~/composables/useLocale'
-import { localizedPath } from '~/i18n/routes'
-
-const { t } = useI18n()
-const { currentLocale } = useLocale()
-const homePath = computed(() => localizedPath('home', currentLocale.value))
-</script>

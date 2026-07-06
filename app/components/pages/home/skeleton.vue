@@ -9,7 +9,6 @@
                 pt-[18vh] lg:pt-0">
       <div class="knot-ph relative flex items-center justify-center
                   size-[42vh] lg:size-[60vh] max-w-[78vw] aspect-square">
-
         <div class="knot-halo absolute inset-0 rounded-full bg-white/8 blur-2xl" />
 
         <div class="absolute inset-0 rounded-full border-2 border-white/12 bg-white/5" />

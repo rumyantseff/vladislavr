@@ -1,3 +1,11 @@
+<script setup>
+defineProps({
+  atStart: { type: Boolean, default: false },
+  atEnd: { type: Boolean, default: false },
+})
+defineEmits(['prev', 'next'])
+</script>
+
 <template>
   <div class="flex items-center justify-between">
     <button v-show="!atStart" type="button" aria-label="Previous" @click="$emit('prev')"
@@ -13,11 +21,3 @@
     </button>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  atStart: { type: Boolean, default: false },
-  atEnd: { type: Boolean, default: false },
-})
-defineEmits(['prev', 'next'])
-</script>

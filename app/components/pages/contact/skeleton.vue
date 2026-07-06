@@ -15,11 +15,9 @@
       </div>
 
       <div class="mt-auto flex flex-col gap-4 sm:gap-6 lg:gap-12">
-
         <div class="h-px w-full bg-linear-to-r from-transparent via-tertiary-font/30 to-transparent" />
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-12">
-
           <div class="col-span-2 lg:col-span-1 flex flex-col gap-4">
             <div class="flex items-center gap-3">
               <div class="size-13 rounded bg-tertiary-font/10" />

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Tektur", ui-sans-serif, system-ui, sans-serif;
 
   --color-tertiary-font: #ffffff;
 

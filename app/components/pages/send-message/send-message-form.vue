@@ -73,57 +73,48 @@ async function onSubmit() {
 
 <template>
   <div class="w-full h-full p-3 sm:p-6 lg:p-10 pt-0! sm:pt-0! lg:pt-0! overflow-hidden">
-    <div class="sm-root relative w-full h-full overflow-hidden
-                bg-brand-950/60 border border-white/10
-                rounded-2xl lg:rounded-3xl
-                p-3 sm:p-5 lg:p-8">
+    <div class="sm-stage relative z-10 w-full h-full overflow-hidden
+                  rounded-xl lg:rounded-2xl border border-white/15
+                  flex flex-col lg:flex-row lg:items-stretch lg:justify-center
+                  p-3 sm:p-5 lg:p-8">
       <SharedGlowField />
 
-      <div class="sm-stage relative z-10 w-full h-full overflow-hidden
+      <div class="sm-fields relative z-10 min-h-0 w-full lg:w-1/2 lg:max-w-xl
+                  flex flex-col justify-start lg:justify-center
                   rounded-xl lg:rounded-2xl border border-white/15
-                  flex flex-col lg:flex-row lg:items-stretch lg:justify-end
-                  p-3 sm:p-5 lg:p-8">
-        <div aria-hidden="true" class="sm-photo absolute inset-0 bg-cover bg-center" />
-        <div aria-hidden="true" class="sm-fluted absolute inset-0" />
-        <div aria-hidden="true" class="sm-scrim absolute inset-0" />
+                  bg-brand-950/65 backdrop-blur-md lg:backdrop-blur-xl
+                  shadow-[0_18px_50px_-12px_rgba(0,0,0,0.6)]
+                  p-4 sm:p-6 lg:p-10">
+      <Transition name="form-state" mode="out-in">
+        <PagesSendMessageFormSuccess v-if="sent" key="ok" />
+        <PagesSendMessageFormError v-else-if="failed" key="err" @retry="resetToForm" />
 
-        <div class="sm-fields relative z-10 min-h-0 w-full lg:w-1/2 lg:max-w-xl
-                    flex flex-col justify-start lg:justify-center
-                    rounded-xl lg:rounded-2xl border border-white/15
-                    bg-brand-950/65 backdrop-blur-md lg:backdrop-blur-xl
-                    shadow-[0_18px_50px_-12px_rgba(0,0,0,0.6)]
-                    p-4 sm:p-6 lg:p-10">
-        <Transition name="form-state" mode="out-in">
-          <PagesSendMessageFormSuccess v-if="sent" key="ok" />
-          <PagesSendMessageFormError v-else-if="failed" key="err" @retry="resetToForm" />
+        <form v-else key="form" class="flex flex-col gap-3.5 sm:gap-5 lg:gap-6 min-h-0 flex-1 lg:flex-none" @submit.prevent="onSubmit">
+          <PagesSendMessageFormField id="sm-name" v-model="name" :label="t('form.name')" required
+            :error="errors.name" @update:model-value="revalidate" />
 
-          <form v-else key="form" class="flex flex-col gap-3.5 sm:gap-5 lg:gap-6 min-h-0 flex-1 lg:flex-none" @submit.prevent="onSubmit">
-            <PagesSendMessageFormField id="sm-name" v-model="name" :label="t('form.name')" required
-              :error="errors.name" @update:model-value="revalidate" />
-
-            <div class="flex flex-col lg:flex-row gap-5 lg:gap-4">
-              <div class="lg:basis-2/3">
-                <PagesSendMessageFormField id="sm-email" v-model="email" type="email"
-                  :label="t('form.email')" required :error="errors.email" @update:model-value="revalidate" />
-              </div>
-              <div class="lg:basis-1/3">
-                <PagesSendMessageAreaDropdown />
-              </div>
+          <div class="flex flex-col lg:flex-row gap-5 lg:gap-4">
+            <div class="lg:basis-2/3">
+              <PagesSendMessageFormField id="sm-email" v-model="email" type="email"
+                :label="t('form.email')" required :error="errors.email" @update:model-value="revalidate" />
             </div>
+            <div class="lg:basis-1/3">
+              <PagesSendMessageAreaDropdown />
+            </div>
+          </div>
 
-            <PagesSendMessageFormField id="sm-message" v-model="message" type="textarea" :rows="4"
-              :label="t('form.message')" required :placeholder="t('form.messagePlaceholder')"
-              :error="errors.message" @update:model-value="revalidate" />
+          <PagesSendMessageFormField id="sm-message" v-model="message" type="textarea" :rows="4"
+            :label="t('form.message')" required :placeholder="t('form.messagePlaceholder')"
+            :error="errors.message" @update:model-value="revalidate" />
 
-            <button type="submit" :disabled="submitting"
-              class="brand-gradient text-brand-950 font-semibold rounded-lg
-                     py-4 lg:py-5 px-6 text-base lg:text-lg
-                     hover:brightness-110 transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
-              {{ submitting ? t('form.sending') : t('form.send') }}
-            </button>
-          </form>
-        </Transition>
-        </div>
+          <button type="submit" :disabled="submitting"
+            class="brand-gradient text-brand-950 font-semibold rounded-lg
+                    py-4 lg:py-5 px-6 text-base lg:text-lg
+                    hover:brightness-110 transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed">
+            {{ submitting ? t('form.sending') : t('form.send') }}
+          </button>
+        </form>
+      </Transition>
       </div>
     </div>
 
